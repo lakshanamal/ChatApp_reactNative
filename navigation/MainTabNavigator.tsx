@@ -5,7 +5,7 @@ import * as React from "react";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
-import TabOneScreen from "../screens/TabOneScreen";
+import ChatsScreeen from "../screens/ChatsScreeen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from "../types";
 import { Fontisto } from "@expo/vector-icons";
@@ -42,7 +42,7 @@ export default function BottomTabNavigator() {
           tabBarLabel: () => null,
         }}
       />
-      <MainTap.Screen name="Chats" component={TabTwoNavigator} />
+      <MainTap.Screen name="Chats" component={TabOneNavigator} />
       <MainTap.Screen name="Status" component={TabOneNavigator} />
       <MainTap.Screen name="Calls" component={TabOneNavigator} />
     </MainTap.Navigator>
@@ -67,7 +67,7 @@ function TabOneNavigator() {
     <TabOneStack.Navigator>
       <TabOneStack.Screen
         name="TabOneScreen"
-        component={TabOneScreen}
+        component={ChatsScreeen}
         options={{ headerTitle: "Tab One Title" }}
       />
     </TabOneStack.Navigator>
