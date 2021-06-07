@@ -8,7 +8,7 @@ import useColorScheme from "../hooks/useColorScheme";
 import TabOneScreen from "../screens/TabOneScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from "../types";
-
+import { Fontisto } from "@expo/vector-icons";
 const MainTap = createMaterialTopTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
@@ -16,7 +16,7 @@ export default function BottomTabNavigator() {
 
   return (
     <MainTap.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Chats"
       tabBarOptions={{
         activeTintColor: "white",
         style: {
@@ -26,26 +26,25 @@ export default function BottomTabNavigator() {
           backgroundColor: Colors.light.background,
           height: 4,
         },
+        labelStyle: {
+          fontWeight: "bold",
+        },
+        showIcon: true,
       }}
     >
       <MainTap.Screen
-        name="TabOne"
+        name="Camera"
         component={TabOneNavigator}
         options={{
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
+            <Fontisto name="camera" color={color} size={18} />
           ),
+          tabBarLabel: () => null,
         }}
       />
-      <MainTap.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
-          ),
-        }}
-      />
+      <MainTap.Screen name="Chats" component={TabTwoNavigator} />
+      <MainTap.Screen name="Status" component={TabOneNavigator} />
+      <MainTap.Screen name="Calls" component={TabOneNavigator} />
     </MainTap.Navigator>
   );
 }
