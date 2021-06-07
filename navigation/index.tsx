@@ -36,6 +36,8 @@ function RootNavigator() {
       screenOptions={{
         headerStyle: {
           backgroundColor: Colors.light.tint,
+          shadowOpacity:0,
+          elevation:0
         },
         headerTitleStyle: {
           fontWeight: "bold",
