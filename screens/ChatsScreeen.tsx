@@ -10,7 +10,8 @@ export default function ChatsScreen() {
     <View style={styles.container}>
       {/* <ChatListItem chatRoom={chatRooms[0]} /> */}
       <FlatList data={chatRooms} 
-      renderItem={({item})=><ChatListItem chatRoom={item}/>}
+      style={{width:"100%"}}
+      renderItem={({item})=><ChatListItem chatRoom={item} />}
       />
 
      

@@ -9,6 +9,7 @@ import ChatsScreeen from "../screens/ChatsScreeen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from "../types";
 import { Fontisto } from "@expo/vector-icons";
+import { TabBarItem } from "react-native-tab-view";
 const MainTap = createMaterialTopTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
@@ -56,14 +57,11 @@ const TabOneStack = createStackNavigator<TabOneParamList>();
 function TabOneNavigator() {
   return (
     <TabOneStack.Navigator
-    tab
+      screenOptions={{
+        headerShown: false,
+      }}
     >
-      <TabOneStack.Screen
-
-        name="TabOneScreen"
-        component={ChatsScreeen}
-        
-      />
+      <TabOneStack.Screen name="TabOneScreen" component={ChatsScreeen} />
     </TabOneStack.Navigator>
   );
 }
