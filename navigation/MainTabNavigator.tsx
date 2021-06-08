@@ -55,11 +55,14 @@ const TabOneStack = createStackNavigator<TabOneParamList>();
 
 function TabOneNavigator() {
   return (
-    <TabOneStack.Navigator>
+    <TabOneStack.Navigator
+    tab
+    >
       <TabOneStack.Screen
+
         name="TabOneScreen"
         component={ChatsScreeen}
-        options={{ headerTitle: "Tab One Title" }}
+        
       />
     </TabOneStack.Navigator>
   );
