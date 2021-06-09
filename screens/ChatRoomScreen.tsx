@@ -13,6 +13,7 @@ const ChatRoomScreen = () => {
         backgroundColor: "white",
       }}
       data={ChatRoomData.messages}
+      inverted
       renderItem={({ item }) => <ChatMessage message={item} />}
     />
   );
