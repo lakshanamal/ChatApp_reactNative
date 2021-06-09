@@ -23,20 +23,21 @@ export type TabTwoParamList = {
   TabTwoScreen: undefined;
 };
 
-export type User={
-  id:String;
-  // name:String;
-  // imageUrl:String;
-}
+export type User = {
+  id: String;
+  name:String;
+  imageUrl:String;
+};
 
-export type Message={
-  id:String;
-  content:String;
-  createdAt:Date
-}
+export type Message = {
+  id: String;
+  content: String;
+  createdAt: Date;
+  user: User;
+};
 
-export type ChatRoom={
-  id:String;
-  users:[User];
-  lastMessage:Message;
+export type ChatRoom = {
+  id: String;
+  users: User[];
+  lastMessage: Message;
 };

@@ -76,6 +76,7 @@ function RootNavigator() {
           },
         }}
       />
+      
       <Stack.Screen
         name="ChatRoom"
         component={ChatRoomScreen}
