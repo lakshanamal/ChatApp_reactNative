@@ -2,20 +2,28 @@ import React from "react";
 import { Text, View } from "../components/Themed";
 import { useRoute } from "@react-navigation/native";
 import ChatRoomData from "../data/Chats";
-import { FlatList } from "react-native-gesture-handler";
+import { FlatList, ImageBackground } from "react-native";
 import ChatMessage from "../components/ChatMessage";
+import BG from "../assets/images/BG.png";
+import InputBox from "../components/InputBox";
 
 const ChatRoomScreen = () => {
   const route = useRoute();
   return (
-    <FlatList
-      style={{
-        backgroundColor: "white",
-      }}
-      data={ChatRoomData.messages}
-      inverted
-      renderItem={({ item }) => <ChatMessage message={item} />}
-    />
+    <ImageBackground style={{ width: "100%", height: "100%" }} source={BG}>
+      <FlatList
+        style={
+          {
+            // backgroundColor: "white",
+          }
+        }
+        data={ChatRoomData.messages}
+        inverted
+        renderItem={({ item }) => <ChatMessage message={item} />}
+      />
+
+      <InputBox />
+    </ImageBackground>
   );
 };
 

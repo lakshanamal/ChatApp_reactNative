@@ -3,7 +3,7 @@ import Colors from "../../constants/Colors";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
+    backgroundColor: '#ffffff00',
     // height: "100%",
     padding: 10,
   },
