@@ -3,6 +3,7 @@ import React from "react";
 import { Text } from "react-native";
 import { Message } from "../../types";
 import { View } from "../Themed";
+import styles from "./style";
 
 export type ChatMessageProps = {
   message: Message;
@@ -11,10 +12,12 @@ export type ChatMessageProps = {
 const ChatMessage = (props: ChatMessageProps) => {
   const { message } = props;
   return (
-    <View style={{ backgroundColor: "white" }}>
-      <Text>{message.user.name}</Text>
-      <Text>{message.content}</Text>
-      <Text>{moment(message.createdAt).fromNow()}</Text>
+    <View style={styles.container}>
+      <View style={styles.messageBox}>
+        <Text>{message.user.name}</Text>
+        <Text>{message.content}</Text>
+        <Text>{moment(message.createdAt).fromNow()}</Text>
+      </View>
     </View>
   );
 };
