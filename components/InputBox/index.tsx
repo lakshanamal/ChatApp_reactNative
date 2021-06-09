@@ -24,7 +24,7 @@ const InputBox = () => {
     <View style={styles.container}>
       <View style={styles.mainContainer}>
         <FontAwesome5 name="laugh-beam" size={24} color="gray" />
-        <TextInput style={styles.textInput} multiline />
+        <TextInput style={styles.textInput} multiline numberOfLines={6} />
         <Entypo name="attachment" size={24} color="gray" style={styles.icon} />
         <Entypo name="camera" size={24} color="gray" style={styles.icon} />
         {/* {!isMyMessage() && <Text style={styles.name}>{message.user.name}</Text>}

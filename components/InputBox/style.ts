@@ -5,16 +5,18 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     // height: "100%",
-
+    backgroundColor: "#ffffff00",
     margin: 10,
+    alignItems: "flex-end",
   },
   mainContainer: {
     flexDirection: "row",
     backgroundColor: "#fff",
     padding: 10,
     marginRight: 10,
-    borderRadius: 50,
+    borderRadius: 25,
     flex: 1,
+    alignItems: "flex-end",
   },
   buttonController: {
     backgroundColor: Colors.light.tint,
