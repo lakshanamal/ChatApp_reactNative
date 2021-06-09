@@ -8,11 +8,16 @@ import * as React from "react";
 import { ColorSchemeName, View } from "react-native";
 import Colors from "../constants/Colors";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import ChatRoomScreen from '../screens/ChatRoomScreen';
+import ChatRoomScreen from "../screens/ChatRoomScreen";
 import { RootStackParamList } from "../types";
 import BottomTabNavigator from "./MainTabNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
-import { Octicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  Octicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+  FontAwesome5,
+} from "@expo/vector-icons";
 
 export default function Navigation({
   colorScheme,
@@ -74,8 +79,32 @@ function RootNavigator() {
       <Stack.Screen
         name="ChatRoom"
         component={ChatRoomScreen}
-        options={{ title: "Oops!" }}
+        options={({ route }) => ({
+          title: route.params.name,
+          headerRight: () => {
+            return (
+              <View
+                style={{
+                  flexDirection: "row",
+                  width: 140,
+                  justifyContent: "space-around",
+                  marginRight: 10,
+                }}
+              >
+                <FontAwesome5 name="video" size={18} color={"white"} />
+                <MaterialIcons name="call" size={18} color={"white"} />
+
+                <MaterialCommunityIcons
+                  name="dots-vertical"
+                  size={18}
+                  color="white"
+                />
+              </View>
+            );
+          },
+        })}
       />
+
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}
