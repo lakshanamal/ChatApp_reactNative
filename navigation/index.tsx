@@ -8,6 +8,7 @@ import * as React from "react";
 import { ColorSchemeName, View } from "react-native";
 import Colors from "../constants/Colors";
 import NotFoundScreen from "../screens/NotFoundScreen";
+import ChatRoomScreen from '../screens/ChatRoomScreen';
 import { RootStackParamList } from "../types";
 import BottomTabNavigator from "./MainTabNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
@@ -36,8 +37,8 @@ function RootNavigator() {
       screenOptions={{
         headerStyle: {
           backgroundColor: Colors.light.tint,
-          shadowOpacity:0,
-          elevation:0
+          shadowOpacity: 0,
+          elevation: 0,
         },
         headerTitleStyle: {
           fontWeight: "bold",
@@ -69,6 +70,11 @@ function RootNavigator() {
             );
           },
         }}
+      />
+      <Stack.Screen
+        name="ChatRoom"
+        component={ChatRoomScreen}
+        options={{ title: "Oops!" }}
       />
       <Stack.Screen
         name="NotFound"

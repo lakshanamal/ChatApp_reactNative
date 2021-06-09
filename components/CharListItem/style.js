@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   time: {
     color: "gray",
-    fontSize: 16,
+    fontSize: 14,
   },
   //   midContainer: {},
 });
