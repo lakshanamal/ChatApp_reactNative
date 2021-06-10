@@ -9,6 +9,7 @@ import { ColorSchemeName, View } from "react-native";
 import Colors from "../constants/Colors";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import ChatRoomScreen from "../screens/ChatRoomScreen";
+import ContactScreen from "../screens/Contact";
 import { RootStackParamList } from "../types";
 import BottomTabNavigator from "./MainTabNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
@@ -76,7 +77,7 @@ function RootNavigator() {
           },
         }}
       />
-      
+
       <Stack.Screen
         name="ChatRoom"
         component={ChatRoomScreen}
@@ -105,6 +106,8 @@ function RootNavigator() {
           },
         })}
       />
+
+      <Stack.Screen name="Contacts" component={ContactScreen} />
 
       <Stack.Screen
         name="NotFound"
