@@ -1,6 +1,6 @@
 import React from "react";
 import { FlatList, StyleSheet } from "react-native";
-import ConatactListItem from "../components/CharListItem";
+import ContactListItem from "../components/ContactListItem";
 import NewMessageButton from "../components/NewMessageButton";
 import { View } from "../components/Themed";
 
@@ -12,9 +12,9 @@ export default function Contact() {
       <FlatList
         data={users}
         style={{ width: "100%" }}
-        renderItem={({ item }) => <ConatactListItem user={item} />}
+        renderItem={({ item }) => <ContactListItem user={item} />}
       />
-      <NewMessageButton />
+      {/* <NewMessageButton /> */}
     </View>
   );
 }

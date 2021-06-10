@@ -23,6 +23,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
+  status: {
+    color: "gray",
+    fontSize: 16,
+  },
   //   midContainer: {},
 });
 
