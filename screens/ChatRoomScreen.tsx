@@ -6,14 +6,29 @@ import { FlatList, ImageBackground } from "react-native";
 import ChatMessage from "../components/ChatMessage";
 import BG from "../assets/images/BG.png";
 import InputBox from "../components/InputBox";
-import {User} from "../firebaseConfig"
+import firebase from "../firebaseConfig";
+import { isTSEnumMember } from "@babel/types";
 
 const ChatRoomScreen = () => {
   const route = useRoute();
+  const [data, setData] = [];
 
   // const [users,setUsers]=useState([]);
+  const ref = firebase.firestore().collection("user");
 
-  console.log(User)
+  const getChatData = () => {
+    ref.onSnapshot((querySnapShot) => {
+      const item = [];
+      querySnapShot.forEach((doc) => {
+        item.push(doc.data());
+      });
+      setData(item);
+    });
+  };
+  useEffect(() => {
+    getChatData();
+    console.log(data);
+  }, []);
 
   return (
     <ImageBackground style={{ width: "100%", height: "100%" }} source={BG}>
