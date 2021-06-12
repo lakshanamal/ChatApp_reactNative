@@ -13,6 +13,7 @@ import ContactScreen from "../screens/Contact";
 import { RootStackParamList } from "../types";
 import BottomTabNavigator from "./MainTabNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
+
 import {
   Octicons,
   MaterialCommunityIcons,
@@ -35,7 +36,7 @@ export default function Navigation({
   );
 }
 
-const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createStackNavigator<RootStackParamList>();   
 
 function RootNavigator() {
   return (

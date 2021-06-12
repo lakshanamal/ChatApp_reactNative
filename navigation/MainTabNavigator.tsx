@@ -6,10 +6,12 @@ import * as React from "react";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ChatsScreeen from "../screens/ChatsScreeen";
+import Login from '../screens/auth/loging'
 import TabTwoScreen from "../screens/TabTwoScreen";
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from "../types";
 import { Fontisto } from "@expo/vector-icons";
 import { TabBarItem } from "react-native-tab-view";
+// import LoginScreen from "../screens/auth/loging";
 const MainTap = createMaterialTopTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
@@ -45,7 +47,7 @@ export default function BottomTabNavigator() {
       />
       <MainTap.Screen name="Chats" component={TabOneNavigator} />
       <MainTap.Screen name="Status" component={TabOneNavigator} />
-      <MainTap.Screen name="Calls" component={TabOneNavigator} />
+      <MainTap.Screen name="Calls" component={Login} />
     </MainTap.Navigator>
   );
 }
