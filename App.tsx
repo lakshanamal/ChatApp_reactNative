@@ -8,6 +8,7 @@ import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation/index";
 import LoginScreen from "./screens/auth/loging";
 import firebase from "./firebaseConfig";
+import { ActivityIndicator, View } from "react-native";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -26,7 +27,11 @@ export default function App() {
   });
 
   if (!isLoadingComplete || !isAuthReady) {
-    return null; // loading
+    return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <ActivityIndicator size="large" color="black" />
+    </View>
+    )
   } else {
     return (
       <SafeAreaProvider>
