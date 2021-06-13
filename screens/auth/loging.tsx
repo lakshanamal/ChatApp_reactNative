@@ -18,9 +18,9 @@ import BG from "../../assets/images/BG.png";
 
 const LoginScreen = () => {
   const recaptchaVerifier = useRef(null);
-  const [phoneNumber, setPhoneNumber] = useState();
-  const [verificationId, setVerificationId] = useState();
-  const [verificationCode, setVerificationCode] = useState();
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [verificationId, setVerificationId] = useState("");
+  const [verificationCode, setVerificationCode] = useState("");
   const firebaseConfig = firebase.apps.length
     ? firebase.app().options
     : undefined;

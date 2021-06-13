@@ -17,7 +17,7 @@ export default function App() {
 
   const getUser = () => {
     firebase.auth().onAuthStateChanged(function (user) {
-      setisAuthenticated(true);
+      setisAuthenticated(!!user);
       setIsAuthReady(true);
     });
   };
@@ -25,8 +25,8 @@ export default function App() {
     getUser();
   });
 
-  if (!isLoadingComplete && isAuthReady == false) {
-    return null; // loading 
+  if (!isLoadingComplete || !isAuthReady) {
+    return null; // loading
   } else {
     return (
       <SafeAreaProvider>
