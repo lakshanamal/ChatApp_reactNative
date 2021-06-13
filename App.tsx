@@ -15,24 +15,18 @@ export default function App() {
   const [isAuthReady, setIsAuthReady] = useState(false);
   const [isAuthenticated, setisAuthenticated] = useState(false);
 
-  const getUser = async () => {
-    // var user = await firebase.auth().currentUser;
-    // return user;
-    await firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        setisAuthenticated(true);
-      } else {
-        setisAuthenticated(false);
-      }
+  const getUser = () => {
+    firebase.auth().onAuthStateChanged(function (user) {
+      setisAuthenticated(true);
+      setIsAuthReady(true);
     });
   };
-
   useEffect(() => {
     getUser();
-  }, [setisAuthenticated]);
+  });
 
-  if (!isLoadingComplete) {
-    return null;
+  if (!isLoadingComplete && isAuthReady == false) {
+    return null; // loading 
   } else {
     return (
       <SafeAreaProvider>
