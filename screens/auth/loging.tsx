@@ -24,7 +24,6 @@ const LoginScreen = () => {
   const firebaseConfig = firebase.apps.length
     ? firebase.app().options
     : undefined;
-  console.log(firebase.app());
   const [message, showMessage] = React.useState(
     !firebaseConfig || Platform.OS === "web"
       ? {
@@ -41,6 +40,7 @@ const LoginScreen = () => {
           ref={recaptchaVerifier}
           firebaseConfig={firebaseConfig}
           attemptInvisibleVerification={attemptInvisibleVerification}
+          cancelLabel="Close"
         />
         <Text style={{ marginTop: 20 }}>Enter phone number</Text>
         <TextInput
