@@ -36,12 +36,13 @@ export default function Navigation({
   );
 }
 
-const Stack = createStackNavigator<RootStackParamList>();   
+const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
+        headerLeft: () => null,
         headerStyle: {
           backgroundColor: Colors.light.tint,
           shadowOpacity: 0,
