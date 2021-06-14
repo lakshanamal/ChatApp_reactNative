@@ -9,9 +9,12 @@ import {
 } from "react-native";
 import Avater from "../../assets/images/avater.png";
 import * as ImagePicker from "expo-image-picker";
+import firebase from "firebase";
+
 const CreateProfile = () => {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
+  
 
   const createProfile = () => {};
 
@@ -22,13 +25,22 @@ const CreateProfile = () => {
       aspect: [1, 1],
       quality: 1,
     });
-    console.log(result);
+
     if (!result.cancelled) {
+      uploadImage(result.uri, "profile");
       setImage(result.uri);
     }
-    // ImagePiker.launchImageLibrary({}, (responce) => {
-    //   console.log("responce", responce);
-    // });
+  };
+
+  const uploadImage = async (uri, name) => {
+    const responce = await fetch(uri);
+    const bob = await responce.blob();
+    console.log("methanin giya");
+    var ref = firebase
+      .storage()
+      .ref()
+      .child("images/" + name);
+    return ref.put(bob);
   };
   return (
     <View
