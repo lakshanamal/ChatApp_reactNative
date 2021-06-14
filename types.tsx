@@ -3,11 +3,16 @@
  * https://reactnavigation.org/docs/typescript/
  */
 
-export type RootStackParamList = {
+ export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
   Contacts: undefined;
   ChatRoom: undefined;
+};
+export type RegParamList = {
+  Phone: undefined;
+  OTP: undefined;
+
 };
 
 export type BottomTabParamList = {

@@ -6,7 +6,8 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation/index";
-import LoginScreen from "./screens/auth/loging";
+// import LoginScreen from "./screens/auth/loging";
+import RegisterNavigation from "./navigation/RegisterNavigation";
 import firebase from "./firebaseConfig";
 import { ActivityIndicator, View } from "react-native";
 
@@ -35,10 +36,15 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        {isAuthenticated ? (
+        {/* {isAuthenticated ? (
           <Navigation colorScheme={colorScheme} />
         ) : (
           <LoginScreen />
+        )} */}
+          {isAuthenticated ? (
+          <Navigation colorScheme={colorScheme} />
+        ) : (
+          <RegisterNavigation />
         )}
         {/* <Navigation colorScheme={colorScheme} /> */}
         <StatusBar />
