@@ -16,36 +16,29 @@ const CreateProfile = ({ navigation }) => {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [prograss, setPrograss] = useState(0);
-  // const [prograss, setPrograss] = useState(0);
 
   const createUser = async () => {
     const user = await firebase.auth().currentUser;
+    const defaultImageUri =
+      "https://firebasestorage.googleapis.com/v0/b/whatsappclone-b7830.appspot.com/o/images%2Favater.png?alt=media&token=ef3ae647-117a-4738-9aa4-ddc2b976ecf4";
+
     {
-      image == "" &&
-        setImage(
-          "https://firebasestorage.googleapis.com/v0/b/whatsappclone-b7830.appspot.com/o/images%2Favater.png?alt=media&token=ef3ae647-117a-4738-9aa4-ddc2b976ecf4"
-        );
+      image == "" && setImage(defaultImageUri);
     }
-    console.log(name);
-    // console.log("../../assets/images/avater.png");
-    console.log(user.uid);
 
     const newUser = {
       id: user.uid,
       name: name,
       imageUri: image,
-      // createAt: firebase.firestore.FieldValue.serverTimestamp,
+      createAt: firebase.firestore.FieldValue.serverTimestamp(),
     };
     await firebase
       .firestore()
       .collection("users")
-      .add(newUser).then(()=>{
-        console.log('User added!');
-      })
-
-      // .catch((error) => {
-      //   console.log(error);
-      // });
+      .add(newUser)
+      .then(() => {
+        console.log("User added!");
+      });
   };
 
   const handleChoosePhoto = async () => {
@@ -96,14 +89,14 @@ const CreateProfile = ({ navigation }) => {
         {image !== "" ? (
           <Image
             source={{ uri: image }}
-            style={{ width: 100, height: 100, borderRadius: 50 }}
+            style={{ width: 120, height: 120, borderRadius: 60 }}
           />
         ) : (
           <Image
             source={Avater}
             style={{
-              width: 100,
-              height: 100,
+              width: 120,
+              height: 120,
             }}
           />
         )}
