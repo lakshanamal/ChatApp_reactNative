@@ -12,23 +12,40 @@ import * as ImagePicker from "expo-image-picker";
 import firebase from "../../firebaseConfig";
 import { ProgressBar } from "react-native-paper";
 
-const CreateProfile = () => {
-  const [id, setId] = useState("");
+const CreateProfile = ({ navigation }) => {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [prograss, setPrograss] = useState(0);
   // const [prograss, setPrograss] = useState(0);
 
-  const createProfile = () => {
-    const user = firebase.auth().currentUser;
-    setId(user.uid);
-    console.log(image);
+  const createUser = async () => {
+    const user = await firebase.auth().currentUser;
+    {
+      image == "" &&
+        setImage(
+          "https://firebasestorage.googleapis.com/v0/b/whatsappclone-b7830.appspot.com/o/images%2Favater.png?alt=media&token=ef3ae647-117a-4738-9aa4-ddc2b976ecf4"
+        );
+    }
+    console.log(name);
+    // console.log("../../assets/images/avater.png");
     console.log(user.uid);
+
     const newUser = {
       id: user.uid,
       name: name,
-      imageUri: setImage,
+      imageUri: image,
+      // createAt: firebase.firestore.FieldValue.serverTimestamp,
     };
+    await firebase
+      .firestore()
+      .collection("users")
+      .add(newUser).then(()=>{
+        console.log('User added!');
+      })
+
+      // .catch((error) => {
+      //   console.log(error);
+      // });
   };
 
   const handleChoosePhoto = async () => {
@@ -41,7 +58,6 @@ const CreateProfile = () => {
 
     if (!result.cancelled) {
       uploadImage(result.uri, "profile");
-      setImage(result.uri);
     }
   };
 
@@ -59,14 +75,12 @@ const CreateProfile = () => {
       setPrograss(progress);
       if (progress == 100) {
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-          console.log("File available at", downloadURL);
+          setImage(downloadURL);
         });
       }
     });
-
-    // console.log(ref.getDownloadURL());
-    // return ref.;
   };
+
   return (
     <View
       style={{
@@ -106,8 +120,9 @@ const CreateProfile = () => {
       />
 
       <TouchableOpacity
-        onPress={createProfile}
+        onPress={createUser}
         title="Next"
+        // disabled={true}
         style={{ backgroundColor: "blue", padding: 10, marginTop: 10 }}
       >
         <Text style={{ color: "white" }}>Next</Text>

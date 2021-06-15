@@ -26,19 +26,19 @@ const OPT = ({ route, navigation }) => {
   );
 
   const getOTP = async () => {
-    // try {
-    //   const phoneProvider = new firebase.auth.PhoneAuthProvider();
-    //   const verificationId = await phoneProvider.verifyPhoneNumber(
-    //     phoneNumber,
-    //     recaptchaVerifier.current
-    //   );
-    //   setVerificationId(verificationId);
-    //   showMessage({
-    //     text: "Verification code has been sent to your phone.",
-    //   });
-    // } catch (err) {
-    //   showMessage({ text: `Error: ${err.message}` });
-    // }
+    try {
+      const phoneProvider = new firebase.auth.PhoneAuthProvider();
+      const verificationId = await phoneProvider.verifyPhoneNumber(
+        phoneNumber,
+        recaptchaVerifier.current
+      );
+      setVerificationId(verificationId);
+      showMessage({
+        text: "Verification code has been sent to your phone.",
+      });
+    } catch (err) {
+      showMessage({ text: `Error: ${err.message}` });
+    }
   };
 
   useEffect(() => {
@@ -65,16 +65,16 @@ const OPT = ({ route, navigation }) => {
         title="Confirm Verification Code"
         // disabled={!verificationId}
         onPress={async () => {
-          // try {
-          //   const credential = firebase.auth.PhoneAuthProvider.credential(
-          //     verificationId,
-          //     verificationCode
-          //   );
-          //   await firebase.auth().signInWithCredential(credential);
-          //   showMessage({ text: "Phone authentication successful 👍" });
-          // } catch (err) {
-          //   showMessage({ text: `Error: ${err.message}` });
-          // }
+          try {
+            const credential = firebase.auth.PhoneAuthProvider.credential(
+              verificationId,
+              verificationCode
+            );
+            await firebase.auth().signInWithCredential(credential);
+            showMessage({ text: "Phone authentication successful 👍" });
+          } catch (err) {
+            showMessage({ text: `Error: ${err.message}` });
+          }
           navigation.navigate("Profile");
         }}
       />
