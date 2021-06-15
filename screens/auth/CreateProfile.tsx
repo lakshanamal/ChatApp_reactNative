@@ -38,6 +38,7 @@ const CreateProfile = ({ navigation }) => {
       .add(newUser)
       .then(() => {
         console.log("User added!");
+        navigation.navigate("Root");
       });
   };
 

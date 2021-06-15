@@ -5,6 +5,7 @@ const LoginScreen = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState("+94");
   return (
     <View style={{ padding: 20, marginTop: 50 }}>
+      
       <Text style={{ marginTop: 20 }}>Enter phone number</Text>
       <TextInput
         style={{ marginVertical: 10, fontSize: 17 }}

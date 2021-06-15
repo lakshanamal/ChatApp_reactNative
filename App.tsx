@@ -2,7 +2,6 @@ import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation/index";
@@ -18,10 +17,10 @@ export default function App() {
 
   const getUser = () => {
     var user = firebase.auth().currentUser;
-       console.log(user);
-    if (user==null) {
+    console.log(user);
+    if (user == null) {
       setisAuthenticated(!!user);
-      // console.log(user);
+      console.log(user);
       setIsAuthReady(true);
     }
     // firebase.auth().onAuthStateChanged(function (user) {
@@ -43,13 +42,13 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        {/* {isAuthenticated ? (
+        {isAuthenticated ? (
           <Navigation colorScheme={colorScheme} />
         ) : (
           <RegisterNavigation />
-        )} */}
+        )}
         {/* <Navigation colorScheme={colorScheme} /> */}
-        <RegisterNavigation />
+        {/* <RegisterNavigation /> */}
         <StatusBar />
       </SafeAreaProvider>
     );

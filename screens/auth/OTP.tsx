@@ -12,7 +12,7 @@ const OPT = ({ route, navigation }) => {
   const recaptchaVerifier = useRef(null);
   const attemptInvisibleVerification = false;
   const [verificationCode, setVerificationCode] = useState("");
-  const [verificationId, setVerificationId] = useState("");
+  const [verificationId, setVerificationId] = useState("d");
 
   const firebaseConfig = firebase.apps.length
     ? firebase.app().options
@@ -27,12 +27,17 @@ const OPT = ({ route, navigation }) => {
 
   const getOTP = async () => {
     try {
+      console.log("sent");
+      console.log(phoneNumber);
       const phoneProvider = new firebase.auth.PhoneAuthProvider();
+
       const verificationId = await phoneProvider.verifyPhoneNumber(
         phoneNumber,
         recaptchaVerifier.current
       );
+      console.log(verificationId);
       setVerificationId(verificationId);
+
       showMessage({
         text: "Verification code has been sent to your phone.",
       });
@@ -63,7 +68,7 @@ const OPT = ({ route, navigation }) => {
       />
       <Button
         title="Confirm Verification Code"
-        // disabled={!verificationId}
+        disabled={!verificationId}
         onPress={async () => {
           try {
             const credential = firebase.auth.PhoneAuthProvider.credential(

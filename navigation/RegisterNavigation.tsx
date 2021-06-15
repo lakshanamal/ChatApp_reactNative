@@ -23,13 +23,22 @@ function RegisterNavigation() {
   const colorScheme = useColorScheme(); //coustom hook
 
   return (
-    <RegStack.Navigator initialRouteName="Phone">
-      <RegStack.Screen name="Phone" component={Login} />
+    <RegStack.Navigator initialRouteName="Phone" >
+      <RegStack.Screen
+        name="Phone"
+        options={{
+          headerLeft: () => null,
+          headerShown: false,
+        }}
+        component={Login}
+      />
+
       <RegStack.Screen
         name="OTP"
         component={OTP}
         options={{
           headerLeft: () => null,
+          headerShown: false,
         }}
       />
       <RegStack.Screen name="Profile" component={CreateProfile} />
