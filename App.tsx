@@ -17,11 +17,18 @@ export default function App() {
   const [isAuthenticated, setisAuthenticated] = useState(false);
 
   const getUser = () => {
-    firebase.auth().onAuthStateChanged(function (user) {
+    var user = firebase.auth().currentUser;
+       console.log(user);
+    if (user==null) {
       setisAuthenticated(!!user);
-      // console.log(user.uid);
+      // console.log(user);
       setIsAuthReady(true);
-    });
+    }
+    // firebase.auth().onAuthStateChanged(function (user) {
+    //   setisAuthenticated(!!user);
+    //   // console.log(user.uid);
+    //   setIsAuthReady(true);
+    // });
   };
   useEffect(() => {
     getUser();
@@ -36,12 +43,13 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        {isAuthenticated ? (
+        {/* {isAuthenticated ? (
           <Navigation colorScheme={colorScheme} />
         ) : (
           <RegisterNavigation />
-        )}
+        )} */}
         {/* <Navigation colorScheme={colorScheme} /> */}
+        <RegisterNavigation />
         <StatusBar />
       </SafeAreaProvider>
     );
