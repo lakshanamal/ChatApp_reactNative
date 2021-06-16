@@ -42,9 +42,7 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
           navigation.navigate("OTP", { phoneNumber: phoneNumber });
         }}
       >
-        <Text style={{ color: "white", textAlign: "center" }}>
-          Send Verification Code
-        </Text>
+        <Text style={{ color: "white", textAlign: "center" }}>SEND OTP</Text>
       </TouchableOpacity>
     </View>
   );
@@ -96,5 +94,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
     textAlign: "center",
     padding: 3,
+
   },
 });

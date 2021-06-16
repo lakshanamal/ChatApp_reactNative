@@ -1,14 +1,27 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, TextInput, Platform } from "react-native";
+import {
+  Button,
+  TextInput,
+  Platform,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { View, Text } from "../../components/Themed";
 import firebase from "../../firebaseConfig";
+import Logo from "../../assets/images/logo2.png";
+
+import { useFonts } from "expo-font";
 import {
   FirebaseRecaptchaVerifierModal,
   FirebaseRecaptchaBanner,
 } from "expo-firebase-recaptcha";
 
 const OPT = ({ route, navigation }) => {
-  const { phoneNumber } = route.params;
+  // const { phoneNumber } = route.params;
+  const [font] = useFonts({
+    Gudea: require("../../assets/fonts/Gudea-Regular.ttf"),
+  });
   const recaptchaVerifier = useRef(null);
   const attemptInvisibleVerification = false;
   const [verificationCode, setVerificationCode] = useState("");
@@ -26,24 +39,20 @@ const OPT = ({ route, navigation }) => {
   );
 
   const getOTP = async () => {
-    try {
-      console.log("sent");
-      console.log(phoneNumber);
-      const phoneProvider = new firebase.auth.PhoneAuthProvider();
-
-      const verificationId = await phoneProvider.verifyPhoneNumber(
-        phoneNumber,
-        recaptchaVerifier.current
-      );
-      console.log(verificationId);
-      setVerificationId(verificationId);
-
-      showMessage({
-        text: "Verification code has been sent to your phone.",
-      });
-    } catch (err) {
-      showMessage({ text: `Error: ${err.message}` });
-    }
+    // try {
+    //   const phoneProvider = new firebase.auth.PhoneAuthProvider();
+    //   const verificationId = await phoneProvider.verifyPhoneNumber(
+    //     phoneNumber,
+    //     recaptchaVerifier.current
+    //   );
+    //   console.log(verificationId);
+    //   setVerificationId(verificationId);
+    //   showMessage({
+    //     text: "Verification code has been sent to your phone.",
+    //   });
+    // } catch (err) {
+    //   showMessage({ text: `Error: ${err.message}` });
+    // }
   };
 
   useEffect(() => {
@@ -51,23 +60,25 @@ const OPT = ({ route, navigation }) => {
   }, []);
 
   return (
-    <View style={{ backgroundColor: "gray", padding: 20, marginTop: 50 }}>
+    <View style={style.container}>
       <FirebaseRecaptchaVerifierModal
         ref={recaptchaVerifier}
         firebaseConfig={firebaseConfig}
         attemptInvisibleVerification={attemptInvisibleVerification}
         cancelLabel="Close"
       />
-      <Text>Helllo</Text>
-      <Text style={{ marginTop: 20 }}>Enter Verification code</Text>
+      <Image source={Logo} style={style.image} />
+      <Text style={style.mainTitle}>Varification</Text>
+      <Text style={style.intro}>You will get OTP via a SMS</Text>
       <TextInput
-        style={{ marginVertical: 10, fontSize: 17 }}
+        maxLength={6}
+        style={style.inputOTP}
         editable={!!verificationId}
-        placeholder="123456"
+        placeholder="XXXXXX"
         onChangeText={setVerificationCode}
       />
-      <Button
-        title="Confirm Verification Code"
+      <TouchableOpacity
+        style={style.btn}
         disabled={!verificationId}
         onPress={async () => {
           // try {
@@ -82,9 +93,60 @@ const OPT = ({ route, navigation }) => {
           // }
           navigation.navigate("Profile");
         }}
-      />
+      >
+        <Text style={{ color: "white", textAlign: "center" }}>VERIFY</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 export default OPT;
+
+const style = StyleSheet.create({
+  image: {
+    width: 100,
+    height: 100,
+  },
+  mainTitle: {
+    marginTop: 20,
+    fontFamily: "Gudea",
+    fontSize: 20,
+    color: "#000",
+    fontWeight: "bold",
+  },
+  container: {
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    backgroundColor: "white",
+    justifyContent: "center",
+    color: "black",
+  },
+  intro: {
+    width: "60%",
+    textAlign: "center",
+    marginTop: 40,
+    color: "#3d3d3d",
+    fontFamily: "Gudea",
+    fontWeight: "700",
+  },
+  btn: {
+    backgroundColor: "#7759de",
+    padding: 8,
+    width: "40%",
+    borderRadius: 3,
+  },
+  inputOTP: {
+    marginVertical: 10,
+    fontSize: 17,
+    width: "50%",
+    borderBottomWidth: 2,
+    borderBottomColor: "#f6f6fb",
+    marginTop: 30,
+    // textAlign: "center",
+    padding: 5,
+    color: "#3d3d3d",
+    fontWeight: "bold",
+    letterSpacing: 25,
+  },
+});

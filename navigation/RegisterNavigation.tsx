@@ -20,7 +20,7 @@ function RegisterNavigation() {
 
   return (
     <RegStack.Navigator
-      initialRouteName="Phone"
+      initialRouteName="OTP"
       screenOptions={{
         headerLeft: () => null,
         headerShown: false,
