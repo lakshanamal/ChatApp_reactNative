@@ -17,8 +17,8 @@ import {
   FirebaseRecaptchaBanner,
 } from "expo-firebase-recaptcha";
 
-const OPT = ({ route, navigation }) => {
-  // const { phoneNumber } = route.params;
+const OPT = ({ navigation, route }) => {
+  const { phoneNumber } = route.params;
   const [font] = useFonts({
     Gudea: require("../../assets/fonts/Gudea-Regular.ttf"),
   });
@@ -69,7 +69,10 @@ const OPT = ({ route, navigation }) => {
       />
       <Image source={Logo} style={style.image} />
       <Text style={style.mainTitle}>Varification</Text>
-      <Text style={style.intro}>You will get OTP via a SMS</Text>
+      <Text style={style.intro}>
+        You will get OTP from{" "}
+        <Text style={{ color: "black" }}>{phoneNumber}</Text> via a SMS
+      </Text>
       <TextInput
         maxLength={6}
         style={style.inputOTP}
@@ -77,9 +80,10 @@ const OPT = ({ route, navigation }) => {
         placeholder="XXXXXX"
         onChangeText={setVerificationCode}
       />
+      <Text style={{ color: "#a7abbb",marginVertical: 10,}}>Enter 6-digit code</Text>
       <TouchableOpacity
-        style={style.btn}
-        disabled={!verificationId}
+        style={verificationCode.length == 6 ? style.btn : style.btnDisable}
+        disabled={verificationCode.length == 6 ? false : true}
         onPress={async () => {
           // try {
           //   const credential = firebase.auth.PhoneAuthProvider.credential(
@@ -137,7 +141,6 @@ const style = StyleSheet.create({
     borderRadius: 3,
   },
   inputOTP: {
-    marginVertical: 10,
     fontSize: 17,
     // width: "50%",
     borderBottomWidth: 2,
@@ -148,5 +151,11 @@ const style = StyleSheet.create({
     color: "#3d3d3d",
     fontWeight: "bold",
     letterSpacing: 25,
+  },
+  btnDisable: {
+    backgroundColor: "gray",
+    padding: 8,
+    width: "40%",
+    borderRadius: 3,
   },
 });

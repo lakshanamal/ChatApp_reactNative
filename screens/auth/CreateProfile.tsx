@@ -6,13 +6,15 @@ import {
   Button,
   Image,
   TouchableOpacity,
+  StyleSheet,
 } from "react-native";
-import Avater from "../../assets/images/avater.png";
+// import Avater from "../../assets/images/avater.png";
 import * as ImagePicker from "expo-image-picker";
 import firebase from "../../firebaseConfig";
 import { ProgressBar } from "react-native-paper";
 import Navigation from "../../navigation/index";
 import useColorScheme from "../../hooks/useColorScheme";
+import * as profile from "../../assets/images/profile2.png";
 
 const CreateProfile = ({ navigation }: { navigation: any }) => {
   const [name, setName] = useState("");
@@ -59,7 +61,7 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
   };
 
   const uploadImage = async (
-    { uri }: { uri: any },
+    { uri }: { uri: String },
     { name }: { name: any }
   ) => {
     const responce = await fetch(uri);
@@ -82,47 +84,63 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
   };
 
   return (
-    <View
-      style={{
-        width: "100%",
-        height: "100%",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Hello lets make a profile</Text>
-
+    <View style={style.container}>
+      <Text style={style.title}>Profile Info</Text>
+      <Text style={{ color: "#a7abbb", marginBottom: 20 }}>
+        Please provide your name and an optional profile photo
+      </Text>
       <TouchableOpacity onPress={handleChoosePhoto}>
         {image !== "" ? (
           <Image
             source={{ uri: image }}
-            style={{ width: 120, height: 120, borderRadius: 60 }}
-          />
-        ) : (
-          <Image
-            source={Avater}
             style={{
               width: 120,
               height: 120,
+              borderRadius: 60,
+              padding: 10,
+              backgroundColor: "red",
             }}
           />
+        ) : (
+          <View style={style.imageContainer}>
+            <Image
+              source={profile}
+              style={{
+                width: 80,
+                height: 80,
+                marginRight: 10,
+              }}
+            />
+          </View>
         )}
       </TouchableOpacity>
+      {prograss == 100 ? (
+        <Text style={{ color: "#959595" }}>UPLOADED</Text>
+      ) : (
+        <ProgressBar
+          indeterminate
+          style={{
+            marginTop: 5,
+            backgroundColor: "#a7abbb",
+            width: 100,
+            marginBottom: 5,
+            borderRadius: 20,
+          }}
+          progress={prograss}
+          color={"#6aefae"}
+        />
+      )}
+
       <TextInput
-        style={{ marginVertical: 10, fontSize: 17 }}
+        style={style.inputName}
         placeholder="Profile name"
         onChangeText={setName}
-      />
-      <ProgressBar
-        style={{ marginTop: 5, backgroundColor: "gray", width: 100 }}
-        progress={prograss}
-        color={"green"}
       />
 
       <TouchableOpacity
         onPress={createUser}
         // disabled={true}
-        style={{ backgroundColor: "blue", padding: 10, marginTop: 10 }}
+        style={style.btn}
       >
         <Text style={{ color: "white" }}>Next</Text>
       </TouchableOpacity>
@@ -131,3 +149,50 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
 };
 
 export default CreateProfile;
+
+const style = StyleSheet.create({
+  container: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+  },
+  inputName: {
+    marginVertical: 10,
+    fontSize: 17,
+    width: "60%",
+    borderBottomWidth: 2,
+    borderBottomColor: "#f6f6fb",
+    marginTop: 30,
+    padding: 3,
+  },
+  btn: {
+    backgroundColor: "#7759de",
+    padding: 8,
+    width: "50%",
+    borderRadius: 3,
+    textAlign: "center",
+  },
+  btnDisable: {
+    backgroundColor: "gray",
+    padding: 8,
+    width: "50%",
+    borderRadius: 3,
+    textAlign: "center",
+  },
+  imageContainer: {
+    width: 140,
+    height: 140,
+    borderRadius: 70,
+    backgroundColor: "#dcdcdc",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  title: {
+    marginBottom: 40,
+    fontSize: 22,
+    color: "#8d69ee",
+    fontWeight: "bold",
+  },
+});

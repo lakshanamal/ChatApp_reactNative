@@ -20,7 +20,7 @@ function RegisterNavigation() {
 
   return (
     <RegStack.Navigator
-      initialRouteName="OTP"
+      initialRouteName="Profile"
       screenOptions={{
         headerLeft: () => null,
         headerShown: false,

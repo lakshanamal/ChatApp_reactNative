@@ -76,7 +76,7 @@ function RootNavigator() {
       <Stack.Screen
         name="ChatRoom"
         component={ChatRoomScreen}
-        options={({ route }) => ({
+        options={({ route }: { route: any }) => ({
           title: route.params.name,
           headerRight: () => {
             return (
