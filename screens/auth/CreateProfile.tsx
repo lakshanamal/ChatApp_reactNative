@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -14,17 +14,22 @@ import firebase from "../../firebaseConfig";
 import { ProgressBar } from "react-native-paper";
 import Navigation from "../../navigation/index";
 import useColorScheme from "../../hooks/useColorScheme";
-import * as profile from "../../assets/images/profile2.png";
-import { useFonts } from "expo-font";
+import profile from "../../assets/images/profile2.png";
+import * as Font from "expo-font";
 
 const CreateProfile = ({ navigation }: { navigation: any }) => {
-  const [font] = useFonts({
-    Gudea: require("../../assets/fonts/Gudea-Regular.ttf"),
-  });
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [prograss, setPrograss] = useState(0);
   const colorScheme = useColorScheme();
+
+  useEffect(() => {
+    (async () =>
+      await Font.loadAsync({
+        Gudea: require("../../assets/fonts/Gudea-Regular.ttf"),
+      }))();
+    console.log(Font);
+  }, []);
 
   const createUser = async () => {
     const user = await firebase.auth().currentUser;
@@ -65,10 +70,7 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
     }
   };
 
-  const uploadImage = async (
-    { uri }: { uri: String },
-    { name }: { name: any }
-  ) => {
+  const uploadImage = async ( uri, name ) => {
     const responce = await fetch(uri);
     const bob = await responce.blob();
     var uploadTask = firebase
@@ -117,9 +119,10 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
             <Image
               source={profile}
               style={{
-                width: 80,
-                height: 80,
+                width: 60,
+                height: 60,
                 marginRight: 10,
+                marginBottom: 5,
               }}
             />
           </View>
@@ -181,6 +184,7 @@ const style = StyleSheet.create({
     width: "50%",
     borderRadius: 3,
     textAlign: "center",
+    paddingVertical: 15,
   },
   btnDisable: {
     backgroundColor: "gray",
@@ -188,12 +192,13 @@ const style = StyleSheet.create({
     width: "50%",
     borderRadius: 3,
     textAlign: "center",
+    paddingVertical: 15,
   },
   imageContainer: {
     width: 140,
     height: 140,
     borderRadius: 70,
-    backgroundColor: "#dcdcdc",
+    backgroundColor: "#f1f1f1",
     justifyContent: "center",
     alignItems: "center",
   },

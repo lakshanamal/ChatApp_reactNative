@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { View, Text } from "../../components/Themed";
 import firebase from "../../firebaseConfig";
-import * as Logo from "../../assets/images/logo2.png";
+import  Logo from "../../assets/images/logo2.png";
 
 import { useFonts } from "expo-font";
 import {
@@ -37,6 +37,19 @@ const OPT = ({ navigation, route }) => {
         }
       : undefined
   );
+  const verifyPhone = async () => {
+    // try {
+    //   const credential = firebase.auth.PhoneAuthProvider.credential(
+    //     verificationId,
+    //     verificationCode
+    //   );
+    //   await firebase.auth().signInWithCredential(credential);
+    //   showMessage({ text: "Phone authentication successful 👍" });
+    // } catch (err) {
+    //   showMessage({ text: `Error: ${err.message}` });
+    // }
+    navigation.navigate("Profile");
+  };
 
   const getOTP = async () => {
     try {
@@ -55,7 +68,7 @@ const OPT = ({ navigation, route }) => {
   };
 
   useEffect(() => {
-    getOTP();
+    // getOTP();
   }, []);
 
   return (
@@ -85,19 +98,7 @@ const OPT = ({ navigation, route }) => {
       <TouchableOpacity
         style={verificationCode.length == 6 ? style.btn : style.btnDisable}
         disabled={verificationCode.length == 6 ? false : true}
-        onPress={async () => {
-          try {
-            const credential = firebase.auth.PhoneAuthProvider.credential(
-              verificationId,
-              verificationCode
-            );
-            await firebase.auth().signInWithCredential(credential);
-            showMessage({ text: "Phone authentication successful 👍" });
-          } catch (err) {
-            showMessage({ text: `Error: ${err.message}` });
-          }
-          navigation.navigate("Profile");
-        }}
+        onPress={verifyPhone}
       >
         <Text style={{ color: "white", textAlign: "center" }}>VERIFY</Text>
       </TouchableOpacity>
@@ -140,10 +141,11 @@ const style = StyleSheet.create({
     padding: 8,
     width: "40%",
     borderRadius: 3,
+    paddingVertical:15,
   },
   inputOTP: {
     fontSize: 17,
-    // width: "50%",
+    width: "50%",
     borderBottomWidth: 2,
     borderBottomColor: "#f6f6fb",
     marginTop: 30,
@@ -152,11 +154,13 @@ const style = StyleSheet.create({
     color: "#3d3d3d",
     fontWeight: "bold",
     letterSpacing: 25,
+   
   },
   btnDisable: {
     backgroundColor: "gray",
     padding: 8,
     width: "40%",
     borderRadius: 3,
+    paddingVertical:15,
   },
 });
