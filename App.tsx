@@ -18,6 +18,7 @@ export default function App() {
 
   const getUser = () => {
     var user = firebase.auth().currentUser;
+    console.log(user);
     if (user == null) {
       setisAuthenticated(!!user);
       setIsAuthReady(true);

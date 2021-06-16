@@ -39,24 +39,23 @@ const OPT = ({ navigation, route }) => {
   );
 
   const getOTP = async () => {
-    // try {
-    //   const phoneProvider = new firebase.auth.PhoneAuthProvider();
-    //   const verificationId = await phoneProvider.verifyPhoneNumber(
-    //     phoneNumber,
-    //     recaptchaVerifier.current
-    //   );
-    //   console.log(verificationId);
-    //   setVerificationId(verificationId);
-    //   showMessage({
-    //     text: "Verification code has been sent to your phone.",
-    //   });
-    // } catch (err) {
-    //   showMessage({ text: `Error: ${err.message}` });
-    // }
+    try {
+      const phoneProvider = new firebase.auth.PhoneAuthProvider();
+      const verificationId = await phoneProvider.verifyPhoneNumber(
+        phoneNumber,
+        recaptchaVerifier.current
+      );
+      setVerificationId(verificationId);
+      showMessage({
+        text: "Verification code has been sent to your phone.",
+      });
+    } catch (err) {
+      showMessage({ text: `Error: ${err.message}` });
+    }
   };
 
   useEffect(() => {
-    // getOTP();
+    getOTP();
   }, []);
 
   return (
@@ -80,21 +79,23 @@ const OPT = ({ navigation, route }) => {
         placeholder="XXXXXX"
         onChangeText={setVerificationCode}
       />
-      <Text style={{ color: "#a7abbb",marginVertical: 10,}}>Enter 6-digit code</Text>
+      <Text style={{ color: "#a7abbb", marginVertical: 10 }}>
+        Enter 6-digit code
+      </Text>
       <TouchableOpacity
         style={verificationCode.length == 6 ? style.btn : style.btnDisable}
         disabled={verificationCode.length == 6 ? false : true}
         onPress={async () => {
-          // try {
-          //   const credential = firebase.auth.PhoneAuthProvider.credential(
-          //     verificationId,
-          //     verificationCode
-          //   );
-          //   await firebase.auth().signInWithCredential(credential);
-          //   showMessage({ text: "Phone authentication successful 👍" });
-          // } catch (err) {
-          //   showMessage({ text: `Error: ${err.message}` });
-          // }
+          try {
+            const credential = firebase.auth.PhoneAuthProvider.credential(
+              verificationId,
+              verificationCode
+            );
+            await firebase.auth().signInWithCredential(credential);
+            showMessage({ text: "Phone authentication successful 👍" });
+          } catch (err) {
+            showMessage({ text: `Error: ${err.message}` });
+          }
           navigation.navigate("Profile");
         }}
       >

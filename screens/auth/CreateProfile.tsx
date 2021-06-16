@@ -27,7 +27,8 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
   const colorScheme = useColorScheme();
 
   const createUser = async () => {
-    // const user = await firebase.auth().currentUser;
+    const user = await firebase.auth().currentUser;
+    console.log(user);
     const defaultImageUri =
       "https://firebasestorage.googleapis.com/v0/b/whatsappclone-b7830.appspot.com/o/images%2Favater.png?alt=media&token=ef3ae647-117a-4738-9aa4-ddc2b976ecf4";
 
@@ -36,18 +37,18 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
     }
 
     const newUser = {
-      // id: user.uid,
+      id: user.uid,
       name: name,
       imageUri: image,
     };
-    // await firebase
-    //   .firestore()
-    //   .collection("users")
-    //   .add(newUser)
-    //   .then(() => {
-    //     console.log("User added!");
-
-    //   });
+    console.log(newUser);
+    await firebase
+      .firestore()
+      .collection("users")
+      .add(newUser)
+      .then(() => {
+        console.log("User added!");
+      });
     navigation.navigate("Root");
   };
 
@@ -124,22 +125,19 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
           </View>
         )}
       </TouchableOpacity>
-      {prograss == 100 ? (
-        <Text style={{ color: "#959595", fontWeight: "bold" }}>UPLOADED</Text>
-      ) : (
-        <ProgressBar
-          indeterminate
-          style={{
-            marginTop: 5,
-            backgroundColor: "#a7abbb",
-            width: 100,
-            marginBottom: 5,
-            borderRadius: 20,
-          }}
-          progress={prograss}
-          color={"#6aefae"}
-        />
-      )}
+
+      <ProgressBar
+        // indeterminate
+        style={{
+          marginTop: 5,
+          backgroundColor: "#a7abbb",
+          width: 100,
+          marginBottom: 5,
+          borderRadius: 20,
+        }}
+        progress={prograss}
+        color={"#6aefae"}
+      />
 
       <TextInput
         style={style.inputName}
