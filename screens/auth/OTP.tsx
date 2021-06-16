@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { View, Text } from "../../components/Themed";
 import firebase from "../../firebaseConfig";
-import Logo from "../../assets/images/logo2.png";
+import * as Logo from "../../assets/images/logo2.png";
 
 import { useFonts } from "expo-font";
 import {
@@ -110,7 +110,7 @@ const style = StyleSheet.create({
   mainTitle: {
     marginTop: 20,
     fontFamily: "Gudea",
-    fontSize: 20,
+    fontSize: 22,
     color: "#000",
     fontWeight: "bold",
   },
@@ -139,7 +139,7 @@ const style = StyleSheet.create({
   inputOTP: {
     marginVertical: 10,
     fontSize: 17,
-    width: "50%",
+    // width: "50%",
     borderBottomWidth: 2,
     borderBottomColor: "#f6f6fb",
     marginTop: 30,
