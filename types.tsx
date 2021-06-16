@@ -13,6 +13,7 @@ export type RegParamList = {
   Phone: undefined;
   OTP: undefined;
   Profile: undefined;
+  Root: undefined;
 };
 
 export type BottomTabParamList = {

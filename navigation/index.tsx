@@ -26,14 +26,7 @@ export default function Navigation({
 }: {
   colorScheme: ColorSchemeName;
 }) {
-  return (
-    <NavigationContainer
-      linking={LinkingConfiguration}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-    >
-      <RootNavigator />
-    </NavigationContainer>
-  );
+  return <RootNavigator />;
 }
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -42,7 +35,6 @@ function RootNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerLeft: () => null,
         headerStyle: {
           backgroundColor: Colors.light.tint,
           shadowOpacity: 0,
@@ -58,6 +50,7 @@ function RootNavigator() {
         component={BottomTabNavigator}
         options={{
           title: "Whatsapp",
+          headerLeft: () => null,
           headerRight: () => {
             return (
               <View

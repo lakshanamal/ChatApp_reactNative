@@ -67,4 +67,3 @@ function TabOneNavigator() {
     </TabOneStack.Navigator>
   );
 }
-

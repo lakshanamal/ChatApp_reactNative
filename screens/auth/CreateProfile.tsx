@@ -14,14 +14,14 @@ import { ProgressBar } from "react-native-paper";
 import Navigation from "../../navigation/index";
 import useColorScheme from "../../hooks/useColorScheme";
 
-const CreateProfile = () => {
+const CreateProfile = ({ navigation }: { navigation: any }) => {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [prograss, setPrograss] = useState(0);
   const colorScheme = useColorScheme();
 
   const createUser = async () => {
-    const user = await firebase.auth().currentUser;
+    // const user = await firebase.auth().currentUser;
     const defaultImageUri =
       "https://firebasestorage.googleapis.com/v0/b/whatsappclone-b7830.appspot.com/o/images%2Favater.png?alt=media&token=ef3ae647-117a-4738-9aa4-ddc2b976ecf4";
 
@@ -30,18 +30,19 @@ const CreateProfile = () => {
     }
 
     const newUser = {
-      id: user.uid,
+      // id: user.uid,
       name: name,
       imageUri: image,
     };
-    await firebase
-      .firestore()
-      .collection("users")
-      .add(newUser)
-      .then(() => {
-        console.log("User added!");
-        // <Navigation colorScheme={colorScheme} />;
-      });
+    // await firebase
+    //   .firestore()
+    //   .collection("users")
+    //   .add(newUser)
+    //   .then(() => {
+    //     console.log("User added!");
+
+    //   });
+    navigation.navigate("Root");
   };
 
   const handleChoosePhoto = async () => {
@@ -57,7 +58,10 @@ const CreateProfile = () => {
     }
   };
 
-  const uploadImage = async (uri, name) => {
+  const uploadImage = async (
+    { uri }: { uri: any },
+    { name }: { name: any }
+  ) => {
     const responce = await fetch(uri);
     const bob = await responce.blob();
     var uploadTask = firebase
@@ -117,7 +121,6 @@ const CreateProfile = () => {
 
       <TouchableOpacity
         onPress={createUser}
-        title="Next"
         // disabled={true}
         style={{ backgroundColor: "blue", padding: 10, marginTop: 10 }}
       >

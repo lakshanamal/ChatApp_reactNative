@@ -1,11 +1,12 @@
 import "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
-import Navigation from "./navigation/index";
-import RegisterNavigation from "./navigation/RegisterNavigation";
+import MainNavigator from "./navigation/index";
+import RegisterNavigator from "./navigation/RegisterNavigation";
 import firebase from "./firebaseConfig";
 import { ActivityIndicator, View } from "react-native";
 
@@ -42,14 +43,14 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        {isAuthenticated ? (
-          <Navigation colorScheme={colorScheme} />
-        ) : (
-          <RegisterNavigation />
-        )}
-        {/* <Navigation colorScheme={colorScheme} /> */}
-        {/* <RegisterNavigation /> */}
-        <StatusBar />
+        <NavigationContainer>
+          {isAuthenticated ? (
+            <MainNavigator colorScheme={colorScheme} />
+          ) : (
+            <RegisterNavigator />
+          )}
+          <StatusBar />
+        </NavigationContainer>
       </SafeAreaProvider>
     );
   }

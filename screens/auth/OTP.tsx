@@ -47,7 +47,7 @@ const OPT = ({ route, navigation }) => {
   };
 
   useEffect(() => {
-    getOTP();
+    // getOTP();
   }, []);
 
   return (
@@ -70,16 +70,16 @@ const OPT = ({ route, navigation }) => {
         title="Confirm Verification Code"
         disabled={!verificationId}
         onPress={async () => {
-          try {
-            const credential = firebase.auth.PhoneAuthProvider.credential(
-              verificationId,
-              verificationCode
-            );
-            await firebase.auth().signInWithCredential(credential);
-            showMessage({ text: "Phone authentication successful 👍" });
-          } catch (err) {
-            showMessage({ text: `Error: ${err.message}` });
-          }
+          // try {
+          //   const credential = firebase.auth.PhoneAuthProvider.credential(
+          //     verificationId,
+          //     verificationCode
+          //   );
+          //   await firebase.auth().signInWithCredential(credential);
+          //   showMessage({ text: "Phone authentication successful 👍" });
+          // } catch (err) {
+          //   showMessage({ text: `Error: ${err.message}` });
+          // }
           navigation.navigate("Profile");
         }}
       />
