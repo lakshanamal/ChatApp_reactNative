@@ -3,7 +3,7 @@ import * as React from "react";
 import useColorScheme from "../hooks/useColorScheme";
 import OTP from "../screens/auth/OTP";
 import Login from "../screens/auth/loging";
-
+import RootNavigation from './index'
 import { RegParamList } from "../types";
 import { Fontisto } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";

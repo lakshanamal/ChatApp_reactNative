@@ -11,11 +11,14 @@ import Avater from "../../assets/images/avater.png";
 import * as ImagePicker from "expo-image-picker";
 import firebase from "../../firebaseConfig";
 import { ProgressBar } from "react-native-paper";
+import Navigation from "../../navigation/index";
+import useColorScheme from "../../hooks/useColorScheme";
 
-const CreateProfile = ({ navigation }) => {
+const CreateProfile = () => {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [prograss, setPrograss] = useState(0);
+  const colorScheme = useColorScheme();
 
   const createUser = async () => {
     const user = await firebase.auth().currentUser;
@@ -30,7 +33,6 @@ const CreateProfile = ({ navigation }) => {
       id: user.uid,
       name: name,
       imageUri: image,
-      createAt: firebase.firestore.FieldValue.serverTimestamp(),
     };
     await firebase
       .firestore()
@@ -38,7 +40,7 @@ const CreateProfile = ({ navigation }) => {
       .add(newUser)
       .then(() => {
         console.log("User added!");
-        navigation.navigate("Root");
+        // <Navigation colorScheme={colorScheme} />;
       });
   };
 
