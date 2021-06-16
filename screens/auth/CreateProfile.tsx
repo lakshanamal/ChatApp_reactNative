@@ -15,8 +15,12 @@ import { ProgressBar } from "react-native-paper";
 import Navigation from "../../navigation/index";
 import useColorScheme from "../../hooks/useColorScheme";
 import * as profile from "../../assets/images/profile2.png";
+import { useFonts } from "expo-font";
 
 const CreateProfile = ({ navigation }: { navigation: any }) => {
+  const [font] = useFonts({
+    Gudea: require("../../assets/fonts/Gudea-Regular.ttf"),
+  });
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [prograss, setPrograss] = useState(0);
@@ -86,7 +90,15 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
   return (
     <View style={style.container}>
       <Text style={style.title}>Profile Info</Text>
-      <Text style={{ color: "#a7abbb", marginBottom: 20 }}>
+      <Text
+        style={{
+          color: "#a7abbb",
+          marginBottom: 20,
+          fontSize: 18,
+          paddingHorizontal: 20,
+          textAlign: "center",
+        }}
+      >
         Please provide your name and an optional profile photo
       </Text>
       <TouchableOpacity onPress={handleChoosePhoto}>
@@ -94,11 +106,9 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
           <Image
             source={{ uri: image }}
             style={{
-              width: 120,
-              height: 120,
-              borderRadius: 60,
-              padding: 10,
-              backgroundColor: "red",
+              width: 140,
+              height: 140,
+              borderRadius: 70,
             }}
           />
         ) : (
@@ -115,7 +125,7 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
         )}
       </TouchableOpacity>
       {prograss == 100 ? (
-        <Text style={{ color: "#959595" }}>UPLOADED</Text>
+        <Text style={{ color: "#959595", fontWeight: "bold" }}>UPLOADED</Text>
       ) : (
         <ProgressBar
           indeterminate
@@ -139,10 +149,10 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
 
       <TouchableOpacity
         onPress={createUser}
-        // disabled={true}
-        style={style.btn}
+        disabled={name.length == 0 ? true : false}
+        style={name.length == 0 ? style.btnDisable : style.btn}
       >
-        <Text style={{ color: "white" }}>Next</Text>
+        <Text style={{ color: "white", textAlign: "center" }}>NEXT</Text>
       </TouchableOpacity>
     </View>
   );
@@ -191,8 +201,9 @@ const style = StyleSheet.create({
   },
   title: {
     marginBottom: 40,
-    fontSize: 22,
+    fontSize: 28,
     color: "#8d69ee",
     fontWeight: "bold",
+    fontFamily: "Gudea",
   },
 });
