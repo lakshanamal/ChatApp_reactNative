@@ -42,19 +42,23 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
     }
 
     const newUser = {
-      id: user.uid,
+      id: user?.uid,
       name: name,
       imageUri: image,
     };
     console.log(newUser);
-    await firebase
-      .firestore()
-      .collection("users")
-      .add(newUser)
-      .then(() => {
-        console.log("User added!");
-      });
-    navigation.navigate("Root");
+
+    // await firebase
+    //   .firestore()
+    //   .collection("users")
+    //   .add(newUser)
+    //   .then(() => {
+    //     console.log("User added!");
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // navigation.navigate("Root");
   };
 
   const handleChoosePhoto = async () => {
@@ -70,7 +74,7 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
     }
   };
 
-  const uploadImage = async ( uri, name ) => {
+  const uploadImage = async (uri, name) => {
     const responce = await fetch(uri);
     const bob = await responce.blob();
     var uploadTask = firebase

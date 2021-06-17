@@ -16,21 +16,46 @@ export default function App() {
   const [isAuthReady, setIsAuthReady] = useState(false);
   const [isAuthenticated, setisAuthenticated] = useState(false);
 
-  const getUser = () => {
-    var user = firebase.auth().currentUser;
-    console.log(user);
-    if (user == null) {
-      setisAuthenticated(!!user);
-      setIsAuthReady(true);
-    }
-    // firebase.auth().onAuthStateChanged(function (user) {
+  const getUser = async () => {
+    // try {
+    //   var user = await firebase.auth().currentUser;
+    //   console.log(user);
     //   setisAuthenticated(!!user);
-    //   // console.log(user.uid);
     //   setIsAuthReady(true);
-    // });
+    // } catch (err) {
+    //   console.log(err);
+    // }
+    // var user = firebase.auth().currentUser;
+    // console.log(user);
+    // if (user == null) {
+    //   setisAuthenticated(!!user);
+    //   setIsAuthReady(true);
+    // }
+    firebase.auth().onAuthStateChanged(function (user) {
+      firebase
+        .firestore()
+        .collection("users")
+        .where("ui", "==", user?.uid)
+        .get()
+        .then((snapshot) => {
+          if (!snapshot.empty) {
+            console.log("No matching documents.");
+            setisAuthenticated(!!user);
+            console.log(user?.uid);
+            setIsAuthReady(true);
+            return;
+          } else {
+            setisAuthenticated(false);
+            setIsAuthReady(true);
+            console.log(user?.uid);
+            return;
+          }
+        });
+    });
   };
   useEffect(() => {
     getUser();
+    console.log(firebase.auth());
   }, []);
 
   if (!isLoadingComplete || !isAuthReady) {
