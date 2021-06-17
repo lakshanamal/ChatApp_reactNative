@@ -37,7 +37,7 @@ export default function App() {
         firebase
           .firestore()
           .collection("users")
-          .where("ui", "==", user?.uid)
+          .where("id", "==", user?.uid)
           .get()
           .then((snapshot) => {
             if (!snapshot.empty) {
