@@ -52,23 +52,23 @@ const OPT = ({ navigation, route }) => {
   };
 
   const getOTP = async () => {
-    // try {
-    //   const phoneProvider = new firebase.auth.PhoneAuthProvider();
-    //   const verificationId = await phoneProvider.verifyPhoneNumber(
-    //     phoneNumber,
-    //     recaptchaVerifier.current
-    //   );
-    //   setVerificationId(verificationId);
-    //   showMessage({
-    //     text: "Verification code has been sent to your phone.",
-    //   });
-    // } catch (err) {
-    //   showMessage({ text: `Error: ${err.message}` });
-    // }
+    try {
+      const phoneProvider = new firebase.auth.PhoneAuthProvider();
+      const verificationId = await phoneProvider.verifyPhoneNumber(
+        phoneNumber,
+        recaptchaVerifier.current
+      );
+      setVerificationId(verificationId);
+      showMessage({
+        text: "Verification code has been sent to your phone.",
+      });
+    } catch (err) {
+      showMessage({ text: `Error: ${err.message}` });
+    }
   };
 
   useEffect(() => {
-    // getOTP();
+    getOTP();
   }, []);
 
   return (

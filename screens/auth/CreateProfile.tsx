@@ -48,17 +48,17 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
     };
     console.log(newUser);
 
-    // await firebase
-    //   .firestore()
-    //   .collection("users")
-    //   .add(newUser)
-    //   .then(() => {
-    //     console.log("User added!");
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    // navigation.navigate("Root");
+    await firebase
+      .firestore()
+      .collection("users")
+      .add(newUser)
+      .then(() => {
+        console.log("User added!");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    navigation.navigate("Root");
   };
 
   const handleChoosePhoto = async () => {

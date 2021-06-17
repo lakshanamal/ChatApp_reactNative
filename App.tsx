@@ -32,25 +32,31 @@ export default function App() {
     //   setIsAuthReady(true);
     // }
     firebase.auth().onAuthStateChanged(function (user) {
-      firebase
-        .firestore()
-        .collection("users")
-        .where("ui", "==", user?.uid)
-        .get()
-        .then((snapshot) => {
-          if (!snapshot.empty) {
-            console.log("No matching documents.");
-            setisAuthenticated(!!user);
-            console.log(user?.uid);
-            setIsAuthReady(true);
-            return;
-          } else {
-            setisAuthenticated(false);
-            setIsAuthReady(true);
-            console.log(user?.uid);
-            return;
-          }
-        });
+      console.log(user);
+      if (user !== null) {
+        firebase
+          .firestore()
+          .collection("users")
+          .where("ui", "==", user?.uid)
+          .get()
+          .then((snapshot) => {
+            if (!snapshot.empty) {
+              console.log("No matching documents.");
+              setisAuthenticated(!!user);
+              console.log(user?.uid);
+              setIsAuthReady(true);
+              return;
+            } else {
+              setisAuthenticated(false);
+              setIsAuthReady(true);
+              console.log(user?.uid);
+              console.log("matching documents.");
+              return;
+            }
+          });
+      }
+      setIsAuthReady(true);
+      return;
     });
   };
   useEffect(() => {
