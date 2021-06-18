@@ -45,6 +45,7 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
       name: name,
       imageUri: image,
       status: "iam using memo",
+      chatRoomIds:[]
     };
     console.log(newUser);
 
