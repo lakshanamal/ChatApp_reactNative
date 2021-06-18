@@ -33,7 +33,6 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
 
   const createUser = async () => {
     const user = await firebase.auth().currentUser;
-    console.log(user);
     const defaultImageUri =
       "https://firebasestorage.googleapis.com/v0/b/whatsappclone-b7830.appspot.com/o/images%2Favater.png?alt=media&token=ef3ae647-117a-4738-9aa4-ddc2b976ecf4";
 

@@ -18,7 +18,6 @@ export default function App() {
 
   const getUser = async () => {
     await firebase.auth().onAuthStateChanged(function (user) {
-  
       if (user !== null) {
         firebase
           .firestore()
@@ -29,7 +28,7 @@ export default function App() {
             if (!snapshot.empty) {
               console.log(" matching documents.");
               setisAuthenticated(!!user);
-              
+
               setIsAuthReady(true);
               return;
             } else {
@@ -40,11 +39,10 @@ export default function App() {
               return;
             }
           });
-      }else{
+      } else {
         setIsAuthReady(true);
         return;
       }
-    
     });
   };
   useEffect(() => {

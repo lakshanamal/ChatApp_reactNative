@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
 import ContactListItem from "../components/ContactListItem";
-// import NewMessageButton from "../components/NewMessageButton";
 import { View } from "../components/Themed";
 import firebase from "./../firebaseConfig";
-// import s from "../data/Users";
 import { useEffect } from "react";
 
 export default function Contact() {
@@ -19,24 +17,12 @@ export default function Contact() {
         .then((snapshot) => {
           snapshot.forEach((doc) => {
             const user = doc.data();
-            console.log(user);
             setUsers((prevState) => [...prevState, user]);
           });
         });
-      // .then((snapshot) => {
-      //   snapshot.forEach((doc) => {
-      //     if (doc.exists) {
-      //       console.log(doc.data());
-      //       setUsers([...users,doc.data()]);
-      //     }
-      //   });
-      // });
-      // console.log(userList);
     };
     getUsers();
   }, []);
-
-  console.log(users);
 
   return (
     <View style={styles.container}>
