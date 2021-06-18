@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { View, Text } from "../../components/Themed";
 import firebase from "../../firebaseConfig";
-import  Logo from "../../assets/images/logo2.png";
+import Logo from "../../assets/images/logo2.png";
 
 import { useFonts } from "expo-font";
 import {
@@ -52,23 +52,23 @@ const OPT = ({ navigation, route }) => {
   };
 
   const getOTP = async () => {
-    try {
-      const phoneProvider = new firebase.auth.PhoneAuthProvider();
-      const verificationId = await phoneProvider.verifyPhoneNumber(
-        phoneNumber,
-        recaptchaVerifier.current
-      );
-      setVerificationId(verificationId);
-      showMessage({
-        text: "Verification code has been sent to your phone.",
-      });
-    } catch (err) {
-      showMessage({ text: `Error: ${err.message}` });
-    }
+    // try {
+    //   const phoneProvider = new firebase.auth.PhoneAuthProvider();
+    //   const verificationId = await phoneProvider.verifyPhoneNumber(
+    //     phoneNumber,
+    //     recaptchaVerifier.current
+    //   );
+    //   setVerificationId(verificationId);
+    //   showMessage({
+    //     text: "Verification code has been sent to your phone.",
+    //   });
+    // } catch (err) {
+    //   showMessage({ text: `Error: ${err.message}` });
+    // }
   };
 
   useEffect(() => {
-    getOTP();
+    // getOTP();
   }, []);
 
   return (
@@ -141,7 +141,7 @@ const style = StyleSheet.create({
     padding: 8,
     width: "40%",
     borderRadius: 3,
-    paddingVertical:15,
+    paddingVertical: 15,
   },
   inputOTP: {
     fontSize: 17,
@@ -154,13 +154,12 @@ const style = StyleSheet.create({
     color: "#3d3d3d",
     fontWeight: "bold",
     letterSpacing: 25,
-   
   },
   btnDisable: {
     backgroundColor: "gray",
     padding: 8,
     width: "40%",
     borderRadius: 3,
-    paddingVertical:15,
+    paddingVertical: 15,
   },
 });

@@ -44,6 +44,7 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
       id: user?.uid,
       name: name,
       imageUri: image,
+      status: "iam using memo",
     };
     console.log(newUser);
 

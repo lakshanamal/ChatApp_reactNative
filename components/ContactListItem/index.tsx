@@ -27,57 +27,56 @@ const ContactListItem = (props: ContactListItemProps) => {
 
       const userData = currentUser.docs[0].data();
 
-      // check chat room is exists
+      //  check chat room is exists
       const idPosible1 = user.id + userData.id;
       const idPosible2 = userData.id + user.id;
 
-      const checkChatRoom = await firebase
+      const checkChatRoom1 = await firebase
         .firestore()
         .collection("chatrooms")
+        .doc(idPosible1)
         .get();
 
-      let isChatRoom = false;
-      if (!checkChatRoom.empty) {
-        checkChatRoom.docs.forEach((doc) => {
-          if (doc.data().id !== idPosible1 && doc.data().id !== idPosible2) {
-            console.log("ioio");
-          } else {
-            console.log("aluth ekak hadapan");
-          }
-          // if(doc.data().user[0]. && doc.data().user[1])
-        });
-      } else {
-        isChatRoom = true;
+      const checkChatRoom2 = await firebase
+        .firestore()
+        .collection("chatrooms")
+        .doc(idPosible2)
+        .get();
+
+      let chatRoomId = user.id + userData.id;
+      if (!checkChatRoom1.exists && !checkChatRoom2.exists) {
+        const chatRoom = {
+          id: chatRoomId,
+          user: [
+            {
+              id: userData.id,
+              name: userData.name,
+              imageUri: userData.imageUri,
+            },
+            {
+              id: user.id,
+              name: user.name,
+              imageUri: user.imageUri,
+            },
+          ],
+          lastMessage: {},
+        };
+        await firebase
+          .firestore()
+          .collection("chatrooms")
+          .doc(chatRoomId)
+          .set(chatRoom)
+          .then(() => {
+            console.log("Chat room create sucess full");
+          });
+      } else if (checkChatRoom1.exists) {
+        chatRoomId = checkChatRoom1.id;
+      } else if (checkChatRoom2.exists) {
+        chatRoomId = checkChatRoom2.id;
       }
-
-      const chatRoomId = user.id + userData.id;
-
-      // create new chat room
-      const chatRoom = {
-        id: chatRoomId,
-        user: [
-          {
-            id: userData.id,
-            name: userData.name,
-            imageUri: userData.imageUri,
-          },
-          {
-            id: user.id,
-            name: user.name,
-            imageUri: user.imageUri,
-          },
-        ],
-        lastMessage: {},
-      };
-
-      // await firebase
-      //   .firestore()
-      //   .collection("chatrooms")
-      //   .add(chatRoom)
-      //   .then(() => {
-      //     console.log("Chat room create sucess full");
-      //   });
-      // navigation.navigate("ChatRoom", { id: chatRoom.id, name: user.name });
+   
+       navigation.navigate("ChatRoom", { id: chatRoomId.id, name: user.name });
+   
     } catch (err) {
       console.log(err);
     }
