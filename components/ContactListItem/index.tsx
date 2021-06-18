@@ -27,19 +27,31 @@ const ContactListItem = (props: ContactListItemProps) => {
 
       const userData = currentUser.docs[0].data();
 
-      // // check chat room is exists
-      // const checkChatRoom = await firebase
-      //   .firestore()
-      //   .collection("chatrooms")
-      //   .get();
+      // check chat room is exists
+      const idPosible1 = user.id + userData.id;
+      const idPosible2 = userData.id + user.id;
 
-      // checkChatRoom.docs.forEach((doc) => {
-      //   console.log(doc.data().user);
-      //   if(doc.data().user[0]. && doc.data().user[1])
-      // });
+      const checkChatRoom = await firebase
+        .firestore()
+        .collection("chatrooms")
+        .get();
+
+      let isChatRoom = false;
+      if (!checkChatRoom.empty) {
+        checkChatRoom.docs.forEach((doc) => {
+          if (doc.data().id !== idPosible1 && doc.data().id !== idPosible2) {
+            console.log("ioio");
+          } else {
+            console.log("aluth ekak hadapan");
+          }
+          // if(doc.data().user[0]. && doc.data().user[1])
+        });
+      } else {
+        isChatRoom = true;
+      }
 
       const chatRoomId = user.id + userData.id;
-      console.log(chatRoomId);
+
       // create new chat room
       const chatRoom = {
         id: chatRoomId,
@@ -58,13 +70,13 @@ const ContactListItem = (props: ContactListItemProps) => {
         lastMessage: {},
       };
 
-      await firebase
-        .firestore()
-        .collection("chatrooms")
-        .add(chatRoom)
-        .then(() => {
-          console.log("Chat room create sucess full");
-        });
+      // await firebase
+      //   .firestore()
+      //   .collection("chatrooms")
+      //   .add(chatRoom)
+      //   .then(() => {
+      //     console.log("Chat room create sucess full");
+      //   });
       // navigation.navigate("ChatRoom", { id: chatRoom.id, name: user.name });
     } catch (err) {
       console.log(err);
