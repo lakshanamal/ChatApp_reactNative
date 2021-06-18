@@ -22,29 +22,34 @@ const ContactListItem = (props: ContactListItemProps) => {
         .collection("users")
         .where("id", "==", currentUserAuth?.uid)
         .get();
-      const userData=currentUser.docs[0].data();
-
-      
+      const userData = currentUser.docs[0].data();
+      const ref = firebase.firestore().collection("chatrooms").doc();
+ 
       const chatRoom = {
-        id: "lakshan",
-        user: [{
-          id:userData.id,
-          name:userData.name,
-          imageUri:userData.imageUri,
-        },{
-          id:user.id,
-          name:user.name,
-          imageUri:user.imageUri,
-        }],
-        lastMessage:{}
+        id: ref.id,
+        user: [
+          {
+            id: userData.id,
+            name: userData.name,
+            imageUri: userData.imageUri,
+          },
+          {
+            id: user.id,
+            name: user.name,
+            imageUri: user.imageUri,
+          },
+        ],
+        lastMessage: {},
       };
-      await firebase
-      .firestore()
-      .collection("chatrooms")
-      .add(chatRoom).then(() => {
-        console.log("Chat room create sucess full");
-      })
 
+      await firebase
+        .firestore()
+        .collection("chatrooms")
+        .add(chatRoom)
+        .then(() => {
+          console.log("Chat room create sucess full");
+        });
+      navigation.navigate("ChatRoom", { id: chatRoom.id, name: user.name });
     } catch (err) {
       console.log(err);
     }
