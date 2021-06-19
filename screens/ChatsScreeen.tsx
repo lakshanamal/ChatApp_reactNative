@@ -30,17 +30,15 @@ export default function ChatsScreen() {
   }, []);
 
   return (
-    <View>
+    <View style={styles.container}>
       {chatList && (
-        <View style={styles.container}>
-          <FlatList
-            data={chatList}
-            style={{ width: "100%" }}
-            renderItem={({ item }) => <ChatListItem chatRoom={item} />}
-          />
-          <NewMessageButton />
-        </View>
+        <FlatList
+          data={chatList}
+          style={{ width: "100%" }}
+          renderItem={({ item }) => <ChatListItem chatRoom={item} />}
+        />
       )}
+      <NewMessageButton />
     </View>
   );
 }
