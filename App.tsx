@@ -28,7 +28,6 @@ export default function App() {
             if (!snapshot.empty) {
               console.log(" matching documents.");
               setisAuthenticated(!!user);
-
               setIsAuthReady(true);
               return;
             } else {
@@ -47,6 +46,7 @@ export default function App() {
   };
   useEffect(() => {
     getUser();
+    console.log("check");
   }, []);
 
   if (!isLoadingComplete || !isAuthReady) {
@@ -56,6 +56,7 @@ export default function App() {
       </View>
     );
   } else {
+    console.log("anith ");
     return (
       <SafeAreaProvider>
         <NavigationContainer>

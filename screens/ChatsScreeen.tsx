@@ -1,29 +1,46 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
 import ChatListItem from "../components/CharListItem";
 import NewMessageButton from "../components/NewMessageButton";
-import { View } from "../components/Themed";
+import { View, Text } from "../components/Themed";
 import firebase from "../firebaseConfig";
-import chatRooms from "../data/ChatRooms";
 
 export default function ChatsScreen() {
-  const getChatList = async () => {
-    // await firebase.firestore().doc()
-  };
+  const [chatList, setChatList] = useState<Array<{}>>([]);
+  // const [isEmpty, setIsEmpty] = useState(true);
   useEffect(() => {
+    const getChatList = async () => {
+      await firebase
+        .firestore()
+        .collection("chatrooms")
+        .get()
+        .then((docs) => {
+          if (!docs.empty) {
+            docs.forEach((item) => {
+              const chat = item.data();
+              setChatList((prevState) => [...prevState, chat]);
+            });
+          } else {
+            // setIsEmpty(true);
+          }
+        });
+    };
     getChatList();
   }, []);
-
+  console.log(chatList);
   return (
-    <View style={styles.container}>
-      {/* <ChatListItem chatRoom={chatRooms[0]} /> */}
-      <FlatList
-        data={chatRooms}
-        style={{ width: "100%" }}
-        renderItem={({ item }) => <ChatListItem chatRoom={item} />}
-      />
-      <NewMessageButton />
+    <View>
+      {chatList && (
+        <View style={styles.container}>
+          <FlatList
+            data={chatList}
+            style={{ width: "100%" }}
+            renderItem={({ item }) => <ChatListItem chatRoom={item} />}
+          />
+          <NewMessageButton />
+        </View>
+      )}
     </View>
   );
 }
