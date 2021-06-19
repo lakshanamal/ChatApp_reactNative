@@ -1,4 +1,4 @@
-import { Ionicons } from "@expo/vector-icons";
+// import { Ionicons } from "@expo/vector-icons";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
@@ -6,11 +6,10 @@ import * as React from "react";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ChatsScreeen from "../screens/ChatsScreeen";
-import Login from "../screens/auth/loging";
-import TabTwoScreen from "../screens/TabTwoScreen";
+
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from "../types";
 import { Fontisto } from "@expo/vector-icons";
-import { TabBarItem } from "react-native-tab-view";
+// import { TabBarItem } from "react-native-tab-view";
 // import LoginScreen from "../screens/auth/loging";
 const MainTap = createMaterialTopTabNavigator<BottomTabParamList>();
 
@@ -35,7 +34,7 @@ export default function BottomTabNavigator() {
         showIcon: true,
       }}
     >
-      <MainTap.Screen
+      {/* <MainTap.Screen
         name="Camera"
         component={TabOneNavigator}
         options={{
@@ -44,10 +43,10 @@ export default function BottomTabNavigator() {
           ),
           tabBarLabel: () => null,
         }}
-      />
+      /> */}
       <MainTap.Screen name="Chats" component={TabOneNavigator} />
-      <MainTap.Screen name="Status" component={TabOneNavigator} />
-      <MainTap.Screen name="Calls" component={TabOneNavigator} />
+      {/* <MainTap.Screen name="Status" component={TabOneNavigator} />
+      <MainTap.Screen name="Calls" component={TabOneNavigator} /> */}
     </MainTap.Navigator>
   );
 }
