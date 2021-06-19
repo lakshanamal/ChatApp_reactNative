@@ -75,9 +75,13 @@ const ContactListItem = (props: ContactListItemProps) => {
           .doc(currentUserAuth?.uid)
           .update({
             chatRoomIds: firebase.firestore.FieldValue.arrayUnion(chatRoomId),
-          })
-          .then(() => {
-            console.log("Chat room create sucess full");
+          });
+        await firebase
+          .firestore()
+          .collection("users")
+          .doc(user.id)
+          .update({
+            chatRoomIds: firebase.firestore.FieldValue.arrayUnion(chatRoomId),
           });
       } else if (checkChatRoom1.exists) {
         chatRoomId = checkChatRoom1.id;
