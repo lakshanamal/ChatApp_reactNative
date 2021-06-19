@@ -45,14 +45,15 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
       name: name,
       imageUri: image,
       status: "iam using memo",
-      chatRoomIds:[]
+      chatRoomIds: [],
     };
     console.log(newUser);
 
     await firebase
       .firestore()
       .collection("users")
-      .add(newUser)
+      .doc(user?.uid)
+      .set(newUser)
       .then(() => {
         console.log("User added!");
       })

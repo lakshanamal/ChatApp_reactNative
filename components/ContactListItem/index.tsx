@@ -69,14 +69,23 @@ const ContactListItem = (props: ContactListItemProps) => {
           .then(() => {
             console.log("Chat room create sucess full");
           });
+        await firebase
+          .firestore()
+          .collection("users")
+          .doc(currentUserAuth?.uid)
+          .update({
+            chatRoomIds: firebase.firestore.FieldValue.arrayUnion(chatRoomId),
+          })
+          .then(() => {
+            console.log("Chat room create sucess full");
+          });
       } else if (checkChatRoom1.exists) {
         chatRoomId = checkChatRoom1.id;
       } else if (checkChatRoom2.exists) {
         chatRoomId = checkChatRoom2.id;
       }
-   
-       navigation.navigate("ChatRoom", { id: chatRoomId.id, name: user.name });
-   
+
+      navigation.navigate("ChatRoom", { id: chatRoomId.id, name: user.name });
     } catch (err) {
       console.log(err);
     }
