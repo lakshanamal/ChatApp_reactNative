@@ -28,7 +28,7 @@ export default function ChatsScreen() {
     };
     getChatList();
   }, []);
-  console.log(chatList);
+
   return (
     <View>
       {chatList && (
