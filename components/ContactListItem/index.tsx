@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, TouchableWithoutFeedback } from "react-native";
 import { User } from "../../types";
 import styles from "./style";
 import { useNavigation } from "@react-navigation/native";
-import Navigation from "../../navigation";
 import firebase from "../../firebaseConfig";
 
 export type ContactListItemProps = {
@@ -13,6 +12,7 @@ export type ContactListItemProps = {
 const ContactListItem = (props: ContactListItemProps) => {
   const navigation = useNavigation();
   // user in the constact list
+
   const { user } = props;
 
   const onClick = async () => {

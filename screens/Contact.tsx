@@ -10,9 +10,11 @@ export default function Contact() {
 
   useEffect(() => {
     const getUsers = async () => {
+      const currentUser = firebase.auth().currentUser;
       await firebase
         .firestore()
         .collection("users")
+        .where("id", "!=", currentUser?.uid)
         .get()
         .then((snapshot) => {
           snapshot.forEach((doc) => {
