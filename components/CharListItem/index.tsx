@@ -4,7 +4,6 @@ import { View, Text, Image, TouchableWithoutFeedback } from "react-native";
 import { ChatRoom } from "../../types";
 import styles from "./style";
 import { useNavigation } from "@react-navigation/native";
-import Navigation from "../../navigation";
 
 export type ChatListItemProps = {
   chatRoom: ChatRoom;
