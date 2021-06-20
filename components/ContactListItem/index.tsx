@@ -22,14 +22,14 @@ const ContactListItem = (props: ContactListItemProps) => {
       const currentUser = await firebase
         .firestore()
         .collection("users")
-        .where("id", "==", currentUserAuth?.uid)
+        .doc(currentUserAuth?.uid)
         .get();
 
-      const userData = currentUser.docs[0].data();
-
+      const userData = currentUser.data();
+      
       //  check chat room is exists
-      const idPosible1 = user.id + userData.id;
-      const idPosible2 = userData.id + user.id;
+      const idPosible1 = user.id + userData?.id;
+      const idPosible2 = userData?.id + user.id;
 
       const checkChatRoom1 = await firebase
         .firestore()
@@ -43,15 +43,15 @@ const ContactListItem = (props: ContactListItemProps) => {
         .doc(idPosible2)
         .get();
 
-      let chatRoomId = user.id + userData.id;
+      let chatRoomId = user.id + userData?.id;
       if (!checkChatRoom1.exists && !checkChatRoom2.exists) {
         const chatRoom = {
           id: chatRoomId,
           user: [
             {
-              id: userData.id,
-              name: userData.name,
-              imageUri: userData.imageUri,
+              id: userData?.id,
+              name: userData?.name,
+              imageUri: userData?.imageUri,
             },
             {
               id: user.id,

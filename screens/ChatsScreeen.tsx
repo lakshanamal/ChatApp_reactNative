@@ -9,7 +9,6 @@ import firebase from "../firebaseConfig";
 
 export default function ChatsScreen() {
   const [chatList, setChatList] = useState<Array<{}>>([]);
-  // const [isEmpty, setIsEmpty] = useState(true);
   useEffect(() => {
     const getChatList = async () => {
       const currentUserAuth = firebase.auth().currentUser;

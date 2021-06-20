@@ -5,14 +5,14 @@ import {
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
-import { ColorSchemeName, View } from "react-native";
+import { ColorSchemeName, TouchableOpacity, View } from "react-native";
 import Colors from "../constants/Colors";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import ChatRoomScreen from "../screens/ChatRoomScreen";
 import ContactScreen from "../screens/Contact";
 import { RootStackParamList } from "../types";
 import BottomTabNavigator from "./MainTabNavigator";
-import LinkingConfiguration from "./LinkingConfiguration";
+import { IoIosArrowBack } from "react-icons/io";
 
 import {
   Octicons,
@@ -20,6 +20,7 @@ import {
   MaterialIcons,
   FontAwesome5,
 } from "@expo/vector-icons";
+import { Button } from "react-native-paper";
 
 export default function Navigation({
   colorScheme,
@@ -76,7 +77,7 @@ function RootNavigator() {
       <Stack.Screen
         name="ChatRoom"
         component={ChatRoomScreen}
-        options={({ route }: { route: any }) => ({
+        options={({ navigation, route }) => ({
           title: route.params.name,
           headerRight: () => {
             return (
@@ -98,6 +99,23 @@ function RootNavigator() {
                 />
               </View>
             );
+          },
+          headerLeft: () => {
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("Root");
+                }}
+              >
+                <IoIosArrowBack
+                  name="IoChevronBackCircleSharp"
+                  size={18}
+                  color={"white"}
+                />
+              </TouchableOpacity>
+            );
+            // <FontAwesome5 name="video" size={18} color={"white"} />
+            // <Text>Hello</Text>;
           },
         })}
       />
