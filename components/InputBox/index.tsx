@@ -53,7 +53,7 @@ const InputBox = () => {
             {
               id: "m1",
               content: message,
-              // createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+              createdAt: firebase.firestore.Timestamp.now(),
               user: {
                 id: currentUser?.id,
                 name: currentUser?.name,
