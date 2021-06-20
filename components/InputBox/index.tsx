@@ -34,35 +34,39 @@ const InputBox = () => {
       .doc(String(currentUserAuth))
       .get()
       .then((docs) => {
-        const currentUser = docs.data();
-        const newMessage = {
-          id: id,
-          users: [
-            {
-              id: currentUser?.id,
-              name: currentUser?.name,
-              imageUri: currentUser?.imageUri,
-            },
-            {
-              id: user.id,
-              name: user.name,
-              imageUri: user.imageUri,
-            },
-          ],
-          message: [
-            {
-              id: "m1",
-              content: message,
-              createdAt: firebase.firestore.Timestamp.now(),
-              user: {
+        if (docs.exists) {
+        } else {
+          const currentUser = docs.data();
+          const newMessage = {
+            id: id,
+            users: [
+              {
                 id: currentUser?.id,
                 name: currentUser?.name,
+                imageUri: currentUser?.imageUri,
               },
-            },
-          ],
-        };
+              {
+                id: user.id,
+                name: user.name,
+                imageUri: user.imageUri,
+              },
+            ],
+            message: [
+              {
+                id: "m1",
+                content: message,
+                createdAt: firebase.firestore.Timestamp.now(),
+                user: {
+                  id: currentUser?.id,
+                  name: currentUser?.name,
+                },
+              },
+            ],
+          };
 
-        firebase.firestore().collection("chats").doc(id).set({ newMessage });
+          firebase.firestore().collection("chats").doc(id).set({ newMessage });
+        }
+
         // console.log(newMessage);
       });
     // console.log(currentUser);
