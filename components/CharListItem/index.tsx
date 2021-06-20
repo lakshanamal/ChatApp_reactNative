@@ -1,5 +1,5 @@
 import moment from "moment";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, TouchableWithoutFeedback } from "react-native";
 import { ChatRoom } from "../../types";
 import styles from "./style";
@@ -7,12 +7,15 @@ import { useNavigation } from "@react-navigation/native";
 
 export type ChatListItemProps = {
   chatRoom: ChatRoom;
+  isUser: number;
 };
 
 const ChatListItem = (props: ChatListItemProps) => {
-  const { chatRoom } = props;
+  const { chatRoom, isUser } = props;
+
   const navigation = useNavigation();
-  const user = chatRoom.user[1];
+
+  const user = chatRoom.user[isUser];
 
   const onClick = () => {
     navigation.navigate("ChatRoom", { id: chatRoom.id, name: user.name });
