@@ -53,7 +53,7 @@ const InputBox = () => {
             {
               id: "m1",
               content: message,
-              // createdAt: ,
+              // createdAt: firebase.firestore.FieldValue.serverTimestamp(),
               user: {
                 id: currentUser?.id,
                 name: currentUser?.name,
@@ -61,6 +61,9 @@ const InputBox = () => {
             },
           ],
         };
+
+        firebase.firestore().collection("chats").doc(id).set({ newMessage });
+        // console.log(newMessage);
       });
     // console.log(currentUser);
   };
