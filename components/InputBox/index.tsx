@@ -34,9 +34,26 @@ const InputBox = () => {
       .doc(String(currentUserAuth))
       .get()
       .then((docs) => {
+        const currentUser = docs.data();
         if (docs.exists) {
+          const newMessage = {
+            id: "m2",
+            content: message,
+            createAt: firebase.firestore.Timestamp.now(),
+            user: {
+              id: currentUser?.id,
+              name: currentUser?.name,
+            },
+          };
+          firebase
+            .firestore()
+            .collection("chats")
+            .doc(id)
+            .update({
+              message: firebase.firestore.FieldValue.arrayUnion(newMessage),
+            });
+          console.log("hi");
         } else {
-          const currentUser = docs.data();
           const newMessage = {
             id: id,
             users: [
@@ -64,7 +81,7 @@ const InputBox = () => {
             ],
           };
 
-          firebase.firestore().collection("chats").doc(id).set({ newMessage });
+          firebase.firestore().collection("chats").doc(id).set(newMessage);
         }
 
         // console.log(newMessage);
