@@ -9,6 +9,7 @@ export default function ChatsScreen() {
   const [chatList, setChatList] = useState([]);
   const [isCurrentUser, setIsCurrentUser] = useState(0);
 
+
   useEffect(() => {
     const getChatList = async () => {
       const currentUserAuth = firebase.auth().currentUser;

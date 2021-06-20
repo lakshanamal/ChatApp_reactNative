@@ -15,10 +15,11 @@ const ChatListItem = (props: ChatListItemProps) => {
 
   const navigation = useNavigation();
 
+
   const user = chatRoom.user[isUser];
 
   const onClick = () => {
-    navigation.navigate("ChatRoom", { id: chatRoom.id, name: user.name });
+    navigation.navigate("ChatRoom", { id: chatRoom.id, user:user});
   };
   return (
     <TouchableWithoutFeedback onPress={onClick}>
