@@ -7,26 +7,26 @@ import firebase from "../../firebaseConfig";
 
 export type ContactListItemProps = {
   user: User;
+  curUser: string;
 };
 
 const ContactListItem = (props: ContactListItemProps) => {
   const navigation = useNavigation();
   // user in the constact list
 
-  const { user } = props;
+  const { user, curUser } = props;
 
   const onClick = async () => {
     try {
       // get current user
-      const currentUserAuth = await firebase.auth().currentUser;
       const currentUser = await firebase
         .firestore()
         .collection("users")
-        .doc(currentUserAuth?.uid)
+        .doc(curUser)
         .get();
 
       const userData = currentUser.data();
-      
+
       //  check chat room is exists
       const idPosible1 = user.id + userData?.id;
       const idPosible2 = userData?.id + user.id;
@@ -72,7 +72,7 @@ const ContactListItem = (props: ContactListItemProps) => {
         await firebase
           .firestore()
           .collection("users")
-          .doc(currentUserAuth?.uid)
+          .doc(curUser)
           .update({
             chatRoomIds: firebase.firestore.FieldValue.arrayUnion(chatRoomId),
           });

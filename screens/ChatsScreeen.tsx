@@ -12,7 +12,6 @@ export default function ChatsScreen() {
   useEffect(() => {
     const getChatList = async () => {
       const currentUserAuth = firebase.auth().currentUser;
-
       await firebase
         .firestore()
         .collection("users")

@@ -7,10 +7,11 @@ import { useEffect } from "react";
 
 export default function Contact() {
   const [users, setUsers] = useState<Array<{}>>([]);
-
+  const [curUser,setCurUser]=useState("");
   useEffect(() => {
     const getUsers = async () => {
       const currentUser = firebase.auth().currentUser;
+      setCurUser(currentUser.uid);
       await firebase
         .firestore()
         .collection("users")
@@ -31,7 +32,7 @@ export default function Contact() {
       <FlatList
         data={users}
         style={{ width: "100%" }}
-        renderItem={({ item }) => <ContactListItem user={item} />}
+        renderItem={({ item }) => <ContactListItem curUser={curUser} user={item} />}
       />
     </View>
   );
