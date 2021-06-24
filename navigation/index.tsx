@@ -20,7 +20,6 @@ import {
   MaterialIcons,
   FontAwesome5,
 } from "@expo/vector-icons";
-import { Button } from "react-native-paper";
 
 export default function Navigation({
   colorScheme,
@@ -35,6 +34,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator
+      // initialRouteName="ChatRoom"
       screenOptions={{
         headerStyle: {
           backgroundColor: Colors.light.tint,
@@ -77,47 +77,47 @@ function RootNavigator() {
       <Stack.Screen
         name="ChatRoom"
         component={ChatRoomScreen}
-        options={({ navigation, route }) => ({
-          title: route.params.name,
-          headerRight: () => {
-            return (
-              <View
-                style={{
-                  flexDirection: "row",
-                  width: 140,
-                  justifyContent: "space-around",
-                  marginRight: 10,
-                }}
-              >
-                <FontAwesome5 name="video" size={18} color={"white"} />
-                <MaterialIcons name="call" size={18} color={"white"} />
+        // options={({ navigation, route }) => ({
+        // title: route.params.name,
+        // headerRight: () => {
+        //   return (
+        //     <View
+        //       style={{
+        //         flexDirection: "row",
+        //         width: 140,
+        //         justifyContent: "space-around",
+        //         marginRight: 10,
+        //       }}
+        //     >
+        //       <FontAwesome5 name="video" size={18} color={"white"} />
+        //       <MaterialIcons name="call" size={18} color={"white"} />
 
-                <MaterialCommunityIcons
-                  name="dots-vertical"
-                  size={18}
-                  color="white"
-                />
-              </View>
-            );
-          },
-          headerLeft: () => {
-            return (
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("Root");
-                }}
-              >
-                <IoIosArrowBack
-                  name="IoChevronBackCircleSharp"
-                  size={18}
-                  color={"white"}
-                />
-              </TouchableOpacity>
-            );
-            // <FontAwesome5 name="video" size={18} color={"white"} />
-            // <Text>Hello</Text>;
-          },
-        })}
+        //       <MaterialCommunityIcons
+        //         name="dots-vertical"
+        //         size={18}
+        //         color="white"
+        //       />
+        //     </View>
+        //   );
+        // },
+        // headerLeft: () => {
+        //   return (
+        //     <TouchableOpacity
+        //       // onPress={() => {
+        //       //   navigation.navigate("Root");
+        //       // }}
+        //     >
+        //       <IoIosArrowBack
+        //         name="IoChevronBackCircleSharp"
+        //         size={18}
+        //         color={"white"}
+        //       />
+        //     </TouchableOpacity>
+        //   );
+        //   // <FontAwesome5 name="video" size={18} color={"white"} />
+        //   // <Text>Hello</Text>;
+        // },
+        // })}
       />
 
       <Stack.Screen name="Contacts" component={ContactScreen} />

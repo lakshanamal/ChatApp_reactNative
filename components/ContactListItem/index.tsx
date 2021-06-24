@@ -89,7 +89,7 @@ const ContactListItem = (props: ContactListItemProps) => {
         chatRoomId = checkChatRoom2.id;
       }
 
-      navigation.navigate("ChatRoom", { id: chatRoomId.id, name: user.name });
+      navigation.navigate("ChatRoom", { id: chatRoomId, user: user,currentUser: userData, });
     } catch (err) {
       console.log(err);
     }

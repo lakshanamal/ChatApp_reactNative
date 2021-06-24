@@ -4,16 +4,18 @@ import { Text } from "react-native";
 import { Message } from "../../types";
 import { View } from "../Themed";
 import styles from "./style";
-
+import { useRoute } from "@react-navigation/native";
 export type ChatMessageProps = {
   message: Message;
 };
 
 const ChatMessage = (props: ChatMessageProps) => {
+  const route = useRoute();
+  const { currentUser } = route.params;
   const { message } = props;
 
   const isMyMessage = () => {
-    return message.user.id === "u1";
+    return message.user.id === currentUser.id;
   };
   return (
     <View style={styles.container}>

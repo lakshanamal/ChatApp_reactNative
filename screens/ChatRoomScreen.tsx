@@ -18,6 +18,7 @@ const ChatRoomScreen = () => {
       .doc(id)
       .onSnapshot((docs) => {
         let data = docs.data()?.message;
+  
         data = data.reverse();
         setMessage(data);
       });
@@ -30,7 +31,7 @@ const ChatRoomScreen = () => {
         inverted
         renderItem={({ item }) => <ChatMessage message={item} />}
       />
-
+      {/* <Text>Hello</Text> */}
       <InputBox />
     </ImageBackground>
   );
