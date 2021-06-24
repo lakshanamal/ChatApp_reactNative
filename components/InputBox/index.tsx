@@ -52,7 +52,7 @@ const InputBox = () => {
             .update({
               message: firebase.firestore.FieldValue.arrayUnion(newMessage),
             });
-          console.log("hi");
+          
         } else {
           const newMessage = {
             id: id,

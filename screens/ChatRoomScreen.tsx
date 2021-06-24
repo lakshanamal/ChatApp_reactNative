@@ -12,7 +12,7 @@ const ChatRoomScreen = () => {
   const route = useRoute([]);
   const { id } = route.params;
 
-  const [message, setMessage] = useState([]);
+  const [message, setMessage] = useState([""]);
   useEffect(() => {
     firebase
       .firestore()
@@ -20,11 +20,10 @@ const ChatRoomScreen = () => {
       .doc(id)
       .get()
       .then((docs) => {
-        console.log(docs.data().message);
         setMessage(docs.data());
       });
   }, []);
-  console.log(message.message);
+
   return (
     <ImageBackground style={{ width: "100%", height: "100%" }} source={BG}>
       <FlatList
@@ -33,7 +32,7 @@ const ChatRoomScreen = () => {
             // backgroundColor: "white",
           }
         }
-        data={message.message}
+        data={message?.message}
         inverted
         renderItem={({ item }) => <ChatMessage message={item} />}
       />
