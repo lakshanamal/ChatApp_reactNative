@@ -20,6 +20,7 @@ export default function ChatsScreen() {
         .onSnapshot((doc) => {
           setCurrentUser(doc.data());
           const chatroomsId = doc.data()?.chatRoomIds;
+          // setChatList([]);
           for (var i = 0; i < chatroomsId.length; i++) {
             firebase
               .firestore()
@@ -33,7 +34,7 @@ export default function ChatsScreen() {
                   } else {
                     setIsCurrentUser(0);
                   }
-                  setChatList((prevState) => [...prevState, docs.data()]);
+                  setChatList([...chatList, docs.data()]);
                 }
               });
           }

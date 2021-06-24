@@ -81,6 +81,12 @@ const InputBox = () => {
           firebase.firestore().collection("chats").doc(id).set(newMessage);
         }
       });
+
+    firebase
+      .firestore()
+      .collection("chatrooms")
+      .doc(id)
+      .update({ lastMessage: message });
     setMessage("");
     // console.log(currentUser);
   };
