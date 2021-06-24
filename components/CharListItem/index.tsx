@@ -1,25 +1,29 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, TouchableWithoutFeedback } from "react-native";
-import { ChatRoom } from "../../types";
+import { ChatRoom, User } from "../../types";
 import styles from "./style";
 import { useNavigation } from "@react-navigation/native";
 
 export type ChatListItemProps = {
   chatRoom: ChatRoom;
   isUser: number;
+  currentUser: User;
 };
 
 const ChatListItem = (props: ChatListItemProps) => {
-  const { chatRoom, isUser } = props;
+  const { chatRoom, isUser, currentUser } = props;
 
   const navigation = useNavigation();
-
 
   const user = chatRoom.user[isUser];
 
   const onClick = () => {
-    navigation.navigate("ChatRoom", { id: chatRoom.id, user:user});
+    navigation.navigate("ChatRoom", {
+      id: chatRoom.id,
+      user: user,
+      currentUser: currentUser,
+    });
   };
   return (
     <TouchableWithoutFeedback onPress={onClick}>

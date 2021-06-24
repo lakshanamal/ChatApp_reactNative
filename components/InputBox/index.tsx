@@ -11,6 +11,7 @@ import { Text, TextInput, TouchableOpacity } from "react-native";
 import { Message } from "../../types";
 import { View } from "../Themed";
 import styles from "./style";
+import uuid from "react-native-uuid";
 
 export type ChatMessageProps = {
   message: Message;
@@ -19,22 +20,14 @@ export type ChatMessageProps = {
 const InputBox = () => {
   const [message, setMessage] = useState("");
   const route = useRoute();
-  const { id, user } = route.params;
-  console.log(user);
+  const { id, user,currentUser } = route.params;
 
   const onMicrophonePress = () => {
     console.warn("Microphone");
   };
 
   const onSendPress = () => {
-    const currentUserAuth = firebase.auth().currentUser?.uid;
-    firebase
-      .firestore()
-      .collection("users")
-      .doc(String(currentUserAuth))
-      .get()
-      .then((docs) => {
-        const currentUser = docs.data();
+
         firebase
           .firestore()
           .collection("chats")
@@ -43,7 +36,7 @@ const InputBox = () => {
           .then((chat) => {
             if (chat.exists) {
               const newMessage = {
-                id: "m2",
+                id: uuid.v4(),
                 content: message,
                 createAt: firebase.firestore.Timestamp.now(),
                 user: {
@@ -51,7 +44,6 @@ const InputBox = () => {
                   name: currentUser?.name,
                 },
               };
-
               firebase
                 .firestore()
                 .collection("chats")
@@ -76,7 +68,7 @@ const InputBox = () => {
                 ],
                 message: [
                   {
-                    id: "m1",
+                    id: uuid.v4(),
                     content: message,
                     createdAt: firebase.firestore.Timestamp.now(),
                     user: {
@@ -90,7 +82,6 @@ const InputBox = () => {
               firebase.firestore().collection("chats").doc(id).set(newMessage);
             }
           });
-      });
     setMessage("");
     // console.log(currentUser);
   };

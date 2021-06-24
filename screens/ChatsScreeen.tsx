@@ -8,7 +8,7 @@ import firebase from "../firebaseConfig";
 export default function ChatsScreen() {
   const [chatList, setChatList] = useState([]);
   const [isCurrentUser, setIsCurrentUser] = useState(0);
-
+  const [currentUser, setCurrentUser] = useState([]);
 
   useEffect(() => {
     const getChatList = async () => {
@@ -18,8 +18,8 @@ export default function ChatsScreen() {
         .collection("users")
         .doc(currentUserAuth?.uid)
         .onSnapshot((doc) => {
+          setCurrentUser(doc.data());
           const chatroomsId = doc.data()?.chatRoomIds;
-
           for (var i = 0; i < chatroomsId.length; i++) {
             firebase
               .firestore()
@@ -41,7 +41,7 @@ export default function ChatsScreen() {
     };
     getChatList();
   }, []);
-
+ 
   return (
     <View style={styles.container}>
       {chatList && (
@@ -49,7 +49,7 @@ export default function ChatsScreen() {
           data={chatList}
           style={{ width: "100%" }}
           renderItem={({ item }) => (
-            <ChatListItem chatRoom={item} isUser={isCurrentUser} />
+            <ChatListItem chatRoom={item} isUser={isCurrentUser} currentUser={currentUser} />
           )}
         />
       )}
