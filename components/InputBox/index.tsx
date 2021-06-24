@@ -20,68 +20,67 @@ export type ChatMessageProps = {
 const InputBox = () => {
   const [message, setMessage] = useState("");
   const route = useRoute();
-  const { id, user,currentUser } = route.params;
+  const { id, user, currentUser } = route.params;
 
   const onMicrophonePress = () => {
     console.warn("Microphone");
   };
 
   const onSendPress = () => {
-
-        firebase
-          .firestore()
-          .collection("chats")
-          .doc(id)
-          .get()
-          .then((chat) => {
-            if (chat.exists) {
-              const newMessage = {
+    firebase
+      .firestore()
+      .collection("chats")
+      .doc(id)
+      .get()
+      .then((chat) => {
+        if (chat.exists) {
+          const newMessage = {
+            id: uuid.v4(),
+            content: message,
+            createdAt: firebase.firestore.Timestamp.now(),
+            user: {
+              id: currentUser?.id,
+              name: currentUser?.name,
+            },
+          };
+          firebase
+            .firestore()
+            .collection("chats")
+            .doc(id)
+            .update({
+              message: firebase.firestore.FieldValue.arrayUnion(newMessage),
+            });
+        } else {
+          const newMessage = {
+            id: id,
+            users: [
+              {
+                id: currentUser?.id,
+                name: currentUser?.name,
+                imageUri: currentUser?.imageUri,
+              },
+              {
+                id: user.id,
+                name: user.name,
+                imageUri: user.imageUri,
+              },
+            ],
+            message: [
+              {
                 id: uuid.v4(),
                 content: message,
-                createAt: firebase.firestore.Timestamp.now(),
+                createdAt: firebase.firestore.Timestamp.now(),
                 user: {
                   id: currentUser?.id,
                   name: currentUser?.name,
                 },
-              };
-              firebase
-                .firestore()
-                .collection("chats")
-                .doc(id)
-                .update({
-                  message: firebase.firestore.FieldValue.arrayUnion(newMessage),
-                });
-            } else {
-              const newMessage = {
-                id: id,
-                users: [
-                  {
-                    id: currentUser?.id,
-                    name: currentUser?.name,
-                    imageUri: currentUser?.imageUri,
-                  },
-                  {
-                    id: user.id,
-                    name: user.name,
-                    imageUri: user.imageUri,
-                  },
-                ],
-                message: [
-                  {
-                    id: uuid.v4(),
-                    content: message,
-                    createdAt: firebase.firestore.Timestamp.now(),
-                    user: {
-                      id: currentUser?.id,
-                      name: currentUser?.name,
-                    },
-                  },
-                ],
-              };
+              },
+            ],
+          };
 
-              firebase.firestore().collection("chats").doc(id).set(newMessage);
-            }
-          });
+          firebase.firestore().collection("chats").doc(id).set(newMessage);
+        }
+      });
     setMessage("");
     // console.log(currentUser);
   };

@@ -19,9 +19,8 @@ const ChatRoomScreen = () => {
       .onSnapshot((docs) => {
         setMessage(docs.data());
       });
-
   }, []);
-
+  console.log("hellow");
   return (
     <ImageBackground style={{ width: "100%", height: "100%" }} source={BG}>
       <FlatList
