@@ -11,7 +11,6 @@ export type ChatMessageProps = {
 
 const ChatMessage = (props: ChatMessageProps) => {
   const { message } = props;
-  console.log(message.createdAt?.seconds);
 
   const isMyMessage = () => {
     return message.user.id === "u1";
@@ -30,7 +29,9 @@ const ChatMessage = (props: ChatMessageProps) => {
       >
         {!isMyMessage() && <Text style={styles.name}>{message.user.name}</Text>}
         <Text style={styles.message}>{message.content}</Text>
-        {/* <Text style={styles.time}>{moment(message.createdAt, "h:mm")}</Text> */}
+        <Text style={styles.time}>
+          {moment(message.createdAt.toDate().toString()).format("h:mm")}
+        </Text>
       </View>
     </View>
   );

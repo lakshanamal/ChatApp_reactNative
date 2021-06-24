@@ -17,14 +17,16 @@ const ChatRoomScreen = () => {
       .collection("chats")
       .doc(id)
       .onSnapshot((docs) => {
-        setMessage(docs.data());
+        let data = docs.data()?.message;
+        data = data.reverse();
+        setMessage(data);
       });
   }, []);
-  console.log("hellow");
+
   return (
     <ImageBackground style={{ width: "100%", height: "100%" }} source={BG}>
       <FlatList
-        data={message?.message}
+        data={message}
         inverted
         renderItem={({ item }) => <ChatMessage message={item} />}
       />

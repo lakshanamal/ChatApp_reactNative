@@ -37,7 +37,9 @@ export type User = {
   imageUri: String;
   status: String;
 };
-
+export type Date = {
+  seconds: number;
+};
 export type Message = {
   id: String;
   content: String;
