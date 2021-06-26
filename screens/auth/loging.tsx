@@ -9,10 +9,11 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Welcome from "../../assets/images/welcome.png";
-import Hello from "../../assets/images/Hello.mp4";
+import Hello from "../../assets/images/welcome.png";
 import Title from "../../assets/images/title.png";
 import * as Font from "expo-font";
 import { Video, AVPlaybackStatus } from "expo-av";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 
 const LoginScreen = ({ navigation }: { navigation: any }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -31,7 +32,7 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
         style={{ width: 350, height: 350 }}
         source={Hello}
         resizeMode="contain"
-        shouldPlay
+        shouldPlay={true}
       />
       <Image
         source={Title}
@@ -84,6 +85,10 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
         >
           Send OTP
         </Text>
+        <FontAwesome
+          name="chevron-right"
+          style={{ fontSize: 24, color: "white" }}
+        />
       </TouchableOpacity>
     </View>
   );
@@ -105,6 +110,11 @@ const styles = StyleSheet.create({
     width: "50%",
     borderRadius: 7,
     paddingVertical: 15,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    textAlign: "center",
+    justifyContent: "space-around",
   },
   btnDisable: {
     backgroundColor: "gray",
@@ -112,13 +122,17 @@ const styles = StyleSheet.create({
     width: "50%",
     borderRadius: 7,
     paddingVertical: 15,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    textAlign: "center",
+    justifyContent: "space-around",
   },
   intro: {
     width: "80%",
     textAlign: "left",
     marginTop: 20,
     color: "#A3B7C8",
-    fontFamily: "Gudea",
     fontWeight: "700",
     fontSize: 18,
   },
