@@ -9,11 +9,14 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Welcome from "../../assets/images/welcome.png";
+import Hello from "../../assets/images/Hello.mp4";
 import Title from "../../assets/images/title.png";
 import * as Font from "expo-font";
+import { Video, AVPlaybackStatus } from "expo-av";
 
 const LoginScreen = ({ navigation }: { navigation: any }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
+  const video = React.useRef(null);
   useEffect(() => {
     (async () =>
       await Font.loadAsync({
@@ -23,7 +26,13 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
 
   return (
     <View style={styles.container}>
-      <Image source={Welcome} style={{ width: 350, height: 350 }} />
+      <Video
+        ref={video}
+        style={{ width: 350, height: 350 }}
+        source={Hello}
+        resizeMode="contain"
+        shouldPlay
+      />
       <Image
         source={Title}
         style={{
