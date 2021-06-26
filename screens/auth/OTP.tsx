@@ -24,7 +24,9 @@ const OPT = ({ navigation, route }) => {
   const phoneNumber = "0755535393";
   const recaptchaVerifier = useRef(null);
   const attemptInvisibleVerification = false;
-  const [verificationCode, setVerificationCode] = useState("");
+  const [verificationCode, setVerificationCode] = useState(
+    new Array(6).fill("")
+  );
   const [verificationId, setVerificationId] = useState("");
 
   const firebaseConfig = firebase.apps.length
@@ -71,6 +73,18 @@ const OPT = ({ navigation, route }) => {
     // getOTP();
   }, []);
 
+  function handleChange(element, index) {
+    if (isNaN(element.value)) return false;
+
+    setVerificationCode([
+      ...verificationCode.map((d, idx) => (idx === index ? element.value : d)),
+    ]);
+
+    if (element.nextSibling) {
+      element.nextSibling.focus();
+    }
+  }
+
   return (
     <View style={style.container}>
       <FirebaseRecaptchaVerifierModal
@@ -105,43 +119,19 @@ const OPT = ({ navigation, route }) => {
           justifyContent: "space-around",
         }}
       >
-        <TextInput
-          maxLength={1}
-          ref={""}
-          style={style.inputOtp}
-          // editable={!!verificationId}
-          onChangeText={setVerificationCode}
-        />
-        <TextInput
-          maxLength={1}
-          style={style.inputOtp}
-          // editable={!!verificationId}
-          onChangeText={setVerificationCode}
-        />
-        <TextInput
-          maxLength={1}
-          style={style.inputOtp}
-          // editable={!!verificationId}
-          onChangeText={setVerificationCode}
-        />
-        <TextInput
-          maxLength={1}
-          style={style.inputOtp}
-          // editable={!!verificationId}
-          onChangeText={setVerificationCode}
-        />
-        <TextInput
-          maxLength={1}
-          style={style.inputOtp}
-          // editable={!!verificationId}
-          onChangeText={setVerificationCode}
-        />
-        <TextInput
-          maxLength={1}
-          style={style.inputOtp}
-          // editable={!!verificationId}
-          onChangeText={setVerificationCode}
-        />
+        {verificationCode.map((data, index) => {
+          return (
+            <TextInput
+              maxLength={1}
+              key={index}
+              value={data}
+              style={style.inputOtp}
+              onChange={(e) => handleChange(e.target, index)}
+              // editable={!!verificationId}
+              // onChangeText={setVerificationCode}
+            />
+          );
+        })}
       </View>
 
       <Text
