@@ -8,8 +8,9 @@ import useColorScheme from "./hooks/useColorScheme";
 import MainNavigator from "./navigation/index";
 import RegisterNavigator from "./navigation/RegisterNavigation";
 import firebase from "./firebaseConfig";
-import { ActivityIndicator, ImageBackground, View } from "react-native";
+import { ActivityIndicator, ImageBackground, View, Image } from "react-native";
 import BG from "./assets/images/splash3.png";
+import Logo from "./assets/images/lo.png";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -46,13 +47,25 @@ export default function App() {
     getUser();
   }, []);
 
-  if (isLoadingComplete || !isAuthReady) {
+  if (!isLoadingComplete || !isAuthReady) {
     return (
-      <ImageBackground source={BG} style={{width:"100%",height:"100%"}}>
+      <ImageBackground source={BG} style={{ width: "100%", height: "100vh" }}>
         <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          <ActivityIndicator size="large" color="black" />
+          <Image
+            source={Logo}
+            style={{
+              width: 300,
+              height: 300,
+              resizeMode: "contain",
+            }}
+          />
+          <ActivityIndicator size="large" color="white" />
         </View>
       </ImageBackground>
     );
