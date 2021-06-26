@@ -8,7 +8,8 @@ import useColorScheme from "./hooks/useColorScheme";
 import MainNavigator from "./navigation/index";
 import RegisterNavigator from "./navigation/RegisterNavigation";
 import firebase from "./firebaseConfig";
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, ImageBackground, View } from "react-native";
+import BG from "./assets/images/splash3.png";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -16,59 +17,56 @@ export default function App() {
   const [isAuthReady, setIsAuthReady] = useState(false);
   const [isAuthenticated, setisAuthenticated] = useState(false);
 
-
   useEffect(() => {
     const getUser = () => {
       firebase.auth().onAuthStateChanged(function (user) {
-       if (user !== null) {
-         firebase
-           .firestore()
-           .collection("users")
-           .where("id", "==", user?.uid)
-           .get()
-           .then((snapshot) => {
-             if (!snapshot.empty) {
-               console.log(" matching documents.");
-               setisAuthenticated(!!user);
-               setIsAuthReady(true);
-               return;
-             } else {
-               setisAuthenticated(false);
-               setIsAuthReady(true);
-               console.log(user?.uid);
-               console.log("no matching documents.");
-               return;
-             }
-           });
-       } else {
-         setIsAuthReady(true);
-         return;
-       }
-     });
-     console.log("check");
-   };
+        if (user !== null) {
+          firebase
+            .firestore()
+            .collection("users")
+            .where("id", "==", user?.uid)
+            .get()
+            .then((snapshot) => {
+              if (!snapshot.empty) {
+                setisAuthenticated(!!user);
+                setIsAuthReady(true);
+                return;
+              } else {
+                setisAuthenticated(false);
+                setIsAuthReady(true);
+                return;
+              }
+            });
+        } else {
+          setIsAuthReady(true);
+          return;
+        }
+      });
+    };
     getUser();
- 
   }, []);
 
-  if (!isLoadingComplete || !isAuthReady) {
+  if (isLoadingComplete || !isAuthReady) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color="black" />
-      </View>
+      <ImageBackground source={BG} style={{width:"100%",height:"100%"}}>
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <ActivityIndicator size="large" color="black" />
+        </View>
+      </ImageBackground>
     );
   } else {
-    console.log("anith ");
     return (
       <SafeAreaProvider>
         <NavigationContainer>
-          {isAuthenticated ? (
+          {/* {isAuthenticated ? (
             <MainNavigator colorScheme={colorScheme} />
           ) : (
             <RegisterNavigator />
-          )}
+          )} */}
           <StatusBar />
-          {/* <RegisterNavigator /> */}
+          <RegisterNavigator />
         </NavigationContainer>
       </SafeAreaProvider>
     );

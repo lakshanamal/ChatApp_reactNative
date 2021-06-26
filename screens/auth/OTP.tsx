@@ -93,7 +93,10 @@ const OPT = ({ navigation, route }) => {
         onChangeText={setVerificationCode}
       />
       <Text style={{ color: "#a7abbb", marginVertical: 10 }}>
-        Enter 6-digit code
+      <svg xmlns="http://www.w3.org/2000/svg" width="187" height="21" viewBox="0 0 187 21">
+  <text id="ENter_phone_number" data-name="ENter phone number" transform="translate(0 16)" fill="#202020" font-size="20" font-family="Bahnschrift" font-weight="700"><tspan x="0" y="0">ENter phone number</tspan></text>
+</svg>
+
       </Text>
       <TouchableOpacity
         style={verificationCode.length == 6 ? style.btn : style.btnDisable}
