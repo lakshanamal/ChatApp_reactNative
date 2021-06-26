@@ -107,6 +107,7 @@ const OPT = ({ navigation, route }) => {
       >
         <TextInput
           maxLength={1}
+          ref={""}
           style={style.inputOtp}
           // editable={!!verificationId}
           onChangeText={setVerificationCode}
