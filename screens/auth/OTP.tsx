@@ -40,6 +40,8 @@ const OPT = ({ navigation, route }) => {
       : undefined
   );
   const verifyPhone = async () => {
+    console.log(verificationCode.join(""));
+
     // try {
     //   const credential = firebase.auth.PhoneAuthProvider.credential(
     //     verificationId,
@@ -50,7 +52,7 @@ const OPT = ({ navigation, route }) => {
     // } catch (err) {
     //   showMessage({ text: `Error: ${err.message}` });
     // }
-    navigation.navigate("Profile");
+    // navigation.navigate("Profile");
   };
 
   const getOTP = async () => {
@@ -70,12 +72,13 @@ const OPT = ({ navigation, route }) => {
   };
 
   useEffect(() => {
-    // getOTP();
+    console.log(verificationCode);
   }, []);
 
   function handleChange(element, index) {
     if (isNaN(element.value)) return false;
 
+    console.log(element.value);
     setVerificationCode([
       ...verificationCode.map((d, idx) => (idx === index ? element.value : d)),
     ]);
@@ -127,6 +130,7 @@ const OPT = ({ navigation, route }) => {
               value={data}
               style={style.inputOtp}
               onChange={(e) => handleChange(e.target, index)}
+              onFocus={(e) => e.target.select()}
               // editable={!!verificationId}
               // onChangeText={setVerificationCode}
             />
