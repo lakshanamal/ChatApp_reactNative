@@ -147,7 +147,7 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
             <Image
               source={profile}
               style={{
-                width: 30,
+                width: 35,
                 height: 30,
                 marginRight: 3,
                 marginBottom: 2,

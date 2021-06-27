@@ -8,7 +8,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import Welcome from "../../assets/images/hello.mp4";
+import Welcome from "../../assets/images/Hello.mp4";
 
 import Title from "../../assets/images/title.png";
 import * as Font from "expo-font";
@@ -70,7 +70,8 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
       </Text>
       <TouchableOpacity
         disabled={!phoneNumber}
-        style={phoneNumber.length !== 0 ? styles.btn : styles.btnDisable}
+        // style={phoneNumber.length !== 0 ? styles.btn : styles.btnDisable}
+        style={styles.btn}
         onPress={async () => {
           navigation.navigate("OTP", { phoneNumber: phoneNumber });
         }}
@@ -142,13 +143,25 @@ const styles = StyleSheet.create({
     fontSize: 17,
     width: "60%",
     // borderBottomWidth: 2,
-    shadowColor: "#A3B7C8",
-    shadowRadius: 50,
-    borderRadius: 4,
-    shadowOpacity: 0.4,
+    // shadowColor: "#A3B7C8",
+    // shadowColor: "#A3B7C8",
+    // shadowRadius: 2,
+    borderRadius: 7,
+
+    // shadowOpacity: 0.4,
     backgroundColor: "white",
     marginTop: 30,
     textAlign: "center",
     padding: 10,
+    shadowColor: "#A3B7C8",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.4,
+    shadowRadius: 16.0,
+    // color: "#A3B7C8",
+
+    elevation: 5,
   },
 });

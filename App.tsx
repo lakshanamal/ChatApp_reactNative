@@ -49,7 +49,7 @@ export default function App() {
 
   if (!isLoadingComplete || !isAuthReady) {
     return (
-      <ImageBackground source={BG} style={{ width: "100%", height: "100vh" }}>
+      <ImageBackground source={BG} style={{ width: "100%", height: "100%" }}>
         <View
           style={{
             flex: 1,
@@ -73,13 +73,13 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <NavigationContainer>
-          {/* {isAuthenticated ? (
+          {isAuthenticated ? (
             <MainNavigator colorScheme={colorScheme} />
           ) : (
             <RegisterNavigator />
-          )} */}
+          )}
           <StatusBar />
-          <RegisterNavigator />
+          {/* <MainNavigator colorScheme={colorScheme} /> */}
         </NavigationContainer>
       </SafeAreaProvider>
     );

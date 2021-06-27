@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, ImageBackground, StyleSheet } from "react-native";
 import ChatListItem from "../components/CharListItem";
 import NewMessageButton from "../components/NewMessageButton";
 import { View } from "../components/Themed";
 import firebase from "../firebaseConfig";
+import BG from "../assets/images/splash3.png";
 
 export default function ChatsScreen() {
   const [chatList, setChatList] = useState([]);
@@ -42,20 +43,31 @@ export default function ChatsScreen() {
     };
     getChatList();
   }, []);
- 
+
   return (
-    <View style={styles.container}>
-      {chatList && (
-        <FlatList
-          data={chatList}
-          style={{ width: "100%" }}
-          renderItem={({ item }) => (
-            <ChatListItem chatRoom={item} isUser={isCurrentUser} currentUser={currentUser} />
+    <ImageBackground
+      source={BG}
+      style={{ width: "100%", height: "100%", top: 0 }}
+    >
+      <View style={{ backgroundColor: "red" }}>
+        <View style={styles.container}>
+          {chatList && (
+            <FlatList
+              data={chatList}
+              style={{ width: "100%" }}
+              renderItem={({ item }) => (
+                <ChatListItem
+                  chatRoom={item}
+                  isUser={isCurrentUser}
+                  currentUser={currentUser}
+                />
+              )}
+            />
           )}
-        />
-      )}
-      <NewMessageButton />
-    </View>
+          <NewMessageButton />
+        </View>
+      </View>
+    </ImageBackground>
   );
 }
 
@@ -64,7 +76,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "white",
+    // backgroundColor: "white",
     color: "black",
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    // marginTop: 50,
+    zIndex: 1000,
   },
 });
