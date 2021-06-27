@@ -18,12 +18,6 @@ import { FontAwesome, Ionicons } from "@expo/vector-icons";
 const LoginScreen = ({ navigation }: { navigation: any }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const video = React.useRef(null);
-  useEffect(() => {
-    (async () =>
-      await Font.loadAsync({
-        Gudea: require("../../assets/fonts/Gudea-Regular.ttf"),
-      }))();
-  }, []);
 
   return (
     <View style={styles.container}>
@@ -142,13 +136,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     fontSize: 17,
     width: "60%",
-    // borderBottomWidth: 2,
-    // shadowColor: "#A3B7C8",
-    // shadowColor: "#A3B7C8",
-    // shadowRadius: 2,
     borderRadius: 7,
-
-    // shadowOpacity: 0.4,
     backgroundColor: "white",
     marginTop: 30,
     textAlign: "center",
@@ -158,10 +146,8 @@ const styles = StyleSheet.create({
       width: 0,
       height: 1,
     },
-    shadowOpacity: 0.4,
+    shadowOpacity: 0.2,
     shadowRadius: 16.0,
-    // color: "#A3B7C8",
-
     elevation: 5,
   },
 });

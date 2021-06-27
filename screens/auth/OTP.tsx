@@ -22,6 +22,7 @@ const OPT = ({ navigation, route }) => {
   // const { phoneNumber } = route.params;
   const phoneNumber = "515515";
   const video = React.useRef(null);
+
   const recaptchaVerifier = useRef(null);
   const attemptInvisibleVerification = false;
   const [verificationCode, setVerificationCode] = useState(
@@ -73,19 +74,20 @@ const OPT = ({ navigation, route }) => {
   useEffect(() => {
     // console.log(verificationCode);
     // getOTP();
+    verificationCode[0].focus();
   }, []);
 
-  function handleChange(element: any, index: Number) {
-    if (isNaN(element.value)) return false;
-
-    console.log(element.value);
-    setVerificationCode([
-      ...verificationCode.map((d, idx) => (idx === index ? element.value : d)),
-    ]);
-
-    if (element.nextSibling) {
-      element.nextSibling.focus();
+  function handleChange(value: string, index: number) {
+    if (index < verificationCode.length - 1 && value) {
+      verificationCode[index + 1].focus();
     }
+    if (index === verificationCode.length - 1) {
+      verificationCode[index].blur();
+    }
+    console.log(value);
+    setVerificationCode([
+      ...verificationCode.map((d, idx) => (idx === index ? value : d)),
+    ]);
   }
 
   return (
@@ -129,8 +131,11 @@ const OPT = ({ navigation, route }) => {
               key={index}
               value={data}
               style={style.inputOtp}
-              onChange={(e) => handleChange(e.target, index)}
-              onFocus={(e) => e.target.select()}
+              keyboardType="numeric"
+              onChangeText={(data) => {
+                handleChange(data, index);
+              }}
+              ref={(ref) => (verificationCode[index] = ref)}
               // editable={!!verificationId}
             />
           );
@@ -140,27 +145,21 @@ const OPT = ({ navigation, route }) => {
       <Text
         style={{ color: "#a7abbb", marginVertical: 10, alignItems: "center" }}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="187"
-          height="21"
-          viewBox="0 0 187 21"
+        <Text
+          style={{
+            color: "#A3B7C8",
+            fontWeight: "bold",
+            marginTop: -5,
+            marginBottom: 50,
+          }}
         >
-          <text
-            id="Enter_phone_number"
-            data-name="ENter phone number"
-            transform="translate(0 16)"
-            fill="#A3B7C8"
-            fontWeight="bold"
-          >
-            <tspan style={{ textAlign: "center" }}>Enter phone number</tspan>
-          </text>
-        </svg>
+          Enter 6 digit code
+        </Text>
       </Text>
       <TouchableOpacity
         style={verificationCode.length == 6 ? style.btn : style.btnDisable}
         disabled={verificationCode.length == 6 ? false : true}
-        onPress={verifyPhone}
+        // onPress={verifyPhone}
       >
         <Text
           style={{
@@ -250,5 +249,6 @@ const style = StyleSheet.create({
     marginTop: 30,
     textAlign: "center",
     padding: 10,
+    elevation: 5,
   },
 });
