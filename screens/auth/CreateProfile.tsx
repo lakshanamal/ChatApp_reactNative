@@ -18,6 +18,8 @@ import profile from "../../assets/images/profile2.png";
 import * as Font from "expo-font";
 import { Video } from "expo-av";
 import Profile from "../../assets/images/profile.mp4";
+import info from "../../assets/images/profile.png";
+import { FontAwesome } from "@expo/vector-icons";
 
 const CreateProfile = ({ navigation }: { navigation: any }) => {
   const [name, setName] = useState("");
@@ -108,14 +110,24 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
         resizeMode="contain"
         shouldPlay={true}
       />
-      <Text style={style.title}>Profile Info</Text>
+      <Image
+        source={info}
+        style={{
+          width: 180,
+          height: 50,
+          resizeMode: "contain",
+          marginTop: -10,
+        }}
+      />
+
       <Text
         style={{
-          color: "#a7abbb",
-          marginBottom: 20,
+          color: "#A3B7C8",
+          marginBottom: 15,
           fontSize: 18,
           paddingHorizontal: 20,
-          textAlign: "center",
+          textAlign: "left",
+          fontWeight: "bold",
         }}
       >
         Please provide your name and an optional profile photo
@@ -125,9 +137,9 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
           <Image
             source={{ uri: image }}
             style={{
-              width: 140,
-              height: 140,
-              borderRadius: 70,
+              width: 70,
+              height: 70,
+              borderRadius: 35,
             }}
           />
         ) : (
@@ -135,10 +147,10 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
             <Image
               source={profile}
               style={{
-                width: 60,
-                height: 60,
-                marginRight: 10,
-                marginBottom: 5,
+                width: 30,
+                height: 30,
+                marginRight: 3,
+                marginBottom: 2,
               }}
             />
           </View>
@@ -151,7 +163,6 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
           marginTop: 5,
           backgroundColor: "#a7abbb",
           width: 100,
-          marginBottom: 5,
           borderRadius: 20,
         }}
         progress={prograss}
@@ -169,7 +180,20 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
         disabled={name.length == 0 ? true : false}
         style={name.length == 0 ? style.btnDisable : style.btn}
       >
-        <Text style={{ color: "white", textAlign: "center" }}>NEXT</Text>
+        <Text
+          style={{
+            color: "white",
+            textAlign: "center",
+            fontWeight: "bold",
+            fontSize: 18,
+          }}
+        >
+          Let's Start
+        </Text>
+        <FontAwesome
+          name="chevron-right"
+          style={{ fontSize: 24, color: "white" }}
+        />
       </TouchableOpacity>
     </View>
   );
@@ -181,7 +205,7 @@ const style = StyleSheet.create({
   container: {
     width: "100%",
     height: "100%",
-    justifyContent: "center",
+    // justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
   },
@@ -189,31 +213,43 @@ const style = StyleSheet.create({
     marginVertical: 10,
     fontSize: 17,
     width: "60%",
-    borderBottomWidth: 2,
-    borderBottomColor: "#f6f6fb",
+    // borderBottomWidth: 2,
+    shadowColor: "#A3B7C8",
+    shadowRadius: 50,
+    borderRadius: 4,
+    shadowOpacity: 0.4,
+    backgroundColor: "white",
     marginTop: 30,
-    padding: 3,
+    padding: 10,
   },
   btn: {
-    backgroundColor: "#7759de",
+    backgroundColor: "#0A1C31",
     padding: 8,
     width: "50%",
-    borderRadius: 3,
-    textAlign: "center",
+    borderRadius: 7,
     paddingVertical: 15,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    textAlign: "center",
+    justifyContent: "space-around",
   },
   btnDisable: {
     backgroundColor: "gray",
-    padding: 8,
+    padding: 5,
     width: "50%",
-    borderRadius: 3,
-    textAlign: "center",
+    borderRadius: 7,
     paddingVertical: 15,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    textAlign: "center",
+    justifyContent: "space-around",
   },
   imageContainer: {
-    width: 140,
-    height: 140,
-    borderRadius: 70,
+    width: 70,
+    height: 70,
+    borderRadius: 35,
     backgroundColor: "#f1f1f1",
     justifyContent: "center",
     alignItems: "center",
