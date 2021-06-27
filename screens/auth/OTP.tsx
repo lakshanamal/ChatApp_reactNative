@@ -20,8 +20,8 @@ import { Video } from "expo-av";
 
 const OPT = ({ navigation, route }) => {
   // const { phoneNumber } = route.params;
+
   const video = React.useRef(null);
-  const phoneNumber = "0755535393";
   const recaptchaVerifier = useRef(null);
   const attemptInvisibleVerification = false;
   const [verificationCode, setVerificationCode] = useState(
@@ -40,19 +40,18 @@ const OPT = ({ navigation, route }) => {
       : undefined
   );
   const verifyPhone = async () => {
-    console.log(verificationCode.join(""));
-
-    // try {
-    //   const credential = firebase.auth.PhoneAuthProvider.credential(
-    //     verificationId,
-    //     verificationCode
-    //   );
-    //   await firebase.auth().signInWithCredential(credential);
-    //   showMessage({ text: "Phone authentication successful 👍" });
-    // } catch (err) {
-    //   showMessage({ text: `Error: ${err.message}` });
-    // }
-    // navigation.navigate("Profile");
+    let verificationNumber = verificationCode.join("");
+    try {
+      const credential = firebase.auth.PhoneAuthProvider.credential(
+        verificationId,
+        verificationNumber
+      );
+      await firebase.auth().signInWithCredential(credential);
+      showMessage({ text: "Phone authentication successful 👍" });
+    } catch (err) {
+      showMessage({ text: `Error: ${err.message}` });
+    }
+    navigation.navigate("Profile");
   };
 
   const getOTP = async () => {
@@ -72,10 +71,11 @@ const OPT = ({ navigation, route }) => {
   };
 
   useEffect(() => {
-    console.log(verificationCode);
+    // console.log(verificationCode);
+    getOTP();
   }, []);
 
-  function handleChange(element, index) {
+  function handleChange(element: any, index: Number) {
     if (isNaN(element.value)) return false;
 
     console.log(element.value);
@@ -132,7 +132,6 @@ const OPT = ({ navigation, route }) => {
               onChange={(e) => handleChange(e.target, index)}
               onFocus={(e) => e.target.select()}
               // editable={!!verificationId}
-              // onChangeText={setVerificationCode}
             />
           );
         })}
