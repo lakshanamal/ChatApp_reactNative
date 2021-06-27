@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { View, Text } from "../../components/Themed";
 import firebase from "../../firebaseConfig";
-import Hello from "../../assets/images/Hello.mp4";
+import Hello from "../../assets/images/otp.mp4";
 import Veri from "../../assets/images/veri.png";
 import { FontAwesome } from "@expo/vector-icons";
 import {
@@ -20,7 +20,7 @@ import { Video } from "expo-av";
 
 const OPT = ({ navigation, route }) => {
   // const { phoneNumber } = route.params;
-
+  const phoneNumber = "515515";
   const video = React.useRef(null);
   const recaptchaVerifier = useRef(null);
   const attemptInvisibleVerification = false;
@@ -41,16 +41,16 @@ const OPT = ({ navigation, route }) => {
   );
   const verifyPhone = async () => {
     let verificationNumber = verificationCode.join("");
-    try {
-      const credential = firebase.auth.PhoneAuthProvider.credential(
-        verificationId,
-        verificationNumber
-      );
-      await firebase.auth().signInWithCredential(credential);
-      showMessage({ text: "Phone authentication successful 👍" });
-    } catch (err) {
-      showMessage({ text: `Error: ${err.message}` });
-    }
+    // try {
+    //   const credential = firebase.auth.PhoneAuthProvider.credential(
+    //     verificationId,
+    //     verificationNumber
+    //   );
+    //   await firebase.auth().signInWithCredential(credential);
+    //   showMessage({ text: "Phone authentication successful 👍" });
+    // } catch (err) {
+    //   showMessage({ text: `Error: ${err.message}` });
+    // }
     navigation.navigate("Profile");
   };
 
@@ -72,7 +72,7 @@ const OPT = ({ navigation, route }) => {
 
   useEffect(() => {
     // console.log(verificationCode);
-    getOTP();
+    // getOTP();
   }, []);
 
   function handleChange(element: any, index: Number) {

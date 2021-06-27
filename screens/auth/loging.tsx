@@ -8,8 +8,8 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import Welcome from "../../assets/images/welcome.png";
-import Hello from "../../assets/images/welcome.png";
+import Welcome from "../../assets/images/hello.mp4";
+
 import Title from "../../assets/images/title.png";
 import * as Font from "expo-font";
 import { Video, AVPlaybackStatus } from "expo-av";
@@ -30,7 +30,7 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
       <Video
         ref={video}
         style={{ width: 350, height: 350 }}
-        source={Hello}
+        source={Welcome}
         resizeMode="contain"
         shouldPlay={true}
       />

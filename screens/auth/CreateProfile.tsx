@@ -16,12 +16,15 @@ import Navigation from "../../navigation/index";
 import useColorScheme from "../../hooks/useColorScheme";
 import profile from "../../assets/images/profile2.png";
 import * as Font from "expo-font";
+import { Video } from "expo-av";
+import Profile from "../../assets/images/profile.mp4";
 
 const CreateProfile = ({ navigation }: { navigation: any }) => {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [prograss, setPrograss] = useState(0);
   const colorScheme = useColorScheme();
+  const video = React.useRef(null);
 
   useEffect(() => {
     (async () =>
@@ -76,7 +79,7 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
     }
   };
 
-  const uploadImage = async (uri, name) => {
+  const uploadImage = async (uri: string, name: string) => {
     const responce = await fetch(uri);
     const bob = await responce.blob();
     var uploadTask = firebase
@@ -98,6 +101,13 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
 
   return (
     <View style={style.container}>
+      <Video
+        ref={video}
+        style={{ width: 350, height: 350 }}
+        source={Profile}
+        resizeMode="contain"
+        shouldPlay={true}
+      />
       <Text style={style.title}>Profile Info</Text>
       <Text
         style={{
