@@ -25,9 +25,8 @@ const OPT = ({ navigation, route }) => {
 
   const recaptchaVerifier = useRef(null);
   const attemptInvisibleVerification = false;
-  const [verificationCode, setVerificationCode] = useState(
-    new Array(6).fill("")
-  );
+  const [verificationCode, setVerificationCode] = useState("");
+  let OTP = new Array(6).fill("");
   const [verificationId, setVerificationId] = useState("");
 
   const firebaseConfig = firebase.apps.length
@@ -74,20 +73,19 @@ const OPT = ({ navigation, route }) => {
   useEffect(() => {
     // console.log(verificationCode);
     // getOTP();
-    verificationCode[0].focus();
+    OTP[0].focus();
   }, []);
 
   function handleChange(value: string, index: number) {
-    if (index < verificationCode.length - 1 && value) {
-      verificationCode[index + 1].focus();
+    if (index < OTP.length - 1 && value) {
+      OTP[index + 1].focus();
     }
-    if (index === verificationCode.length - 1) {
-      verificationCode[index].blur();
+    if (index === OTP.length - 1) {
+      OTP[index].blur();
     }
-    console.log(value);
-    setVerificationCode([
-      ...verificationCode.map((d, idx) => (idx === index ? value : d)),
-    ]);
+
+    setVerificationCode([...verificationCode, value]);
+    console.log(verificationCode);
   }
 
   return (
@@ -124,7 +122,7 @@ const OPT = ({ navigation, route }) => {
           justifyContent: "space-around",
         }}
       >
-        {verificationCode.map((data, index) => {
+        {OTP.map((data, index) => {
           return (
             <TextInput
               maxLength={1}
@@ -132,10 +130,10 @@ const OPT = ({ navigation, route }) => {
               value={data}
               style={style.inputOtp}
               keyboardType="numeric"
-              onChangeText={(data) => {
-                handleChange(data, index);
+              onChangeText={(el) => {
+                handleChange(el, index);
               }}
-              ref={(ref) => (verificationCode[index] = ref)}
+              ref={(ref) => (OTP[index] = ref)}
               // editable={!!verificationId}
             />
           );
