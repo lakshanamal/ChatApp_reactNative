@@ -45,12 +45,22 @@ export default function ChatsScreen() {
   }, []);
 
   return (
-    <ImageBackground
-      source={BG}
-      style={{ width: "100%", height: "100%", top: 0 }}
-    >
-      <View style={{ backgroundColor: "red" }}>
-        <View style={styles.container}>
+    // <ImageBackground
+    //   source={BG}
+    //   style={{ width: "100%", height: "100%", top: 0 }}
+    // >
+    <View style={{ backgroundColor: "#123858", width: "100%", height: "100%" }}>
+      <View style={styles.container}>
+        <View
+          style={{
+            backgroundColor: "white",
+            width: "100%",
+            height: "100%",
+            borderTopLeftRadius: 40,
+            borderTopRightRadius: 40,
+            marginTop:40
+          }}
+        >
           {chatList && (
             <FlatList
               data={chatList}
@@ -67,7 +77,8 @@ export default function ChatsScreen() {
           <NewMessageButton />
         </View>
       </View>
-    </ImageBackground>
+    </View>
+    // </ImageBackground>
   );
 }
 
@@ -76,11 +87,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    // backgroundColor: "white",
+    backgroundColor: "#16456D",
     color: "black",
-    borderTopLeftRadius: 40,
-    borderTopRightRadius: 40,
-    // marginTop: 50,
+    // borderTopLeftRadius: 40,
+    // borderTopRightRadius: 40,
+    marginTop: 40,
+    width: "100%",
     zIndex: 1000,
   },
 });

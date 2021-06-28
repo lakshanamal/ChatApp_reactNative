@@ -49,25 +49,27 @@ export default function App() {
 
   if (!isLoadingComplete || !isAuthReady) {
     return (
-      <ImageBackground source={BG} style={{ width: "100%", height: "100%" }}>
-        <View
+      // <ImageBackground source={BG} style={{ width: "100%", height: "100%" }}>
+      //  <View style={{backgroundColor:"#123858"}}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Image
+          source={Logo}
           style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
+            width: 300,
+            height: 300,
+            resizeMode: "contain",
           }}
-        >
-          <Image
-            source={Logo}
-            style={{
-              width: 300,
-              height: 300,
-              resizeMode: "contain",
-            }}
-          />
-          <ActivityIndicator size="large" color="white" />
-        </View>
-      </ImageBackground>
+        />
+        <ActivityIndicator size="large" color="white" />
+      </View>
+      //  </View>
+      // </ImageBackground>
     );
   } else {
     return (
@@ -79,7 +81,6 @@ export default function App() {
             <RegisterNavigator />
           )}
           <StatusBar />
-          {/* <MainNavigator colorScheme={colorScheme} /> */}
         </NavigationContainer>
       </SafeAreaProvider>
     );

@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
   TextInput,
-  Button,
   Image,
   TouchableOpacity,
   StyleSheet,
@@ -15,7 +14,6 @@ import { ProgressBar } from "react-native-paper";
 import Navigation from "../../navigation/index";
 import useColorScheme from "../../hooks/useColorScheme";
 import profile from "../../assets/images/profile2.png";
-import * as Font from "expo-font";
 import { Video } from "expo-av";
 import Profile from "../../assets/images/profile.mp4";
 import info from "../../assets/images/profile.png";

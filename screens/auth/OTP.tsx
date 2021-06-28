@@ -71,7 +71,7 @@ const OPT = ({ navigation, route }) => {
 
   useEffect(() => {
     // console.log(verificationCode);
-    // getOTP();
+    getOTP();
     OTP[0].focus();
   }, []);
 

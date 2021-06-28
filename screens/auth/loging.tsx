@@ -1,19 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState} from "react";
 import {
   Text,
   View,
   TextInput,
-  Button,
   StyleSheet,
   Image,
   TouchableOpacity,
 } from "react-native";
 import Welcome from "../../assets/images/Hello.mp4";
-
 import Title from "../../assets/images/title.png";
-import * as Font from "expo-font";
-import { Video, AVPlaybackStatus } from "expo-av";
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import { Video } from "expo-av";
+import { FontAwesome } from "@expo/vector-icons";
 
 const LoginScreen = ({ navigation }: { navigation: any }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -34,7 +31,6 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
           width: 300,
           height: 70,
           resizeMode: "contain",
-          // backgroundColor: "red",
         }}
       />
 

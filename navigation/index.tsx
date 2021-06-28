@@ -37,7 +37,8 @@ function RootNavigator() {
       // initialRouteName="ChatRoom"
       screenOptions={{
         headerStyle: {
-          backgroundColor: Colors.light.tint,
+          backgroundColor: "#123858",
+
           shadowOpacity: 0,
           elevation: 0,
         },
@@ -50,7 +51,7 @@ function RootNavigator() {
         name="Root"
         component={BottomTabNavigator}
         options={{
-          title: "Whatsapp",
+          title: "Memo",
           headerLeft: () => null,
           headerRight: () => {
             return (

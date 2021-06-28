@@ -22,11 +22,21 @@ export default function BottomTabNavigator() {
       tabBarOptions={{
         activeTintColor: "white",
         style: {
-          backgroundColor: Colors.light.tint,
+          position: "absolute",
+          backgroundColor: "#16456D",
+          // zIndex: 100,
+          top: 0,
+          left: 0,
+          right: 0,
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+          borderTopLeftRadius: 40,
+          borderTopRightRadius: 40,
         },
         indicatorStyle: {
           backgroundColor: Colors.light.background,
-          height: 4,
+          height: 0,
         },
         labelStyle: {
           fontWeight: "bold",
@@ -34,7 +44,7 @@ export default function BottomTabNavigator() {
         showIcon: true,
       }}
     >
-      {/* <MainTap.Screen
+      <MainTap.Screen
         name="Camera"
         component={TabOneNavigator}
         options={{
@@ -43,16 +53,14 @@ export default function BottomTabNavigator() {
           ),
           tabBarLabel: () => null,
         }}
-      /> */}
+      />
       <MainTap.Screen name="Chats" component={TabOneNavigator} />
-      {/* <MainTap.Screen name="Status" component={TabOneNavigator} />
-      <MainTap.Screen name="Calls" component={TabOneNavigator} /> */}
+      <MainTap.Screen name="Status" component={TabOneNavigator} />
+      <MainTap.Screen name="Calls" component={TabOneNavigator} />
     </MainTap.Navigator>
   );
 }
 
-// Each tab has its own navigation stack, you can read more about this pattern here:
-// https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const TabOneStack = createStackNavigator<TabOneParamList>();
 
 function TabOneNavigator() {
