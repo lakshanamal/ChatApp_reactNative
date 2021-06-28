@@ -75,12 +75,13 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <NavigationContainer>
-          {isAuthenticated ? (
+          {/* {isAuthenticated ? (
             <MainNavigator colorScheme={colorScheme} />
           ) : (
             <RegisterNavigator />
-          )}
+          )} */}
           <StatusBar />
+          <MainNavigator colorScheme={colorScheme} />
         </NavigationContainer>
       </SafeAreaProvider>
     );

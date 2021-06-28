@@ -2,7 +2,6 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
-
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ChatsScreeen from "../screens/ChatsScreeen";
@@ -21,6 +20,9 @@ export default function BottomTabNavigator() {
       initialRouteName="Chats"
       tabBarOptions={{
         activeTintColor: "white",
+        active: {
+          fontSize: 50,
+        },
         style: {
           position: "absolute",
           backgroundColor: "#16456D",
@@ -33,6 +35,7 @@ export default function BottomTabNavigator() {
           borderBottomWidth: 0,
           borderTopLeftRadius: 40,
           borderTopRightRadius: 40,
+          paddingVertical: 10,
         },
         indicatorStyle: {
           backgroundColor: Colors.light.background,
@@ -40,11 +43,13 @@ export default function BottomTabNavigator() {
         },
         labelStyle: {
           fontWeight: "bold",
+          fontSize: 20,
         },
+
         showIcon: true,
       }}
     >
-      <MainTap.Screen
+      {/* <MainTap.Screen
         name="Camera"
         component={TabOneNavigator}
         options={{
@@ -53,7 +58,7 @@ export default function BottomTabNavigator() {
           ),
           tabBarLabel: () => null,
         }}
-      />
+      /> */}
       <MainTap.Screen name="Chats" component={TabOneNavigator} />
       <MainTap.Screen name="Status" component={TabOneNavigator} />
       <MainTap.Screen name="Calls" component={TabOneNavigator} />

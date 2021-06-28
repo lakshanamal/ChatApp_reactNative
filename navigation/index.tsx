@@ -5,7 +5,7 @@ import {
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
-import { ColorSchemeName, TouchableOpacity, View } from "react-native";
+import { ColorSchemeName, TouchableOpacity, View, Image } from "react-native";
 import Colors from "../constants/Colors";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import ChatRoomScreen from "../screens/ChatRoomScreen";
@@ -13,6 +13,7 @@ import ContactScreen from "../screens/Contact";
 import { RootStackParamList } from "../types";
 import BottomTabNavigator from "./MainTabNavigator";
 import { IoIosArrowBack } from "react-icons/io";
+import Logo from "../assets/images/logoq.png";
 
 import {
   Octicons,
@@ -34,7 +35,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator
-      // initialRouteName="ChatRoom"
+      initialRouteName="Root"
       screenOptions={{
         headerStyle: {
           backgroundColor: "#123858",
@@ -51,8 +52,17 @@ function RootNavigator() {
         name="Root"
         component={BottomTabNavigator}
         options={{
-          title: "Memo",
-          headerLeft: () => null,
+          title: "",
+          headerStatusBarHeight: 50,
+          headerLeft: () => {
+            return (
+              <Image
+                style={{ width: 100, height: 40, resizeMode: "contain" }}
+                source={Logo}
+              />
+            );
+          },
+
           headerRight: () => {
             return (
               <View
