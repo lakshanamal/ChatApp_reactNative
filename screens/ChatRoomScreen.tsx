@@ -31,11 +31,12 @@ const ChatRoomScreen = () => {
         width: "100%",
         height: "100%",
         backgroundColor: "#123858",
+        paddingLeft: "2%",
       }}
     >
       <View
         style={{
-          width: "100%",
+          width: "98%",
           height: "90%",
           backgroundColor: "white",
           borderTopLeftRadius: 40,

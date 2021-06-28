@@ -114,16 +114,24 @@ const InputBox = () => {
         {!message && (
           <Entypo name="camera" size={24} color="gray" style={styles.icon} />
         )}
+
+        <TouchableOpacity
+          onPress={onPress}
+          style={{ position: "absolute", right: 0 }}
+        >
+          <View style={styles.buttonController}>
+            {message ? (
+              <MaterialIcons name="send" size={24} color={"#123858"} />
+            ) : (
+              <MaterialCommunityIcons
+                name="microphone"
+                size={24}
+                color="#123858"
+              />
+            )}
+          </View>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={onPress}>
-        <View style={styles.buttonController}>
-          {message ? (
-            <MaterialIcons name="send" size={24} color={"white"} />
-          ) : (
-            <MaterialCommunityIcons name="microphone" size={24} color="white" />
-          )}
-        </View>
-      </TouchableOpacity>
     </View>
   );
 };
