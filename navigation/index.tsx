@@ -14,6 +14,7 @@ import { RootStackParamList } from "../types";
 import BottomTabNavigator from "./MainTabNavigator";
 import { IoIosArrowBack } from "react-icons/io";
 import Logo from "../assets/images/logoq.png";
+import ConImg from "../assets/images/contact.png";
 
 import {
   Octicons,
@@ -35,7 +36,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="Root"
+      initialRouteName="Contacts"
       screenOptions={{
         headerStyle: {
           backgroundColor: "#123858",
@@ -131,7 +132,29 @@ function RootNavigator() {
         // })}
       />
 
-      <Stack.Screen name="Contacts" component={ContactScreen} />
+      <Stack.Screen
+        name="Contacts"
+        component={ContactScreen}
+        options={{
+          title: "",
+          headerStatusBarHeight: 50,
+          headerLeft: () => {
+            return (
+              <View style={{ paddingLeft: 20 }}>
+                <Image
+                  style={{
+                    width: 100,
+                    height: 40,
+                    resizeMode: "contain",
+                    paddingLeft: 10,
+                  }}
+                  source={ConImg}
+                />
+              </View>
+            );
+          },
+        }}
+      />
 
       <Stack.Screen
         name="NotFound"

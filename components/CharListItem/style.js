@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
     color: "#a8a8a8",
     fontSize: 14,
   },
-  //   midContainer: {},
 });
 
 export default styles;

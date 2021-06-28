@@ -6,6 +6,10 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "space-between",
     padding: 10,
+    borderBottomWidth: 1,
+    borderColor: "#123858",
+    borderBottomStartRadius: 40,
+    borderBottomEndRadius: 40,
   },
   midContainer: {
     justifyContent: "space-around",
@@ -22,10 +26,11 @@ const styles = StyleSheet.create({
   userName: {
     fontSize: 16,
     fontWeight: "bold",
+    color: "white",
   },
   status: {
-    color: "gray",
-    fontSize: 16,
+    color: "#d1d1d1",
+    fontSize: 14,
   },
   //   midContainer: {},
 });

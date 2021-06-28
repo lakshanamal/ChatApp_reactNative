@@ -7,11 +7,11 @@ import { useEffect } from "react";
 
 export default function Contact() {
   const [users, setUsers] = useState<Array<{}>>([]);
-  const [curUser,setCurUser]=useState("");
+  const [curUser, setCurUser] = useState("");
   useEffect(() => {
     const getUsers = async () => {
       const currentUser = firebase.auth().currentUser;
-      setCurUser(currentUser.uid);
+      setCurUser(currentUser);
       await firebase
         .firestore()
         .collection("users")
@@ -28,12 +28,16 @@ export default function Contact() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={users}
-        style={{ width: "100%" }}
-        renderItem={({ item }) => <ContactListItem curUser={curUser} user={item} />}
-      />
+    <View style={{ backgroundColor: "#123858", width: "100%", height: "100%" }}>
+      <View style={styles.container}>
+        <FlatList
+          data={users}
+          style={{ width: "100%" }}
+          renderItem={({ item }) => (
+            <ContactListItem curUser={curUser} user={item} />
+          )}
+        />
+      </View>
     </View>
   );
 }
@@ -43,7 +47,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "white",
+    backgroundColor: "#16456D",
     color: "black",
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    paddingHorizontal: 10,
   },
 });
