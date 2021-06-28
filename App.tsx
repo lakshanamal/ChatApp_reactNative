@@ -50,7 +50,7 @@ export default function App() {
   if (!isLoadingComplete || !isAuthReady) {
     return (
       <ImageBackground source={BG} style={{ width: "100%", height: "100%" }}>
-        <View style={{ backgroundColor: "#123858" }}>
+        {/* <View style={{ backgroundColor: "#123858" }}> */}
           <View
             style={{
               flex: 1,
@@ -61,14 +61,14 @@ export default function App() {
             <Image
               source={Logo}
               style={{
-                width: 300,
-                height: 300,
+                width: 180,
+                height: 180,
                 resizeMode: "contain",
               }}
             />
             <ActivityIndicator size="large" color="white" />
           </View>
-        </View>
+        {/* </View> */}
       </ImageBackground>
     );
   } else {
