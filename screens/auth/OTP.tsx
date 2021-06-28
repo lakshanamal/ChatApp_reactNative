@@ -127,13 +127,14 @@ const OPT = ({ navigation, route }) => {
             <TextInput
               maxLength={1}
               key={index}
-              value={data}
+              // value={data}
               style={style.inputOtp}
               keyboardType="numeric"
               onChangeText={(el) => {
                 handleChange(el, index);
               }}
               ref={(ref) => (OTP[index] = ref)}
+              // ref={OTP[index]}
               // editable={!!verificationId}
             />
           );
@@ -157,7 +158,7 @@ const OPT = ({ navigation, route }) => {
       <TouchableOpacity
         style={verificationCode.length == 6 ? style.btn : style.btnDisable}
         disabled={verificationCode.length == 6 ? false : true}
-        // onPress={verifyPhone}
+        onPress={verifyPhone}
       >
         <Text
           style={{
@@ -248,5 +249,6 @@ const style = StyleSheet.create({
     textAlign: "center",
     padding: 10,
     elevation: 5,
+    color: "black",
   },
 });
