@@ -7,8 +7,7 @@ import { useRoute } from "@react-navigation/native";
 
 const ChatRoomScreen = () => {
   const route = useRoute();
-  // const { id } = route.params;
-  const id = "8uy767676787";
+  const { id } = route.params;
 
   const [message, setMessage] = useState([]);
   useEffect(() => {
@@ -37,7 +36,7 @@ const ChatRoomScreen = () => {
       <View
         style={{
           width: "98%",
-          height: "90%",
+          height: "86%",
           backgroundColor: "white",
           borderTopLeftRadius: 40,
           borderTopRightRadius: 40,

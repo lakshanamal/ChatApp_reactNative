@@ -3,16 +3,17 @@ import Colors from "../../constants/Colors";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#ffffff00',
+    backgroundColor: "#ffffff00",
     // height: "100%",
     padding: 10,
   },
   messageBox: {
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 15,
+    borderBottomEndRadius: 0,
   },
   name: {
-    color: Colors.light.tint,
+    color: "white",
     marginBottom: 5,
     fontWeight: "bold",
   },
@@ -20,7 +21,9 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     color: "gray",
   },
-  message: {},
+  message: {
+    color: "white",
+  },
 });
 
 export default styles;

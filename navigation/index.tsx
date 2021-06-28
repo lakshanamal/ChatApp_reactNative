@@ -15,7 +15,6 @@ import BottomTabNavigator from "./MainTabNavigator";
 import { IoIosArrowBack } from "react-icons/io";
 import Logo from "../assets/images/logoq.png";
 import ConImg from "../assets/images/contact.png";
-
 import {
   Octicons,
   MaterialCommunityIcons,
@@ -36,7 +35,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="ChatRoom"
+      initialRouteName="Root"
       screenOptions={{
         headerStyle: {
           backgroundColor: "#123858",
@@ -90,8 +89,8 @@ function RootNavigator() {
         name="ChatRoom"
         component={ChatRoomScreen}
         options={({ navigation, route }) => ({
-          title: route.params?.name,
-          headerTitleStyle: { fontSize: 26 ,color:"white",marginLeft:-25},
+          title: route.params.name,
+          headerTitleStyle: { fontSize: 26, color: "white", marginLeft: -25 },
           headerStatusBarHeight: 50,
           // headerRight: () => {
           //   return (
