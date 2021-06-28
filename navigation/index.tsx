@@ -15,6 +15,7 @@ import BottomTabNavigator from "./MainTabNavigator";
 import { IoIosArrowBack } from "react-icons/io";
 import Logo from "../assets/images/logoq.png";
 import ConImg from "../assets/images/contact.png";
+import Burger from "../assets/images/burger.png";
 import {
   Octicons,
   MaterialCommunityIcons,
@@ -73,12 +74,13 @@ function RootNavigator() {
                   marginRight: 10,
                 }}
               >
-                <Octicons name="search" size={21} color="white" />
+                {/* <Octicons name="search" size={21} color="white" />
                 <MaterialCommunityIcons
                   name="dots-vertical"
                   size={22}
                   color="white"
-                />
+                /> */}
+                  <Image source={Burger} style={{ width: 40, height: 40 }} />
               </View>
             );
           },

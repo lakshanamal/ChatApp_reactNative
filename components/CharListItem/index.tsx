@@ -29,10 +29,14 @@ const ChatListItem = (props: ChatListItemProps) => {
     <TouchableWithoutFeedback onPress={onClick}>
       <View style={styles.container}>
         <View style={styles.leftContainer}>
-          <View style={styles.imageContainer}><Image source={{ uri: user.imageUri }} style={styles.avater} /></View>
+          <View style={styles.imageContainer}>
+            <Image source={{ uri: user.imageUri }} style={styles.avater} />
+          </View>
           <View style={styles.midContainer}>
             <Text style={styles.userName}>{user.name}</Text>
-            <Text style={styles.lastMessage}>{lastMessage}</Text>
+            <Text numberOfLines={1} style={styles.lastMessage}>
+              {lastMessage}
+            </Text>
           </View>
         </View>
         <Text style={styles.time}>
