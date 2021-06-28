@@ -26,7 +26,7 @@ export default function BottomTabNavigator() {
         style: {
           position: "absolute",
           backgroundColor: "#16456D",
-          // zIndex: 100,
+          zIndex: 1,
           top: 0,
           left: 0,
           right: 0,
@@ -35,7 +35,8 @@ export default function BottomTabNavigator() {
           borderBottomWidth: 0,
           borderTopLeftRadius: 40,
           borderTopRightRadius: 40,
-          paddingVertical: 10,
+          paddingVertical: 5,
+          height:100
         },
         indicatorStyle: {
           backgroundColor: Colors.light.background,

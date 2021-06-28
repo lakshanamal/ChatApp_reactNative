@@ -18,9 +18,10 @@ const ChatRoomScreen = () => {
       .doc(id)
       .onSnapshot((docs) => {
         let data = docs.data()?.message;
-  
-        data = data.reverse();
-        setMessage(data);
+        if (docs.exists) {
+          data = data.reverse();
+          setMessage(data);
+        }
       });
   }, []);
 

@@ -3,14 +3,14 @@ import Colors from "../../constants/Colors";
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.light.tint,
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    backgroundColor: "#123858",
+    width: 60,
+    height: 60,
+    borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
-    bottom: 20,
+    bottom: 40,
     right: 20,
   },
 });

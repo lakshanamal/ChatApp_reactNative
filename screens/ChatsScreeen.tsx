@@ -5,50 +5,49 @@ import NewMessageButton from "../components/NewMessageButton";
 import { View } from "../components/Themed";
 import firebase from "../firebaseConfig";
 import BG from "../assets/images/splash3.png";
+import { ChatRoom, User } from "../types";
 
 export default function ChatsScreen() {
   const [chatList, setChatList] = useState([]);
   const [isCurrentUser, setIsCurrentUser] = useState(0);
-  const [currentUser, setCurrentUser] = useState([]);
+  const [currentUser, setCurrentUser] = useState<User>();
 
-  // useEffect(() => {
-  //   const getChatList = async () => {
-  //     const currentUserAuth = firebase.auth().currentUser;
-  //     await firebase
-  //       .firestore()
-  //       .collection("users")
-  //       .doc(currentUserAuth?.uid)
-  //       .onSnapshot((doc) => {
-  //         setCurrentUser(doc.data());
-  //         const chatroomsId = doc.data()?.chatRoomIds;
-  //         // setChatList([]);
-  //         for (var i = 0; i < chatroomsId.length; i++) {
-  //           firebase
-  //             .firestore()
-  //             .collection("chatrooms")
-  //             .doc(chatroomsId[i])
-  //             .onSnapshot((docs) => {
-  //               if (docs.exists) {
-  //                 const chat = docs.data();
-  //                 if (docs.data()?.user[0].id == currentUserAuth?.uid) {
-  //                   setIsCurrentUser(1);
-  //                 } else {
-  //                   setIsCurrentUser(0);
-  //                 }
-  //                 setChatList([...chatList, docs.data()]);
-  //               }
-  //             });
-  //         }
-  //       });
-  //   };
-  //   getChatList();
-  // }, []);
-
+  useEffect(() => {
+    const getChatList = async () => {
+      const currentUserAuth = firebase.auth().currentUser;
+      firebase
+        .firestore()
+        .collection("users")
+        .doc(currentUserAuth?.uid)
+        .onSnapshot((doc) => {
+          if (doc.exists) {
+            setCurrentUser(doc.data() as User);
+            const chatroomsId = doc.data()?.chatRoomIds;
+            // setChatList([]);
+            for (var i = 0; i < chatroomsId.length; i++) {
+              firebase
+                .firestore()
+                .collection("chatrooms")
+                .doc(chatroomsId[i])
+                .get()
+                .then((docs) => {
+                  if (docs.exists) {
+                    if (docs.data()?.user[0].id == currentUserAuth?.uid) {
+                      setIsCurrentUser(1);
+                    } else {
+                      setIsCurrentUser(0);
+                    }
+                    setChatList([...chatList, docs.data()]);
+                  }
+                });
+            }
+          }
+        });
+    };
+    getChatList();
+  }, []);
+  console.log(chatList);
   return (
-    // <ImageBackground
-    //   source={BG}
-    //   style={{ width: "100%", height: "100%", top: 0 }}
-    // >
     <View style={{ backgroundColor: "#123858", width: "100%", height: "100%" }}>
       <View style={styles.container}>
         <View
@@ -69,7 +68,7 @@ export default function ChatsScreen() {
                 <ChatListItem
                   chatRoom={item}
                   isUser={isCurrentUser}
-                  currentUser={currentUser}
+                  currentUser={currentUser!}
                 />
               )}
             />
@@ -78,7 +77,6 @@ export default function ChatsScreen() {
         </View>
       </View>
     </View>
-    // </ImageBackground>
   );
 }
 
@@ -89,9 +87,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#16456D",
     color: "black",
-    // borderTopLeftRadius: 40,
-    // borderTopRightRadius: 40,
-    marginTop: 60,
+    marginTop: 50,
     width: "100%",
     zIndex: 1000,
   },
