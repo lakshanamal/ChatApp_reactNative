@@ -36,7 +36,7 @@ export default function BottomTabNavigator() {
           borderTopLeftRadius: 40,
           borderTopRightRadius: 40,
           paddingVertical: 5,
-          height:100
+          height: 50,
         },
         indicatorStyle: {
           backgroundColor: Colors.light.background,
