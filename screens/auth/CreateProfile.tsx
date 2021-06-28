@@ -28,14 +28,6 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
   const colorScheme = useColorScheme();
   const video = React.useRef(null);
 
-  useEffect(() => {
-    (async () =>
-      await Font.loadAsync({
-        Gudea: require("../../assets/fonts/Gudea-Regular.ttf"),
-      }))();
-    console.log(Font);
-  }, []);
-
   const createUser = async () => {
     const user = await firebase.auth().currentUser;
     const defaultImageUri =
@@ -174,7 +166,16 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
         placeholder="Profile name"
         onChangeText={setName}
       />
-
+     <Text
+        style={{
+          color: "#A3B7C8",
+          fontWeight: "bold",
+          marginTop: -5,
+          marginBottom: 10,
+        }}
+      >
+        Enter user name
+      </Text>
       <TouchableOpacity
         onPress={createUser}
         disabled={name.length == 0 ? true : false}
@@ -213,14 +214,19 @@ const style = StyleSheet.create({
     marginVertical: 10,
     fontSize: 17,
     width: "60%",
-    // borderBottomWidth: 2,
-    shadowColor: "#A3B7C8",
-    shadowRadius: 50,
-    borderRadius: 4,
-    shadowOpacity: 0.4,
+    borderRadius: 7,
     backgroundColor: "white",
     marginTop: 30,
+    // textAlign: "center",
     padding: 10,
+    shadowColor: "#A3B7C8",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 16.0,
+    elevation: 5,
   },
   btn: {
     backgroundColor: "#0A1C31",
@@ -259,6 +265,5 @@ const style = StyleSheet.create({
     fontSize: 28,
     color: "#8d69ee",
     fontWeight: "bold",
-    fontFamily: "Gudea",
   },
 });
