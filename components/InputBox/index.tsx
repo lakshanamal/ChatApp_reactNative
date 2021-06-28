@@ -20,7 +20,7 @@ export type ChatMessageProps = {
 const InputBox = () => {
   const [message, setMessage] = useState("");
   const route = useRoute();
-  const { id, user, currentUser } = route.params;
+  // const { id, user, currentUser } = route.params;
 
   const onMicrophonePress = () => {
     console.warn("Microphone");

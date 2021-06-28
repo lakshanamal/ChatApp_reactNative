@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, ImageBackground } from "react-native";
+import { FlatList, ImageBackground, View } from "react-native";
 import ChatMessage from "../components/ChatMessage";
-import BG from "../assets/images/BG.png";
 import InputBox from "../components/InputBox";
 import firebase from "../firebaseConfig";
 import { useRoute } from "@react-navigation/native";
 
 const ChatRoomScreen = () => {
   const route = useRoute();
-  const { id } = route.params;
+  // const { id } = route.params;
+  const id = "8uy767676787";
 
   const [message, setMessage] = useState([]);
   useEffect(() => {
@@ -26,15 +26,31 @@ const ChatRoomScreen = () => {
   }, []);
 
   return (
-    <ImageBackground style={{ width: "100%", height: "100%" }} source={BG}>
-      <FlatList
-        data={message}
-        inverted
-        renderItem={({ item }) => <ChatMessage message={item} />}
-      />
-      {/* <Text>Hello</Text> */}
+    <View
+      style={{
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#123858",
+      }}
+    >
+      <View
+        style={{
+          width: "100%",
+          height: "90%",
+          backgroundColor: "white",
+          borderTopLeftRadius: 40,
+          borderTopRightRadius: 40,
+          borderRadius: 40,
+        }}
+      >
+        <FlatList
+          data={message}
+          inverted
+          renderItem={({ item }) => <ChatMessage message={item} />}
+        />
+      </View>
       <InputBox />
-    </ImageBackground>
+    </View>
   );
 };
 

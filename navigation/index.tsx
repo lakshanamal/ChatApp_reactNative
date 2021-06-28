@@ -36,7 +36,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="Contacts"
+      initialRouteName="ChatRoom"
       screenOptions={{
         headerStyle: {
           backgroundColor: "#123858",
@@ -89,47 +89,43 @@ function RootNavigator() {
       <Stack.Screen
         name="ChatRoom"
         component={ChatRoomScreen}
-        // options={({ navigation, route }) => ({
-        // title: route.params.name,
-        // headerRight: () => {
-        //   return (
-        //     <View
-        //       style={{
-        //         flexDirection: "row",
-        //         width: 140,
-        //         justifyContent: "space-around",
-        //         marginRight: 10,
-        //       }}
-        //     >
-        //       <FontAwesome5 name="video" size={18} color={"white"} />
-        //       <MaterialIcons name="call" size={18} color={"white"} />
-
-        //       <MaterialCommunityIcons
-        //         name="dots-vertical"
-        //         size={18}
-        //         color="white"
-        //       />
-        //     </View>
-        //   );
-        // },
-        // headerLeft: () => {
-        //   return (
-        //     <TouchableOpacity
-        //       // onPress={() => {
-        //       //   navigation.navigate("Root");
-        //       // }}
-        //     >
-        //       <IoIosArrowBack
-        //         name="IoChevronBackCircleSharp"
-        //         size={18}
-        //         color={"white"}
-        //       />
-        //     </TouchableOpacity>
-        //   );
-        //   // <FontAwesome5 name="video" size={18} color={"white"} />
-        //   // <Text>Hello</Text>;
-        // },
-        // })}
+        options={({ navigation, route }) => ({
+          title: route.params?.name,
+          headerTitleStyle: { fontSize: 26 ,color:"white",marginLeft:-25},
+          headerStatusBarHeight: 50,
+          // headerRight: () => {
+          //   return (
+          //     <View
+          //       style={{
+          //         flexDirection: "row",
+          //         width: 140,
+          //         justifyContent: "space-around",
+          //         marginRight: 10,
+          //       }}
+          //     >
+          //       <FontAwesome5 name="video" size={18} color={"white"} />
+          //       <MaterialIcons name="call" size={18} color={"white"} />
+          //       <MaterialCommunityIcons
+          //         name="dots-vertical"
+          //         size={18}
+          //         color="white"
+          //       />
+          //     </View>
+          //   );
+          // },
+          headerLeft: () => {
+            return (
+              <TouchableOpacity
+                style={{ marginLeft: 15 }}
+                onPress={() => {
+                  navigation.navigate("Root");
+                }}
+              >
+                <FontAwesome5 name="angle-left" size={30} color={"white"} />
+              </TouchableOpacity>
+            );
+          },
+        })}
       />
 
       <Stack.Screen
