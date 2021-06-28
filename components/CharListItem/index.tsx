@@ -13,7 +13,7 @@ export type ChatListItemProps = {
 
 const ChatListItem = (props: ChatListItemProps) => {
   const { chatRoom, isUser, currentUser } = props;
-
+  const lastMessage = String(chatRoom.lastMessage);
   const navigation = useNavigation();
 
   const user = chatRoom.user[isUser];
@@ -32,9 +32,7 @@ const ChatListItem = (props: ChatListItemProps) => {
           <Image source={{ uri: user.imageUri }} style={styles.avater} />
           <View style={styles.midContainer}>
             <Text style={styles.userName}>{user.name}</Text>
-            <Text style={styles.lastMessage}>
-              {chatRoom.lastMessage}
-            </Text>
+            <Text style={styles.lastMessage}>{lastMessage}</Text>
           </View>
         </View>
         <Text style={styles.time}>

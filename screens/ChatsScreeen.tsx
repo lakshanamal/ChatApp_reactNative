@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FlatList, ImageBackground, StyleSheet } from "react-native";
 import ChatListItem from "../components/CharListItem";
 import NewMessageButton from "../components/NewMessageButton";
-import { View } from "../components/Themed";
+import { View, Text } from "../components/Themed";
 import firebase from "../firebaseConfig";
 import BG from "../assets/images/splash3.png";
 import { ChatRoom, User } from "../types";
@@ -37,7 +37,8 @@ export default function ChatsScreen() {
                     } else {
                       setIsCurrentUser(0);
                     }
-                    setChatList([...chatList, docs.data()]);
+                    setChatList([...chatList!, docs.data()]);
+                    // console.log(docs.data());
                   }
                 });
             }
@@ -66,6 +67,7 @@ export default function ChatsScreen() {
               style={{ width: "100%" }}
               renderItem={({ item }) => (
                 <ChatListItem
+                  // key={item}
                   chatRoom={item}
                   isUser={isCurrentUser}
                   currentUser={currentUser!}
@@ -73,6 +75,7 @@ export default function ChatsScreen() {
               )}
             />
           )}
+
           <NewMessageButton />
         </View>
       </View>
