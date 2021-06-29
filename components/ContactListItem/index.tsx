@@ -4,6 +4,7 @@ import { User } from "../../types";
 import styles from "./style";
 import { useNavigation } from "@react-navigation/native";
 import firebase from "../../firebaseConfig";
+import { ActivityIndicator } from "react-native-paper";
 
 export type ContactListItemProps = {
   user: User;
@@ -13,12 +14,13 @@ export type ContactListItemProps = {
 const ContactListItem = (props: ContactListItemProps) => {
   const navigation = useNavigation();
   // user in the constact list
-
   const { user, curUser } = props;
+  const [loading, setLoading] = useState(false);
 
   const onClick = async () => {
     try {
       // get current user
+      setLoading(true);
       const currentUser = await firebase
         .firestore()
         .collection("users")
@@ -80,6 +82,7 @@ const ContactListItem = (props: ContactListItemProps) => {
           .update({
             chatRoomIds: firebase.firestore.FieldValue.arrayUnion(chatRoomId),
           });
+        setLoading(false);
       } else if (checkChatRoom1.exists) {
         chatRoomId = checkChatRoom1.id;
       } else if (checkChatRoom2.exists) {
@@ -97,17 +100,39 @@ const ContactListItem = (props: ContactListItemProps) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={onClick}>
-      <View style={styles.container}>
-        <View style={styles.leftContainer}>
-          <Image source={{ uri: user.imageUri }} style={styles.avater} />
-          <View style={styles.midContainer}>
-            <Text style={styles.userName}>{user.name}</Text>
-            <Text style={styles.status}>{user.status}</Text>
-          </View>
+    <View
+      style={{
+        height: "100%",
+        width: "100%",
+        alignItems: "center",
+      }}
+    >
+      {loading ? (
+        <View
+          style={{
+            height: 80,
+            width: "100%",
+            alignItems: "center",
+            display: "flex",
+            justifyContent: "space-around",
+          }}
+        >
+          <ActivityIndicator color={"white"} />
         </View>
-      </View>
-    </TouchableWithoutFeedback>
+      ) : (
+        <TouchableWithoutFeedback onPress={onClick}>
+          <View style={styles.container}>
+            <View style={styles.leftContainer}>
+              <Image source={{ uri: user.imageUri }} style={styles.avater} />
+              <View style={styles.midContainer}>
+                <Text style={styles.userName}>{user.name}</Text>
+                <Text style={styles.status}>{user.status}</Text>
+              </View>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      )}
+    </View>
   );
 };
 
