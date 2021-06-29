@@ -11,6 +11,7 @@ export default function Contact() {
   useEffect(() => {
     const getUsers = async () => {
       const currentUser = firebase.auth().currentUser;
+      setUsers([]);
       setCurUser(currentUser);
       await firebase
         .firestore()
