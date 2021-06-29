@@ -9,7 +9,6 @@ import ChatListItem from "../components/CharListItem";
 import NewMessageButton from "../components/NewMessageButton";
 import { View, Text } from "../components/Themed";
 import firebase from "../firebaseConfig";
-import BG from "../assets/images/splash3.png";
 import { ChatRoom, User } from "../types";
 import welcome from "../assets/images/welcome.mp4";
 import { Video } from "expo-av";
@@ -60,12 +59,12 @@ export default function ChatsScreen() {
     };
     getChatList();
   }, []);
-  console.log(loading);
+
   return (
     <View style={{ backgroundColor: "#123858", width: "100%", height: "100%" }}>
       {!loading ? (
         <View style={styles.container}>
-          {chatList.length !== 0 ? (
+          {chatList.length == 0 ? (
             <View style={styles.midContainer}>
               <View
                 style={{

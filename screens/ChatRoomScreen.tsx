@@ -6,7 +6,7 @@ import firebase from "../firebaseConfig";
 import { useRoute } from "@react-navigation/native";
 
 const ChatRoomScreen = () => {
-  const route = useRoute();
+  const route = useRoute<any>();
   const { id } = route.params;
 
   const [message, setMessage] = useState([]);

@@ -10,7 +10,7 @@ export type ChatMessageProps = {
 };
 
 const ChatMessage = (props: ChatMessageProps) => {
-  const route = useRoute();
+  const route = useRoute<any>();
   const { currentUser } = route.params;
   const { message } = props;
 
@@ -32,7 +32,7 @@ const ChatMessage = (props: ChatMessageProps) => {
         {!isMyMessage() && <Text style={styles.name}>{message.user.name}</Text>}
         <Text style={styles.message}>{message.content}</Text>
         <Text style={styles.time}>
-          {moment(message.createdAt.toDate().toString()).format("h:mm")}
+          {moment((message.createdAt as any).toDate()).format("h:mm")}
         </Text>
       </View>
     </View>
