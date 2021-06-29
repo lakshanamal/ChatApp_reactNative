@@ -38,9 +38,7 @@ const ChatRoomScreen = () => {
           width: "98%",
           height: "86%",
           backgroundColor: "white",
-          borderTopLeftRadius: 40,
-          borderTopRightRadius: 40,
-          borderRadius: 40,
+          borderRadius: 10,
         }}
       >
         <FlatList
