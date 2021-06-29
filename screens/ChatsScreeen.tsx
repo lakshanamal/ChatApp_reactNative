@@ -22,13 +22,13 @@ export default function ChatsScreen() {
 
   useEffect(() => {
     const getChatList = async () => {
-      // const currentUserAuth = firebase.auth().currentUser;
+      const currentUserAuth = firebase.auth().currentUser;
       setChatList([]);
       setLoading(true);
       firebase
         .firestore()
         .collection("users")
-        .doc("VYMbldumiOhiELDN4IpZHPRYGo33")
+        .doc(currentUserAuth?.uid)
         .onSnapshot((doc) => {
           if (doc.exists) {
             setCurrentUser(doc.data() as User);
@@ -41,20 +41,18 @@ export default function ChatsScreen() {
                 .doc(chatroomsId[i])
                 .onSnapshot((docs) => {
                   if (docs.exists) {
-                    if (
-                      docs.data()?.user[0].id == "VYMbldumiOhiELDN4IpZHPRYGo33"
-                    ) {
+                    if (docs.data()?.user[0].id == currentUserAuth?.uid) {
                       setIsCurrentUser(1);
                     } else {
                       setIsCurrentUser(0);
                     }
 
                     setChatList((prev) => [...prev, docs.data()]);
-                    setLoading(false);
                   }
                 });
             }
           }
+          setLoading(false);
         });
     };
     getChatList();

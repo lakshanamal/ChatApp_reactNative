@@ -44,16 +44,16 @@ const OPT = () => {
   const verifyPhone = async () => {
     let verificationNumber = (verificationCode as any).join("");
     console.log(verificationNumber);
-    // try {
-    //   const credential = firebase.auth.PhoneAuthProvider.credential(
-    //     verificationId,
-    //     verificationNumber
-    //   );
-    //   await firebase.auth().signInWithCredential(credential);
-    //   showMessage({ text: "Phone authentication successful 👍" });
-    // } catch (err) {
-    //   showMessage({ text: `Error: ${err.message}` });
-    // }
+    try {
+      const credential = firebase.auth.PhoneAuthProvider.credential(
+        verificationId,
+        verificationNumber
+      );
+      await firebase.auth().signInWithCredential(credential);
+      showMessage({ text: "Phone authentication successful 👍" });
+    } catch (err) {
+      showMessage({ text: `Error: ${err.message}` });
+    }
     navigation.navigate("Profile");
   };
 
@@ -74,8 +74,7 @@ const OPT = () => {
   };
 
   useEffect(() => {
-    // console.log(verificationCode);
-    // getOTP();
+    getOTP();
     OTP[0].focus();
   }, []);
 

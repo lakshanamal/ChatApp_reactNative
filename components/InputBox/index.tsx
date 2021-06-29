@@ -19,7 +19,7 @@ export type ChatMessageProps = {
 
 const InputBox = () => {
   const [message, setMessage] = useState("");
-  const route = useRoute();
+  const route = useRoute<any>();
   const { id, user, currentUser } = route.params;
 
   const onMicrophonePress = () => {
@@ -83,10 +83,10 @@ const InputBox = () => {
       });
 
     firebase
-      .firestore()
-      .collection("chatrooms")
-      .doc(id)
-      .update({ lastMessage: message });
+      // .firestore()
+      // .collection("chatrooms")
+      // .doc(id)
+      // .update({ lastMessage: message });
     setMessage("");
     // console.log(currentUser);
   };
