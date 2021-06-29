@@ -5,6 +5,7 @@ import { View } from "../components/Themed";
 import firebase from "./../firebaseConfig";
 import { useEffect } from "react";
 
+
 export default function Contact() {
   const [users, setUsers] = useState<Array<{}>>([]);
   const [curUser, setCurUser] = useState("");
@@ -12,11 +13,11 @@ export default function Contact() {
     const getUsers = async () => {
       const currentUser = firebase.auth().currentUser;
       setUsers([]);
-      setCurUser(currentUser);
+      setCurUser(currentUser!.uid);
       await firebase
         .firestore()
         .collection("users")
-        .where("id", "!=", currentUser?.uid)
+        .where("id", "!=", currentUser!.uid)
         .get()
         .then((snapshot) => {
           snapshot.forEach((doc) => {

@@ -12,6 +12,7 @@ import firebase from "../firebaseConfig";
 import { ChatRoom, User } from "../types";
 import welcome from "../assets/images/welcome.mp4";
 import { Video } from "expo-av";
+import Loading from "./Loading";
 
 export default function ChatsScreen() {
   const [chatList, setChatList] = useState([]);
@@ -46,13 +47,12 @@ export default function ChatsScreen() {
                     } else {
                       setIsCurrentUser(0);
                     }
-
+                    setLoading(false);
                     setChatList((prev) => [...prev, docs.data()]);
                   }
                 });
             }
           }
-          setLoading(false);
         });
     };
     getChatList();
@@ -107,18 +107,7 @@ export default function ChatsScreen() {
           )}
         </View>
       ) : (
-        <View
-          style={{
-            width: "100%",
-            height: "100%",
-            alignItems: "center",
-            justifyContent: "space-around",
-            display: "flex",
-            backgroundColor: "#16456D",
-          }}
-        >
-          <ActivityIndicator size="large" color="white" />
-        </View>
+        <Loading />
       )}
     </View>
   );

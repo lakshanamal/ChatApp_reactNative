@@ -24,10 +24,9 @@ const ContactListItem = (props: ContactListItemProps) => {
         .collection("users")
         .doc(curUser)
         .get();
-
       const userData = currentUser.data();
 
-      //  check chat room is exists
+      // //  check chat room is exists
       const idPosible1 = user.id + userData?.id;
       const idPosible2 = userData?.id + user.id;
 
@@ -65,10 +64,8 @@ const ContactListItem = (props: ContactListItemProps) => {
           .firestore()
           .collection("chatrooms")
           .doc(chatRoomId)
-          .set(chatRoom)
-          .then(() => {
-            console.log("Chat room create sucess full");
-          });
+          .set(chatRoom);
+
         await firebase
           .firestore()
           .collection("users")
@@ -79,7 +76,7 @@ const ContactListItem = (props: ContactListItemProps) => {
         await firebase
           .firestore()
           .collection("users")
-          .doc(user.id)
+          .doc(user.id as string)
           .update({
             chatRoomIds: firebase.firestore.FieldValue.arrayUnion(chatRoomId),
           });
@@ -89,7 +86,11 @@ const ContactListItem = (props: ContactListItemProps) => {
         chatRoomId = checkChatRoom2.id;
       }
 
-      navigation.navigate("ChatRoom", { id: chatRoomId, user: user,currentUser: userData, });
+      navigation.navigate("ChatRoom", {
+        id: chatRoomId,
+        user: user,
+        currentUser: userData,
+      });
     } catch (err) {
       console.log(err);
     }
