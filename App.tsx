@@ -79,10 +79,10 @@ export default function App() {
             <MainNavigator colorScheme={colorScheme} />
           ) : (
             <RegisterNavigator />
-          )}
-          <StatusBar /> */}
-          {/* <MainNavigator colorScheme={colorScheme} /> */}
-          <RegisterNavigator />
+          )} */}
+          <StatusBar />
+          <MainNavigator colorScheme={colorScheme} />
+          {/* <RegisterNavigator /> */}
         </NavigationContainer>
       </SafeAreaProvider>
     );

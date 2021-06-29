@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-// import Avater from "../../assets/images/avater.png";
 import * as ImagePicker from "expo-image-picker";
 import firebase from "../../firebaseConfig";
 import { ProgressBar } from "react-native-paper";
@@ -18,16 +17,22 @@ import { Video } from "expo-av";
 import Profile from "../../assets/images/profile.mp4";
 import info from "../../assets/images/profile.png";
 import { FontAwesome } from "@expo/vector-icons";
-
 const CreateProfile = ({ navigation }: { navigation: any }) => {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [prograss, setPrograss] = useState(0);
+  const [id, setId] = useState("");
+  // const [loading,isLoading]=useState(false);
   const colorScheme = useColorScheme();
   const video = React.useRef(null);
 
-  const createUser = async () => {
-    const user = await firebase.auth().currentUser;
+  useEffect(() => {
+    const user = firebase.auth().currentUser;
+    setId(user!.uid);
+    console.log(user);
+  }, []);
+
+  const createUser = async (id: string) => {
     const defaultImageUri =
       "https://firebasestorage.googleapis.com/v0/b/whatsappclone-b7830.appspot.com/o/images%2Favater.png?alt=media&token=ef3ae647-117a-4738-9aa4-ddc2b976ecf4";
 
@@ -36,29 +41,25 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
     }
 
     const newUser = {
-      id: user?.uid,
+      id: id,
       name: name,
       imageUri: image,
       status: "iam using memo",
       chatRoomIds: [],
     };
-    console.log(newUser);
 
     await firebase
       .firestore()
       .collection("users")
-      .doc(user?.uid)
+      .doc(id)
       .set(newUser)
-      .then(() => {
-        console.log("User added!");
-      })
       .catch((error) => {
         console.log(error);
       });
     navigation.navigate("Root");
   };
 
-  const handleChoosePhoto = async () => {
+  const handleChoosePhoto = async (id: string) => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -67,7 +68,7 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
     });
 
     if (!result.cancelled) {
-      uploadImage(result.uri, "profile");
+      uploadImage(result.uri, id);
     }
   };
 
@@ -122,7 +123,7 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
       >
         Please provide your name and an optional profile photo
       </Text>
-      <TouchableOpacity onPress={handleChoosePhoto}>
+      <TouchableOpacity onPress={() => handleChoosePhoto(id)}>
         {image !== "" ? (
           <Image
             source={{ uri: image }}
@@ -164,7 +165,7 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
         placeholder="Profile name"
         onChangeText={setName}
       />
-     <Text
+      <Text
         style={{
           color: "#A3B7C8",
           fontWeight: "bold",
@@ -175,7 +176,7 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
         Enter user name
       </Text>
       <TouchableOpacity
-        onPress={createUser}
+        onPress={() => createUser(id)}
         disabled={name.length == 0 ? true : false}
         style={name.length == 0 ? style.btnDisable : style.btn}
       >

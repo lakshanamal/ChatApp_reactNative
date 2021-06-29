@@ -5,7 +5,7 @@ import * as React from "react";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ChatsScreeen from "../screens/ChatsScreeen";
-
+import Contact from "../screens/Contact";
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from "../types";
 import { Fontisto } from "@expo/vector-icons";
 // import { TabBarItem } from "react-native-tab-view";
@@ -61,8 +61,8 @@ export default function BottomTabNavigator() {
         }}
       /> */}
       <MainTap.Screen name="Chats" component={TabOneNavigator} />
-      <MainTap.Screen name="Status" component={TabOneNavigator} />
-      <MainTap.Screen name="Calls" component={TabOneNavigator} />
+      {/* <MainTap.Screen name="Status" component={Contact} /> */}
+      {/* <MainTap.Screen name="Calls" component={Contact} /> */}
     </MainTap.Navigator>
   );
 }
@@ -80,3 +80,4 @@ function TabOneNavigator() {
     </TabOneStack.Navigator>
   );
 }
+
