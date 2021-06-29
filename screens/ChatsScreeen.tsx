@@ -30,7 +30,8 @@ export default function ChatsScreen() {
         .firestore()
         .collection("users")
         .doc(currentUserAuth?.uid)
-        .onSnapshot((doc) => {
+        .get()
+        .then((doc) => {
           if (doc.exists) {
             setCurrentUser(doc.data() as User);
             const chatroomsId = doc.data()?.chatRoomIds;
@@ -40,7 +41,8 @@ export default function ChatsScreen() {
                 .firestore()
                 .collection("chatrooms")
                 .doc(chatroomsId[i])
-                .onSnapshot((docs) => {
+                .get()
+                .then((docs) => {
                   if (docs.exists) {
                     if (docs.data()?.user[0].id == currentUserAuth?.uid) {
                       setIsCurrentUser(1);
@@ -53,6 +55,7 @@ export default function ChatsScreen() {
                 });
             }
           }
+          setLoading(false);
         });
     };
     getChatList();

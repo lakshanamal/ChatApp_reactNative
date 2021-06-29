@@ -100,13 +100,7 @@ const ContactListItem = (props: ContactListItemProps) => {
   };
 
   return (
-    <View
-      style={{
-        height: "100%",
-        width: "100%",
-        alignItems: "center",
-      }}
-    >
+    <View>
       {loading ? (
         <View
           style={{

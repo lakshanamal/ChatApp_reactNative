@@ -5,14 +5,14 @@ import { View } from "../components/Themed";
 import firebase from "./../firebaseConfig";
 import { useEffect } from "react";
 
-
 export default function Contact() {
   const [users, setUsers] = useState<Array<{}>>([]);
   const [curUser, setCurUser] = useState("");
   useEffect(() => {
     const getUsers = async () => {
       const currentUser = firebase.auth().currentUser;
-      setUsers([]);
+      // setUsers([]);
+
       setCurUser(currentUser!.uid);
       await firebase
         .firestore()
@@ -28,7 +28,7 @@ export default function Contact() {
     };
     getUsers();
   }, []);
-
+  console.log(users);
   return (
     <View style={{ backgroundColor: "#123858", width: "100%", height: "100%" }}>
       <View style={styles.container}>
