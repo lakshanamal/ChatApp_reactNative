@@ -13,6 +13,7 @@ import { ChatRoom, User } from "../types";
 import welcome from "../assets/images/welcome.mp4";
 import { Video } from "expo-av";
 import Loading from "./Loading";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function ChatsScreen() {
   const [chatList, setChatList] = useState([]);
@@ -20,6 +21,7 @@ export default function ChatsScreen() {
   const [currentUser, setCurrentUser] = useState<User>();
   const video = React.useRef(null);
   const [loading, setLoading] = useState(true);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     const getChatList = async () => {
@@ -59,7 +61,7 @@ export default function ChatsScreen() {
         });
     };
     getChatList();
-  }, []);
+  }, [isFocused]);
 
   return (
     <View style={{ backgroundColor: "#123858", width: "100%", height: "100%" }}>
