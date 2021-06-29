@@ -17,14 +17,17 @@ import {
   FirebaseRecaptchaBanner,
 } from "expo-firebase-recaptcha";
 import { Video } from "expo-av";
+import { useRoute, useNavigation } from "@react-navigation/native";
 
-const OPT = ({ navigation, route }) => {
+const OPT = () => {
+  const route = useRoute<any>();
+  const navigation = useNavigation();
   const { phoneNumber } = route.params;
   // const phoneNumber = "515515";
   const video = React.useRef(null);
   const recaptchaVerifier = useRef(null);
   const attemptInvisibleVerification = false;
-  const [verificationCode, setVerificationCode] = useState("");
+  const [verificationCode, setVerificationCode] = useState<string[]>([]);
   let OTP = new Array(6).fill("");
   const [verificationId, setVerificationId] = useState("");
 
@@ -39,17 +42,18 @@ const OPT = ({ navigation, route }) => {
       : undefined
   );
   const verifyPhone = async () => {
-    let verificationNumber = verificationCode.join("");
-    try {
-      const credential = firebase.auth.PhoneAuthProvider.credential(
-        verificationId,
-        verificationNumber
-      );
-      await firebase.auth().signInWithCredential(credential);
-      showMessage({ text: "Phone authentication successful 👍" });
-    } catch (err) {
-      showMessage({ text: `Error: ${err.message}` });
-    }
+    let verificationNumber = (verificationCode as any).join("");
+    console.log(verificationNumber);
+    // try {
+    //   const credential = firebase.auth.PhoneAuthProvider.credential(
+    //     verificationId,
+    //     verificationNumber
+    //   );
+    //   await firebase.auth().signInWithCredential(credential);
+    //   showMessage({ text: "Phone authentication successful 👍" });
+    // } catch (err) {
+    //   showMessage({ text: `Error: ${err.message}` });
+    // }
     navigation.navigate("Profile");
   };
 
@@ -58,7 +62,7 @@ const OPT = ({ navigation, route }) => {
       const phoneProvider = new firebase.auth.PhoneAuthProvider();
       const verificationId = await phoneProvider.verifyPhoneNumber(
         phoneNumber,
-        recaptchaVerifier.current
+        recaptchaVerifier.current!
       );
       setVerificationId(verificationId);
       showMessage({
@@ -71,7 +75,7 @@ const OPT = ({ navigation, route }) => {
 
   useEffect(() => {
     // console.log(verificationCode);
-    getOTP();
+    // getOTP();
     OTP[0].focus();
   }, []);
 

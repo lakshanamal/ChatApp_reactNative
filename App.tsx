@@ -51,23 +51,23 @@ export default function App() {
     return (
       <ImageBackground source={BG} style={{ width: "100%", height: "100%" }}>
         {/* <View style={{ backgroundColor: "#123858" }}> */}
-          <View
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Image
+            source={Logo}
             style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
+              width: 180,
+              height: 180,
+              resizeMode: "contain",
             }}
-          >
-            <Image
-              source={Logo}
-              style={{
-                width: 180,
-                height: 180,
-                resizeMode: "contain",
-              }}
-            />
-            <ActivityIndicator size="large" color="white" />
-          </View>
+          />
+          <ActivityIndicator size="large" color="white" />
+        </View>
         {/* </View> */}
       </ImageBackground>
     );
@@ -75,13 +75,14 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <NavigationContainer>
-          {isAuthenticated ? (
+          {/* {isAuthenticated ? (
             <MainNavigator colorScheme={colorScheme} />
           ) : (
             <RegisterNavigator />
           )}
-          <StatusBar />
+          <StatusBar /> */}
           {/* <MainNavigator colorScheme={colorScheme} /> */}
+          <RegisterNavigator />
         </NavigationContainer>
       </SafeAreaProvider>
     );
