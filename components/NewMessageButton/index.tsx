@@ -6,15 +6,19 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import styles from "./style";
 // import {Meterial}
 
-const NewMessageButton = () => {
+const NewMessageButton = ({ isStart }: { isStart: boolean }) => {
   const navigation = useNavigation();
   const onPress = () => {
     navigation.navigate("Contacts");
   };
   return (
-    <View style={styles.container}>
+    <View style={isStart ? styles.startContainer : styles.container}>
       <TouchableOpacity onPress={onPress}>
-        <MaterialCommunityIcons name="plus" size={28} color="white" />
+        {isStart ? (
+          <Text style={{ color: "white", fontSize: 20 }}>Add Contact</Text>
+        ) : (
+          <MaterialCommunityIcons name="plus" size={28} color="white" />
+        )}
       </TouchableOpacity>
     </View>
   );

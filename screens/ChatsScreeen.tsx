@@ -6,11 +6,14 @@ import { View, Text } from "../components/Themed";
 import firebase from "../firebaseConfig";
 import BG from "../assets/images/splash3.png";
 import { ChatRoom, User } from "../types";
+import welcome from "../assets/images/welcome.mp4";
+import { Video } from "expo-av";
 
 export default function ChatsScreen() {
   const [chatList, setChatList] = useState([]);
   const [isCurrentUser, setIsCurrentUser] = useState(0);
   const [currentUser, setCurrentUser] = useState<User>();
+  const video = React.useRef(null);
 
   useEffect(() => {
     const getChatList = async () => {
@@ -53,33 +56,49 @@ export default function ChatsScreen() {
   return (
     <View style={{ backgroundColor: "#123858", width: "100%", height: "100%" }}>
       <View style={styles.container}>
-        <View
-          style={{
-            backgroundColor: "#16456D",
-            width: "100%",
-            height: "100%",
-            borderTopLeftRadius: 40,
-            borderTopRightRadius: 40,
-            marginTop: 40,
-          }}
-        >
-          {chatList && (
-            <FlatList
-              data={chatList}
-              style={{ width: "100%" }}
-              renderItem={({ item }) => (
-                <ChatListItem
-                  // key={item}
-                  chatRoom={item}
-                  isUser={isCurrentUser}
-                  currentUser={currentUser!}
-                />
-              )}
-            />
-          )}
+        {chatList.length !== 0 ? (
+          <View style={styles.midContainer}>
+            <View
+              style={{
+                width: "100%",
+                height: "100%",
+                backgroundColor: "#16456D",
+                flex: 1,
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ fontSize: 40 }}>Hi!</Text>
+              <Text style={{ fontSize: 50 }}>Welcome to Memo</Text>
+              <Video
+                ref={video}
+                style={{ width: 350, height: 350 }}
+                source={welcome}
+                resizeMode="contain"
+                shouldPlay={true}
+              />
 
-          <NewMessageButton />
-        </View>
+              <NewMessageButton isStart={true} />
+            </View>
+          </View>
+        ) : (
+          <View style={styles.midContainer}>
+            {chatList && (
+              <FlatList
+                data={chatList}
+                style={{ width: "100%" }}
+                renderItem={({ item }) => (
+                  <ChatListItem
+                    // key={item}
+                    chatRoom={item}
+                    isUser={isCurrentUser}
+                    currentUser={currentUser!}
+                  />
+                )}
+              />
+            )}
+            <NewMessageButton isStart={false} />
+          </View>
+        )}
       </View>
     </View>
   );
@@ -95,5 +114,13 @@ const styles = StyleSheet.create({
     marginTop: 50,
     width: "100%",
     zIndex: 1000,
+  },
+  midContainer: {
+    backgroundColor: "#16456D",
+    width: "100%",
+    height: "100%",
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    marginTop: 40,
   },
 });
