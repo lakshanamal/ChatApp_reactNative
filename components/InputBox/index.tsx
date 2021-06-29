@@ -26,13 +26,13 @@ const InputBox = () => {
     console.warn("Microphone");
   };
 
-  const onSendPress = () => {
-    firebase
+  const onSendPress = async () => {
+    await firebase
       .firestore()
       .collection("chats")
       .doc(id)
       .get()
-      .then((chat) => {
+      .then(async (chat) => {
         if (chat.exists) {
           const newMessage = {
             id: uuid.v4(),
@@ -43,7 +43,7 @@ const InputBox = () => {
               name: currentUser?.name,
             },
           };
-          firebase
+          await firebase
             .firestore()
             .collection("chats")
             .doc(id)
@@ -78,15 +78,19 @@ const InputBox = () => {
             ],
           };
 
-          firebase.firestore().collection("chats").doc(id).set(newMessage);
+          await firebase
+            .firestore()
+            .collection("chats")
+            .doc(id)
+            .set(newMessage);
         }
       });
 
-    firebase
-      // .firestore()
-      // .collection("chatrooms")
-      // .doc(id)
-      // .update({ lastMessage: message });
+    await firebase
+      .firestore()
+      .collection("chatrooms")
+      .doc(id)
+      .update({ lastMessage: message });
     setMessage("");
     // console.log(currentUser);
   };

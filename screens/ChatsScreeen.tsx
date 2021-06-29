@@ -21,6 +21,7 @@ export default function ChatsScreen() {
   const [currentUser, setCurrentUser] = useState<User>();
   const video = React.useRef(null);
   const [loading, setLoading] = useState(true);
+  const [listLoading, setListLoading] = useState(true);
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -28,7 +29,7 @@ export default function ChatsScreen() {
       const currentUserAuth = firebase.auth().currentUser;
       setChatList([]);
       setLoading(true);
-      firebase
+      await firebase
         .firestore()
         .collection("users")
         .doc(currentUserAuth?.uid)
@@ -38,7 +39,6 @@ export default function ChatsScreen() {
             setCurrentUser(doc.data() as User);
             const chatroomsId = doc.data()?.chatRoomIds;
             for (var i = 0; i < chatroomsId.length; i++) {
-              // console.log(chatroomsId);
               firebase
                 .firestore()
                 .collection("chatrooms")
@@ -56,8 +56,9 @@ export default function ChatsScreen() {
                   }
                 });
             }
+          } else {
+            setLoading(false);
           }
-          setLoading(false);
         });
     };
     getChatList();

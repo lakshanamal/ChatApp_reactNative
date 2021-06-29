@@ -28,7 +28,7 @@ export default function Contact() {
     };
     getUsers();
   }, []);
-  console.log(users);
+
   return (
     <View style={{ backgroundColor: "#123858", width: "100%", height: "100%" }}>
       <View style={styles.container}>
