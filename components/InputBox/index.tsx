@@ -124,7 +124,7 @@ const InputBox = () => {
           style={{ position: "absolute", right: 0 }}
         >
           <View style={styles.buttonController}>
-            {message ? (
+            {/* {message ? (
               <MaterialIcons name="send" size={24} color={"#123858"} />
             ) : (
               <MaterialCommunityIcons
@@ -132,7 +132,8 @@ const InputBox = () => {
                 size={24}
                 color="#123858"
               />
-            )}
+            )} */}
+            <MaterialIcons name="send" size={24} color={"#123858"} />
           </View>
         </TouchableOpacity>
       </View>

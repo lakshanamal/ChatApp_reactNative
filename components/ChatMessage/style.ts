@@ -30,6 +30,10 @@ const styles = StyleSheet.create({
     color: "white",
     marginBottom: 5,
     fontWeight: "bold",
+    backgroundColor: "#123858",
+    padding: 2,
+    borderRadius: 5,
+    alignSelf: "flex-start",
   },
   time: {
     alignSelf: "flex-end",
