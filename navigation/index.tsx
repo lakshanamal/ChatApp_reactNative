@@ -39,7 +39,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="EditProfile"
+      initialRouteName="Root"
       screenOptions={{
         headerStyle: {
           backgroundColor: "#123858",

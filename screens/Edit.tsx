@@ -19,12 +19,15 @@ function Edit() {
             textAlign: "left",
             fontSize: 30,
             width: "100%",
-            marginTop: 80,
+            marginTop: 50,
+            borderTopWidth: 2,
+            paddingTop: 20,
+            borderTopColor: "#123858",
           }}
         >
           Edit Profile
         </Text>
-        <Text style={{ textAlign: "left", width: "100%", marginTop: "30" }}>
+        <Text style={{ textAlign: "left", width: "100%", marginTop: 30 }}>
           Enter name :
         </Text>
         <TextInput
@@ -86,7 +89,7 @@ const style = StyleSheet.create({
     width: "80%",
     borderRadius: 7,
     backgroundColor: "white",
-    marginTop: 10,
+    marginBottom: 30,
     // textAlign: "center",
     padding: 10,
     shadowColor: "#A3B7C8",
@@ -136,5 +139,6 @@ const style = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "left",
     width: "100%",
+    paddingBottom: 10,
   },
 });
