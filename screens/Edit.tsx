@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { View, Text } from "../components/Themed";
-import { StyleSheet, Image, TouchableOpacity, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  TextInput,
+  Alert,
+} from "react-native";
 import BG from "../assets/images/avater.png";
 import firebase from "../firebaseConfig";
 import { ActivityIndicator } from "react-native-paper";
@@ -35,6 +41,20 @@ const Edit = () => {
       .collection("users")
       .doc(id)
       .update({ name: name });
+
+    Alert.alert(
+      "Memo aleart",
+      "User name sucessfully updated",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+      ],
+      {
+        cancelable: true,
+      }
+    );
   };
 
   return (
