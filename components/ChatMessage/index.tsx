@@ -21,17 +21,20 @@ const ChatMessage = (props: ChatMessageProps) => {
     <View style={styles.container}>
       <View
         style={[
-          styles.messageBox,
+          isMyMessage() ? styles.messageBox : styles.otherMeassge,
           {
-            backgroundColor: isMyMessage() ? "#123858" : "white",
-            marginRight: isMyMessage() ? 0 : 50,
-            marginLeft: isMyMessage() ? 50 : 0,
+            backgroundColor: isMyMessage() ? "#123858" : "#266aa3",
           },
         ]}
       >
         {!isMyMessage() && <Text style={styles.name}>{message.user.name}</Text>}
         <Text style={styles.message}>{message.content}</Text>
-        <Text style={styles.time}>
+        <Text
+          style={[
+            styles.time,
+            { alignSelf: isMyMessage() ? "flex-end" : "flex-start" },
+          ]}
+        >
           {moment((message.createdAt as any).toDate()).format("h:mm")}
         </Text>
       </View>

@@ -6,15 +6,24 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff00",
     // height: "100%",
     display: "flex",
-    padding: 10,
+    padding: 2,
+    paddingHorizontal: 10,
     width: "auto",
-    alignSelf: "flex-end",
   },
   messageBox: {
-    padding: 10,
+    padding: 7,
     paddingStart: 40,
-    borderRadius: 15,
+    borderRadius: 5,
     borderBottomEndRadius: 0,
+    alignSelf: "flex-end",
+    // width: 100,
+  },
+  otherMeassge: {
+    padding: 10,
+    paddingEnd: 40,
+    borderRadius: 10,
+    borderBottomStartRadius: 0,
+    alignSelf: "flex-start",
     // width: 100,
   },
   name: {
@@ -24,7 +33,8 @@ const styles = StyleSheet.create({
   },
   time: {
     alignSelf: "flex-end",
-    color: "gray",
+    color: "#dedede",
+    fontSize: 10,
   },
   message: {
     color: "white",
