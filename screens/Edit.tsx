@@ -1,15 +1,55 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text } from "../components/Themed";
 import { StyleSheet, Image, TouchableOpacity, TextInput } from "react-native";
 import BG from "../assets/images/avater.png";
-function Edit() {
+import firebase from "../firebaseConfig";
+import { ActivityIndicator } from "react-native-paper";
+
+const Edit = () => {
   const [name, setName] = useState("");
+  const [uri, setUri] = useState("");
+  const [id, setId] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const currentUserAuth = firebase.auth().currentUser;
+    setId(currentUserAuth!.uid);
+    setLoading(true);
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(currentUserAuth?.uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          setName(doc.data()!.name);
+          setUri(doc.data()!.imageUri);
+          setLoading(false);
+        }
+      });
+  }, []);
+
+  const EditName = async () => {
+    await firebase
+      .firestore()
+      .collection("users")
+      .doc(id)
+      .update({ name: name });
+  };
+
   return (
     <View style={style.container}>
       <View style={style.midContainer}>
-        <Text style={style.title}>Lakshan Amal</Text>
+        <Text style={style.title}>{name}</Text>
         <View style={style.imageContainer}>
-          <Image style={{ width: 200, height: 200 }} source={BG} />
+          {loading ? (
+            <ActivityIndicator color="black" />
+          ) : (
+            <Image
+              style={{ width: 200, height: 200, borderRadius: 100 }}
+              source={{ uri: uri }}
+            />
+          )}
         </View>
 
         {/* <View style={style.editContainer}> */}
@@ -34,8 +74,9 @@ function Edit() {
           style={style.inputName}
           placeholder="Profile name"
           onChangeText={setName}
+          value={name}
         />
-        <TouchableOpacity onPress={() => {}} disabled={true} style={style.btn}>
+        <TouchableOpacity onPress={EditName} disabled={false} style={style.btn}>
           <Text
             style={{
               color: "white",
@@ -51,7 +92,7 @@ function Edit() {
     </View>
     // </View>
   );
-}
+};
 
 export default Edit;
 
