@@ -7,11 +7,12 @@ import {
 import { useRoute } from "@react-navigation/native";
 import firebase from "../../firebaseConfig";
 import React, { useState } from "react";
-import { Text, TextInput, TouchableOpacity } from "react-native";
+import { Text, TextInput, TouchableOpacity, Image } from "react-native";
 import { Message } from "../../types";
 import { View } from "../Themed";
 import styles from "./style";
 import uuid from "react-native-uuid";
+import * as ImagePicker from "expo-image-picker";
 
 export type ChatMessageProps = {
   message: Message;
@@ -19,6 +20,7 @@ export type ChatMessageProps = {
 
 const InputBox = () => {
   const [message, setMessage] = useState("");
+  const [image, setImage] = useState("");
   const route = useRoute<any>();
   const { id, user, currentUser } = route.params;
 
@@ -27,71 +29,73 @@ const InputBox = () => {
   };
 
   const onSendPress = async () => {
-    await firebase
-      .firestore()
-      .collection("chats")
-      .doc(id)
-      .get()
-      .then(async (chat) => {
-        if (chat.exists) {
-          const newMessage = {
-            id: uuid.v4(),
-            content: message,
-            createdAt: firebase.firestore.Timestamp.now(),
-            user: {
-              id: currentUser?.id,
-              name: currentUser?.name,
-            },
-          };
-          await firebase
-            .firestore()
-            .collection("chats")
-            .doc(id)
-            .update({
-              message: firebase.firestore.FieldValue.arrayUnion(newMessage),
-            });
-        } else {
-          const newMessage = {
-            id: id,
-            users: [
-              {
+    if (message !== "") {
+      await firebase
+        .firestore()
+        .collection("chats")
+        .doc(id)
+        .get()
+        .then(async (chat) => {
+          if (chat.exists) {
+            const newMessage = {
+              id: uuid.v4(),
+              content: message,
+              createdAt: firebase.firestore.Timestamp.now(),
+              user: {
                 id: currentUser?.id,
                 name: currentUser?.name,
-                imageUri: currentUser?.imageUri,
               },
-              {
-                id: user.id,
-                name: user.name,
-                imageUri: user.imageUri,
-              },
-            ],
-            message: [
-              {
-                id: uuid.v4(),
-                content: message,
-                createdAt: firebase.firestore.Timestamp.now(),
-                user: {
+            };
+            await firebase
+              .firestore()
+              .collection("chats")
+              .doc(id)
+              .update({
+                message: firebase.firestore.FieldValue.arrayUnion(newMessage),
+              });
+          } else {
+            const newMessage = {
+              id: id,
+              users: [
+                {
                   id: currentUser?.id,
                   name: currentUser?.name,
+                  imageUri: currentUser?.imageUri,
                 },
-              },
-            ],
-          };
+                {
+                  id: user.id,
+                  name: user.name,
+                  imageUri: user.imageUri,
+                },
+              ],
+              message: [
+                {
+                  id: uuid.v4(),
+                  content: message,
+                  createdAt: firebase.firestore.Timestamp.now(),
+                  user: {
+                    id: currentUser?.id,
+                    name: currentUser?.name,
+                  },
+                },
+              ],
+            };
 
-          await firebase
-            .firestore()
-            .collection("chats")
-            .doc(id)
-            .set(newMessage);
-        }
-      });
+            await firebase
+              .firestore()
+              .collection("chats")
+              .doc(id)
+              .set(newMessage);
+          }
+        });
 
-    await firebase
-      .firestore()
-      .collection("chatrooms")
-      .doc(id)
-      .update({ lastMessage: message });
-    setMessage("");
+      await firebase
+        .firestore()
+        .collection("chatrooms")
+        .doc(id)
+        .update({ lastMessage: message });
+      setMessage("");
+    }
     // console.log(currentUser);
   };
 
@@ -103,10 +107,69 @@ const InputBox = () => {
     }
   };
 
+  const handleChoosePhoto = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: false,
+      // aspect: [1, 1],
+      quality: 0.5,
+    });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+      //   uploadImage(result.uri);
+    }
+  };
+
+  const uploadImage = async (uri: string) => {
+    const responce = await fetch(uri);
+    const bob = await responce.blob();
+    let roomUri = id + "/";
+    var uploadTask = firebase
+      .storage()
+      .ref()
+      .child(roomUri + "message")
+      .put(bob);
+
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
+      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      // setPrograss(progress);
+      if (progress == 100) {
+        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+          setMessage(downloadURL);
+        });
+      }
+    });
+  };
+
   return (
     <View style={styles.container}>
+      {image !== "" && (
+        <View
+          style={{
+            width: "100%",
+            height: 200,
+            position: "absolute",
+            // flex: 0,
+            backgroundColor: "#E1EFFC",
+            // marginTop:10
+            // elevation: 10,
+            borderRadius: 25,
+            borderWidth: 2,
+            borderColor: "#194680",
+            alignItems: "center",
+            padding: 10,
+            // zIndex:-1
+          }}
+        >
+          {/* <Text>Hi</Text> */}
+          <Image
+            source={{ uri: image }}
+            style={{ width: "90%", height: "70%" }}
+          />
+        </View>
+      )}
       <View style={styles.mainContainer}>
-        <FontAwesome5 name="laugh-beam" size={24} color="gray" />
         <TextInput
           style={styles.textInput}
           multiline
@@ -114,9 +177,15 @@ const InputBox = () => {
           onChangeText={setMessage}
           placeholder={"Type a message ..."}
         />
-        <Entypo name="attachment" size={24} color="gray" style={styles.icon} />
+
         {!message && (
-          <Entypo name="camera" size={24} color="gray" style={styles.icon} />
+          <Entypo
+            name="camera"
+            size={24}
+            color="gray"
+            style={styles.icon}
+            onPress={handleChoosePhoto}
+          />
         )}
 
         <TouchableOpacity
@@ -124,16 +193,12 @@ const InputBox = () => {
           style={{ position: "absolute", right: 0 }}
         >
           <View style={styles.buttonController}>
-            {/* {message ? (
-              <MaterialIcons name="send" size={24} color={"#123858"} />
-            ) : (
-              <MaterialCommunityIcons
-                name="microphone"
-                size={24}
-                color="#123858"
-              />
-            )} */}
-            <MaterialIcons name="send" size={24} color={"#123858"} />
+            <MaterialIcons
+              name="send"
+              size={24}
+              color={"#123858"}
+              onPress={onSendPress}
+            />
           </View>
         </TouchableOpacity>
       </View>
