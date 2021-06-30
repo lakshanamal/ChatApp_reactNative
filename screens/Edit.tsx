@@ -38,7 +38,6 @@ const Edit = () => {
   }, []);
 
   const handleChoosePhoto = async () => {
-    setLoading(true);
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -48,10 +47,10 @@ const Edit = () => {
 
     if (!result.cancelled) {
       uploadImage(result.uri, id);
-      setLoading(false);
     }
   };
   const uploadImage = async (uri: string, name: string) => {
+    setLoading(true);
     const responce = await fetch(uri);
     const bob = await responce.blob();
     var uploadTask = firebase
@@ -63,8 +62,27 @@ const Edit = () => {
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
       var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       if (progress == 100) {
-        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+        uploadTask.snapshot.ref.getDownloadURL().then(async (downloadURL) => {
+          await firebase
+            .firestore()
+            .collection("users")
+            .doc(id)
+            .update({ imageUri: downloadURL });
+          setLoading(false);
           setUri(downloadURL);
+          Alert.alert(
+            "Memo aleart",
+            "Uplaod Image succefully",
+            [
+              {
+                text: "Ok",
+                style: "cancel",
+              },
+            ],
+            {
+              cancelable: true,
+            }
+          );
         });
       }
     });
@@ -82,7 +100,7 @@ const Edit = () => {
       "User name sucessfully updated",
       [
         {
-          text: "Cancel",
+          text: "Ok",
           style: "cancel",
         },
       ],
@@ -105,7 +123,7 @@ const Edit = () => {
                 style={{ width: 200, height: 200, borderRadius: 100 }}
                 source={{ uri: uri }}
               />
-              <View
+              <TouchableOpacity
                 style={{
                   width: 60,
                   height: 60,
@@ -118,16 +136,14 @@ const Edit = () => {
                   bottom: -10,
                   elevation: 5,
                 }}
+                onPress={handleChoosePhoto}
               >
-                <TouchableOpacity onPress={handleChoosePhoto}>
-                  <Image style={{ width: 20, height: 20 }} source={Camera} />
-                </TouchableOpacity>
-              </View>
+                <Image style={{ width: 20, height: 20 }} source={Camera} />
+              </TouchableOpacity>
             </TouchableOpacity>
           )}
         </View>
 
-        {/* <View style={style.editContainer}> */}
         <Text
           style={{
             color: "white",
@@ -165,7 +181,6 @@ const Edit = () => {
         </TouchableOpacity>
       </View>
     </View>
-    // </View>
   );
 };
 
