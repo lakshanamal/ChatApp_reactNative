@@ -8,6 +8,7 @@ export type RootStackParamList = {
   NotFound: undefined;
   Contacts: undefined;
   ChatRoom: undefined;
+  EditProfile: undefined;
 };
 export type RegParamList = {
   Phone: undefined;

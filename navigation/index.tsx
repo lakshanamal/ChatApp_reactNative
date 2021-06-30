@@ -22,12 +22,15 @@ import {
   MaterialIcons,
   FontAwesome5,
 } from "@expo/vector-icons";
+import { useState } from "react";
+import Edit from "../screens/Edit";
 
 export default function Navigation({
   colorScheme,
 }: {
   colorScheme: ColorSchemeName;
 }) {
+  const [visibale, setVisible] = useState(false);
   return <RootNavigator />;
 }
 
@@ -36,7 +39,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="Root"
+      initialRouteName="EditProfile"
       screenOptions={{
         headerStyle: {
           backgroundColor: "#123858",
@@ -52,7 +55,7 @@ function RootNavigator() {
       <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
-        options={{
+        options={({ navigation, route }) => ({
           title: "",
           headerStatusBarHeight: 50,
           headerLeft: () => {
@@ -69,22 +72,22 @@ function RootNavigator() {
               <View
                 style={{
                   flexDirection: "row",
-                  width: 60,
+                  width: 50,
                   justifyContent: "space-around",
-                  marginRight: 10,
+                  marginRight: 15,
                 }}
               >
-                {/* <Octicons name="search" size={21} color="white" />
-                <MaterialCommunityIcons
-                  name="dots-vertical"
-                  size={22}
-                  color="white"
-                /> */}
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("EditProfile");
+                  }}
+                >
                   <Image source={Burger} style={{ width: 40, height: 40 }} />
+                </TouchableOpacity>
               </View>
             );
           },
-        }}
+        })}
       />
 
       <Stack.Screen
@@ -152,7 +155,11 @@ function RootNavigator() {
           },
         }}
       />
-
+      <Stack.Screen
+        name="EditProfile"
+        component={Edit}
+        options={{ title: "Profile Info" }}
+      />
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}
