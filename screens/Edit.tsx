@@ -10,6 +10,7 @@ import {
 import BG from "../assets/images/avater.png";
 import firebase from "../firebaseConfig";
 import { ActivityIndicator } from "react-native-paper";
+import Camera from "../assets/images/profile2.png";
 
 const Edit = () => {
   const [name, setName] = useState("");
@@ -65,10 +66,28 @@ const Edit = () => {
           {loading ? (
             <ActivityIndicator color="black" />
           ) : (
-            <Image
-              style={{ width: 200, height: 200, borderRadius: 100 }}
-              source={{ uri: uri }}
-            />
+            <TouchableOpacity>
+              <Image
+                style={{ width: 200, height: 200, borderRadius: 100 }}
+                source={{ uri: uri }}
+              />
+              <View
+                style={{
+                  width: 60,
+                  height: 60,
+                  borderRadius: 30,
+                  backgroundColor: "white",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  position: "absolute",
+                  right: -10,
+                  bottom: -10,
+                  elevation: 5,
+                }}
+              >
+                <Image style={{ width: 20, height: 20 }} source={Camera} />
+              </View>
+            </TouchableOpacity>
           )}
         </View>
 
