@@ -1,12 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text } from "../components/Themed";
-import { StyleSheet } from "react-native";
-
+import { StyleSheet, Image, TouchableOpacity, TextInput } from "react-native";
+import BG from "../assets/images/avater.png";
 function Edit() {
+  const [name, setName] = useState("");
   return (
     <View style={style.container}>
-      <Text>Hi</Text>
+      <View style={style.midContainer}>
+        <Text style={style.title}>Lakshan Amal</Text>
+        <View style={style.imageContainer}>
+          <Image style={{ width: 200, height: 200 }} source={BG} />
+        </View>
+
+        {/* <View style={style.editContainer}> */}
+        <Text
+          style={{
+            color: "white",
+            textAlign: "left",
+            fontSize: 30,
+            width: "100%",
+            marginTop: 80,
+          }}
+        >
+          Edit Profile
+        </Text>
+        <Text style={{ textAlign: "left", width: "100%", marginTop: "30" }}>
+          Enter name :
+        </Text>
+        <TextInput
+          style={style.inputName}
+          placeholder="Profile name"
+          onChangeText={setName}
+        />
+        <TouchableOpacity onPress={() => {}} disabled={true} style={style.btn}>
+          <Text
+            style={{
+              color: "white",
+              textAlign: "center",
+              fontWeight: "bold",
+              fontSize: 18,
+            }}
+          >
+            Save
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
+    // </View>
   );
 }
 
@@ -18,21 +58,41 @@ const style = StyleSheet.create({
     height: "100%",
     // justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: "#123858",
   },
+  midContainer: {
+    backgroundColor: "#16456D",
+    width: "100%",
+    height: "100%",
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    alignItems: "center",
+    textAlign: "left",
+    color: "black",
+    padding: 20,
+  },
+  // editContainer: {
+  //   marginTop: 20,
+  //   width: "100%",
+  //   height: "100%",
+  //   backgroundColor: "white",
+  //   margin: -10,
+  //   borderTopLeftRadius: 40,
+  //   borderTopRightRadius: 40,
+  // },
   inputName: {
     marginVertical: 10,
     fontSize: 17,
-    width: "60%",
+    width: "80%",
     borderRadius: 7,
     backgroundColor: "white",
-    marginTop: 30,
+    marginTop: 10,
     // textAlign: "center",
     padding: 10,
     shadowColor: "#A3B7C8",
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 10,
     },
     shadowOpacity: 0.2,
     shadowRadius: 16.0,
@@ -63,17 +123,18 @@ const style = StyleSheet.create({
     justifyContent: "space-around",
   },
   imageContainer: {
-    width: 70,
-    height: 70,
+    width: 200,
+    height: 200,
     borderRadius: 35,
-    backgroundColor: "#f1f1f1",
+    backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
   },
   title: {
-    marginBottom: 40,
     fontSize: 28,
-    color: "#8d69ee",
+    color: "white",
     fontWeight: "bold",
+    textAlign: "left",
+    width: "100%",
   },
 });

@@ -43,7 +43,6 @@ function RootNavigator() {
       screenOptions={{
         headerStyle: {
           backgroundColor: "#123858",
-
           shadowOpacity: 0,
           elevation: 0,
         },
@@ -158,7 +157,22 @@ function RootNavigator() {
       <Stack.Screen
         name="EditProfile"
         component={Edit}
-        options={{ title: "Profile Info" }}
+        options={({ navigation, route }) => ({
+          title: "Profile Info",
+          headerTintColor: "white",
+          headerLeft: () => {
+            return (
+              <TouchableOpacity
+                style={{ marginLeft: 15 }}
+                onPress={() => {
+                  navigation.navigate("Root");
+                }}
+              >
+                <FontAwesome5 name="angle-left" size={30} color={"white"} />
+              </TouchableOpacity>
+            );
+          },
+        })}
       />
       <Stack.Screen
         name="NotFound"
