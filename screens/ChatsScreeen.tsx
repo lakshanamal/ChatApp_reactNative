@@ -51,11 +51,13 @@ export default function ChatsScreen() {
                     } else {
                       setIsCurrentUser(0);
                     }
-                    setLoading(false);
+
                     setChatList((prev) => [...prev, docs.data()]);
+                  } else {
                   }
                 });
             }
+            setLoading(false);
           } else {
             setLoading(false);
           }
