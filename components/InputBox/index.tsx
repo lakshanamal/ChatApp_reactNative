@@ -31,74 +31,75 @@ const InputBox = () => {
   };
 
   const onSendPress = async (message: string) => {
-    // if (message !== "") {
-    await firebase
-      .firestore()
-      .collection("chats")
-      .doc(id)
-      .get()
-      .then(async (chat) => {
-        if (chat.exists) {
-          const newMessage = {
-            id: uuid.v4(),
-            content: message,
-            createdAt: firebase.firestore.Timestamp.now(),
-            user: {
-              id: currentUser?.id,
-              name: currentUser?.name,
-            },
-          };
-          await firebase
-            .firestore()
-            .collection("chats")
-            .doc(id)
-            .update({
-              message: firebase.firestore.FieldValue.arrayUnion(newMessage),
-            });
-        } else {
-          const newMessage = {
-            id: id,
-            users: [
-              {
+    if (message !== "") {
+      await firebase
+        .firestore()
+        .collection("chats")
+        .doc(id)
+        .get()
+        .then(async (chat) => {
+          if (chat.exists) {
+            const newMessage = {
+              id: uuid.v4(),
+              content: message,
+              createdAt: firebase.firestore.Timestamp.now(),
+              user: {
                 id: currentUser?.id,
                 name: currentUser?.name,
-                imageUri: currentUser?.imageUri,
               },
-              {
-                id: user.id,
-                name: user.name,
-                imageUri: user.imageUri,
-              },
-            ],
-            message: [
-              {
-                id: uuid.v4(),
-                content: message,
-                createdAt: firebase.firestore.Timestamp.now(),
-                user: {
+            };
+            await firebase
+              .firestore()
+              .collection("chats")
+              .doc(id)
+              .update({
+                message: firebase.firestore.FieldValue.arrayUnion(newMessage),
+              });
+          } else {
+            const newMessage = {
+              id: id,
+              users: [
+                {
                   id: currentUser?.id,
                   name: currentUser?.name,
+                  imageUri: currentUser?.imageUri,
                 },
-              },
-            ],
-          };
+                {
+                  id: user.id,
+                  name: user.name,
+                  imageUri: user.imageUri,
+                },
+              ],
+              message: [
+                {
+                  id: uuid.v4(),
+                  content: message,
+                  createdAt: firebase.firestore.Timestamp.now(),
+                  user: {
+                    id: currentUser?.id,
+                    name: currentUser?.name,
+                  },
+                },
+              ],
+            };
 
-          await firebase
-            .firestore()
-            .collection("chats")
-            .doc(id)
-            .set(newMessage);
-        }
-      });
+            await firebase
+              .firestore()
+              .collection("chats")
+              .doc(id)
+              .set(newMessage);
+          }
+        });
 
-    await firebase
-      .firestore()
-      .collection("chatrooms")
-      .doc(id)
-      .update({ lastMessage: message });
-    setMessage("");
-    // }
-    // console.log(currentUser);
+      await firebase
+        .firestore()
+        .collection("chatrooms")
+        .doc(id)
+        .update({ lastMessage: message });
+      setMessage("");
+      // }
+      // console.log(currentUser);
+    }
   };
 
   const onPress = () => {

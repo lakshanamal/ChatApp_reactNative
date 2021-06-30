@@ -1,6 +1,6 @@
 import moment from "moment";
 import React from "react";
-import { Text } from "react-native";
+import { Text, Image } from "react-native";
 import { Message } from "../../types";
 import { View } from "../Themed";
 import styles from "./style";
@@ -13,6 +13,11 @@ const ChatMessage = (props: ChatMessageProps) => {
   const route = useRoute<any>();
   const { currentUser } = route.params;
   const { message } = props;
+
+  const image = (str: string) => {
+    var res = str.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    return (res !== null)
+  };
 
   const isMyMessage = () => {
     return message.user.id === currentUser.id;
@@ -28,7 +33,15 @@ const ChatMessage = (props: ChatMessageProps) => {
         ]}
       >
         {!isMyMessage() && <Text style={styles.name}>{message.user.name}</Text>}
-        <Text style={styles.message}>{message.content}</Text>
+        {image(message.content as string) ? (
+          <Image
+            source={{ uri: message.content }}
+            style={{ width: 100, height: 100 }}
+          />
+        ) : (
+          <Text style={styles.message}>{message.content}</Text>
+        )}
+
         <Text
           style={[
             styles.time,
