@@ -26,10 +26,6 @@ const InputBox = () => {
   const { id, user, currentUser } = route.params;
   const [loading, setLoading] = useState(false);
 
-  const onMicrophonePress = () => {
-    console.warn("Microphone");
-  };
-
   const onSendPress = async (message: string) => {
     if (message !== "") {
       await firebase
@@ -97,17 +93,12 @@ const InputBox = () => {
         .doc(id)
         .update({ lastMessage: message });
       setMessage("");
-      // }
-      // console.log(currentUser);
+     
     }
   };
 
   const onPress = () => {
-    if (!message) {
-      onMicrophonePress();
-    } else {
-      onSendPress(message);
-    }
+    onSendPress(message);
   };
 
   const handleChoosePhoto = async () => {

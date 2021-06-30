@@ -29,7 +29,6 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
   useEffect(() => {
     const user = firebase.auth().currentUser;
     setId(user!.uid);
-    console.log(user);
   }, []);
 
   const createUser = async (id: string) => {
@@ -48,14 +47,8 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
       chatRoomIds: [],
     };
 
-    await firebase
-      .firestore()
-      .collection("users")
-      .doc(id)
-      .set(newUser)
-      .catch((error) => {
-        console.log(error);
-      });
+    await firebase.firestore().collection("users").doc(id).set(newUser);
+
     navigation.navigate("Root");
   };
 

@@ -94,9 +94,7 @@ const ContactListItem = (props: ContactListItemProps) => {
         user: user,
         currentUser: userData,
       });
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   return (

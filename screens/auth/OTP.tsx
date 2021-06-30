@@ -43,7 +43,6 @@ const OPT = () => {
   );
   const verifyPhone = async () => {
     let verificationNumber = (verificationCode as any).join("");
-    console.log(verificationNumber);
     try {
       const credential = firebase.auth.PhoneAuthProvider.credential(
         verificationId,
