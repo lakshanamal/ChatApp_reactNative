@@ -11,6 +11,7 @@ import BG from "../assets/images/avater.png";
 import firebase from "../firebaseConfig";
 import { ActivityIndicator } from "react-native-paper";
 import Camera from "../assets/images/profile2.png";
+import * as ImagePicker from "expo-image-picker";
 
 const Edit = () => {
   const [name, setName] = useState("");
@@ -35,6 +36,39 @@ const Edit = () => {
         }
       });
   }, []);
+
+  const handleChoosePhoto = async () => {
+    setLoading(true);
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      uploadImage(result.uri, id);
+      setLoading(false);
+    }
+  };
+  const uploadImage = async (uri: string, name: string) => {
+    const responce = await fetch(uri);
+    const bob = await responce.blob();
+    var uploadTask = firebase
+      .storage()
+      .ref()
+      .child("images/" + name)
+      .put(bob);
+
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
+      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      if (progress == 100) {
+        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+          setUri(downloadURL);
+        });
+      }
+    });
+  };
 
   const EditName = async () => {
     await firebase
@@ -85,7 +119,9 @@ const Edit = () => {
                   elevation: 5,
                 }}
               >
-                <Image style={{ width: 20, height: 20 }} source={Camera} />
+                <TouchableOpacity onPress={handleChoosePhoto}>
+                  <Image style={{ width: 20, height: 20 }} source={Camera} />
+                </TouchableOpacity>
               </View>
             </TouchableOpacity>
           )}
