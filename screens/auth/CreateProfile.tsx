@@ -9,9 +9,8 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import firebase from "../../firebaseConfig";
-import { ProgressBar } from "react-native-paper";
+import { ActivityIndicator } from "react-native-paper";
 import Navigation from "../../navigation/index";
-import useColorScheme from "../../hooks/useColorScheme";
 import profile from "../../assets/images/profile2.png";
 import { Video } from "expo-av";
 import Profile from "../../assets/images/profile.mp4";
@@ -22,8 +21,7 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
   const [image, setImage] = useState("");
   const [prograss, setPrograss] = useState(0);
   const [id, setId] = useState("");
-  // const [loading,isLoading]=useState(false);
-  const colorScheme = useColorScheme();
+  const [loading, isLoading] = useState(false);
   const video = React.useRef(null);
 
   useEffect(() => {
@@ -66,6 +64,7 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
   };
 
   const uploadImage = async (uri: string, name: string) => {
+    isLoading(true);
     const responce = await fetch(uri);
     const bob = await responce.blob();
     var uploadTask = firebase
@@ -80,6 +79,7 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
       if (progress == 100) {
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
           setImage(downloadURL);
+          isLoading(false);
         });
       }
     });
@@ -117,41 +117,35 @@ const CreateProfile = ({ navigation }: { navigation: any }) => {
         Please provide your name and an optional profile photo
       </Text>
       <TouchableOpacity onPress={() => handleChoosePhoto(id)}>
-        {image !== "" ? (
-          <Image
-            source={{ uri: image }}
-            style={{
-              width: 70,
-              height: 70,
-              borderRadius: 35,
-            }}
-          />
+        {loading ? (
+          <ActivityIndicator color="black" />
         ) : (
-          <View style={style.imageContainer}>
-            <Image
-              source={profile}
-              style={{
-                width: 35,
-                height: 30,
-                marginRight: 3,
-                marginBottom: 2,
-              }}
-            />
-          </View>
+          <TouchableOpacity onPress={() => handleChoosePhoto(id)}>
+            {image !== "" ? (
+              <Image
+                source={{ uri: image }}
+                style={{
+                  width: 70,
+                  height: 70,
+                  borderRadius: 35,
+                }}
+              />
+            ) : (
+              <View style={style.imageContainer}>
+                <Image
+                  source={profile}
+                  style={{
+                    width: 35,
+                    height: 30,
+                    marginRight: 3,
+                    marginBottom: 2,
+                  }}
+                />
+              </View>
+            )}
+          </TouchableOpacity>
         )}
       </TouchableOpacity>
-
-      <ProgressBar
-        // indeterminate
-        style={{
-          marginTop: 5,
-          backgroundColor: "#a7abbb",
-          width: 100,
-          borderRadius: 20,
-        }}
-        progress={prograss}
-        color={"#6aefae"}
-      />
 
       <TextInput
         style={style.inputName}

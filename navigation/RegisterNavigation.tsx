@@ -19,7 +19,7 @@ function RegisterNavigation() {
 
   return (
     <RegStack.Navigator
-      initialRouteName="Phone"
+      initialRouteName="Profile"
       screenOptions={{
         headerLeft: () => null,
         headerShown: false,
